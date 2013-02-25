@@ -1,14 +1,14 @@
 //
-//  AppDelegate.m
-//  F1AustinApp
+//  PrixPartyAppDelegate.m
+//  PrixParty
 //
-//  Created by Rayne on 2/6/13.
-//  Copyright (c) 2013 f1austinapp. All rights reserved.
+//  Created by Angela Deng on 2/24/13.
+//  Copyright (c) 2013 Team DUNT. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "PrixPartyAppDelegate.h"
 
-@implementation AppDelegate
+@implementation PrixPartyAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
