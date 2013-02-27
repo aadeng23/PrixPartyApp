@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B42431216DDA18A00924736 /* ConnectTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B42431116DDA18A00924736 /* ConnectTableViewController.m */; };
+		0B42431816DDA20000924736 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B42431716DDA20000924736 /* EventsViewController.m */; };
+		0B42432416DDA50500924736 /* EventsListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B42432316DDA50500924736 /* EventsListTableView.m */; };
 		0B56176216DB0D7800939F07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B56176116DB0D7800939F07 /* UIKit.framework */; };
 		0B56176416DB0D7800939F07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B56176316DB0D7800939F07 /* Foundation.framework */; };
 		0B56176616DB0D7800939F07 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B56176516DB0D7800939F07 /* CoreGraphics.framework */; };
@@ -17,19 +20,19 @@
 		0B56177616DB0D7800939F07 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B56177516DB0D7800939F07 /* Default@2x.png */; };
 		0B56177816DB0D7800939F07 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B56177716DB0D7800939F07 /* Default-568h@2x.png */; };
 		0B56177B16DB0D7800939F07 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B56177916DB0D7800939F07 /* MainStoryboard.storyboard */; };
-		0B56179F16DB1E2000939F07 /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B56179E16DB1E2000939F07 /* ConnectViewController.m */; };
-		0B5617A316DB1E7F00939F07 /* ConnectTrendingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B5617A216DB1E7F00939F07 /* ConnectTrendingTableView.m */; };
-		0B5617A616DB1EA400939F07 /* ConnectPhotosCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B5617A516DB1EA400939F07 /* ConnectPhotosCollectionView.m */; };
-		0BC7EAB616DB26B3001A6FE1 /* EventsListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7EAB516DB26B3001A6FE1 /* EventsListTableViewController.m */; };
-		0BC7EAB916DB26E0001A6FE1 /* EventsMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7EAB816DB26E0001A6FE1 /* EventsMapViewController.m */; };
 		0BC7EABB16DB2856001A6FE1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC7EABA16DB2856001A6FE1 /* CoreLocation.framework */; };
-		0BC7EABE16DB2AD5001A6FE1 /* EventsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7EABD16DB2AD5001A6FE1 /* EventsMapView.m */; };
 		0BC7EAC016DB2CFC001A6FE1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC7EABF16DB2CFC001A6FE1 /* MapKit.framework */; };
 		0BC7EAC316DD650E001A6FE1 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7EAC216DD650E001A6FE1 /* Event.m */; };
 		0BC7EAC616DD855E001A6FE1 /* EventsDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B42431016DDA18A00924736 /* ConnectTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectTableViewController.h; sourceTree = "<group>"; };
+		0B42431116DDA18A00924736 /* ConnectTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectTableViewController.m; sourceTree = "<group>"; };
+		0B42431616DDA20000924736 /* EventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
+		0B42431716DDA20000924736 /* EventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
+		0B42432216DDA50500924736 /* EventsListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsListTableView.h; sourceTree = "<group>"; };
+		0B42432316DDA50500924736 /* EventsListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsListTableView.m; sourceTree = "<group>"; };
 		0B56175E16DB0D7800939F07 /* PrixParty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrixParty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B56176116DB0D7800939F07 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0B56176316DB0D7800939F07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,19 +47,7 @@
 		0B56177516DB0D7800939F07 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0B56177716DB0D7800939F07 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		0B56177A16DB0D7800939F07 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		0B56179D16DB1E2000939F07 /* ConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectViewController.h; sourceTree = "<group>"; };
-		0B56179E16DB1E2000939F07 /* ConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectViewController.m; sourceTree = "<group>"; };
-		0B5617A116DB1E7F00939F07 /* ConnectTrendingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectTrendingTableView.h; sourceTree = "<group>"; };
-		0B5617A216DB1E7F00939F07 /* ConnectTrendingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectTrendingTableView.m; sourceTree = "<group>"; };
-		0B5617A416DB1EA400939F07 /* ConnectPhotosCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectPhotosCollectionView.h; sourceTree = "<group>"; };
-		0B5617A516DB1EA400939F07 /* ConnectPhotosCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectPhotosCollectionView.m; sourceTree = "<group>"; };
-		0BC7EAB416DB26B3001A6FE1 /* EventsListTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsListTableViewController.h; sourceTree = "<group>"; };
-		0BC7EAB516DB26B3001A6FE1 /* EventsListTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsListTableViewController.m; sourceTree = "<group>"; };
-		0BC7EAB716DB26E0001A6FE1 /* EventsMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMapViewController.h; sourceTree = "<group>"; };
-		0BC7EAB816DB26E0001A6FE1 /* EventsMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMapViewController.m; sourceTree = "<group>"; };
 		0BC7EABA16DB2856001A6FE1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		0BC7EABC16DB2AD5001A6FE1 /* EventsMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMapView.h; sourceTree = "<group>"; };
-		0BC7EABD16DB2AD5001A6FE1 /* EventsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMapView.m; sourceTree = "<group>"; };
 		0BC7EABF16DB2CFC001A6FE1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0BC7EAC116DD650E001A6FE1 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		0BC7EAC216DD650E001A6FE1 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
@@ -144,12 +135,10 @@
 		0B56179B16DB1CEC00939F07 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				0BC7EABC16DB2AD5001A6FE1 /* EventsMapView.h */,
-				0BC7EABD16DB2AD5001A6FE1 /* EventsMapView.m */,
-				0BC7EAB716DB26E0001A6FE1 /* EventsMapViewController.h */,
-				0BC7EAB816DB26E0001A6FE1 /* EventsMapViewController.m */,
-				0BC7EAB416DB26B3001A6FE1 /* EventsListTableViewController.h */,
-				0BC7EAB516DB26B3001A6FE1 /* EventsListTableViewController.m */,
+				0B42432216DDA50500924736 /* EventsListTableView.h */,
+				0B42432316DDA50500924736 /* EventsListTableView.m */,
+				0B42431616DDA20000924736 /* EventsViewController.h */,
+				0B42431716DDA20000924736 /* EventsViewController.m */,
 			);
 			name = Events;
 			path = PrixParty;
@@ -166,12 +155,8 @@
 		0B5617A016DB1E2500939F07 /* Connect */ = {
 			isa = PBXGroup;
 			children = (
-				0B5617A116DB1E7F00939F07 /* ConnectTrendingTableView.h */,
-				0B5617A216DB1E7F00939F07 /* ConnectTrendingTableView.m */,
-				0B5617A416DB1EA400939F07 /* ConnectPhotosCollectionView.h */,
-				0B5617A516DB1EA400939F07 /* ConnectPhotosCollectionView.m */,
-				0B56179D16DB1E2000939F07 /* ConnectViewController.h */,
-				0B56179E16DB1E2000939F07 /* ConnectViewController.m */,
+				0B42431016DDA18A00924736 /* ConnectTableViewController.h */,
+				0B42431116DDA18A00924736 /* ConnectTableViewController.m */,
 			);
 			name = Connect;
 			sourceTree = "<group>";
@@ -245,14 +230,11 @@
 			files = (
 				0B56176E16DB0D7800939F07 /* main.m in Sources */,
 				0B56177216DB0D7800939F07 /* PrixPartyAppDelegate.m in Sources */,
-				0B56179F16DB1E2000939F07 /* ConnectViewController.m in Sources */,
-				0B5617A316DB1E7F00939F07 /* ConnectTrendingTableView.m in Sources */,
-				0B5617A616DB1EA400939F07 /* ConnectPhotosCollectionView.m in Sources */,
-				0BC7EAB616DB26B3001A6FE1 /* EventsListTableViewController.m in Sources */,
-				0BC7EAB916DB26E0001A6FE1 /* EventsMapViewController.m in Sources */,
-				0BC7EABE16DB2AD5001A6FE1 /* EventsMapView.m in Sources */,
 				0BC7EAC316DD650E001A6FE1 /* Event.m in Sources */,
 				0BC7EAC616DD855E001A6FE1 /* EventsDataController.m in Sources */,
+				0B42431216DDA18A00924736 /* ConnectTableViewController.m in Sources */,
+				0B42431816DDA20000924736 /* EventsViewController.m in Sources */,
+				0B42432416DDA50500924736 /* EventsListTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

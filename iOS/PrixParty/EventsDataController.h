@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Event.h"
 
 @interface EventsDataController : NSObject
+
+@property (nonatomic,copy) NSMutableArray *eventsList;
+
+- (NSUInteger)sizeOfList;
+- (Event *)objectInListAtIndex:(NSUInteger)theIndex;
+- (void)addEvent:(Event *)event;
+
+//- (void)sortListByDate;
 
 @end

@@ -1,14 +1,14 @@
 //
-//  ConnectTableView.m
+//  EventsListView.m
 //  PrixParty
 //
-//  Created by Angela Deng on 2/24/13.
+//  Created by Angela Deng on 2/26/13.
 //  Copyright (c) 2013 Team DUNT. All rights reserved.
 //
 
-#import "ConnectTrendingTableView.h"
+#import "EventsListTableView.h"
 
-@implementation ConnectTrendingTableView
+@implementation EventsListTableView
 
 - (id)initWithFrame:(CGRect)frame
 {

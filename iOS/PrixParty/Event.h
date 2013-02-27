@@ -17,4 +17,5 @@
 @property (nonatomic, strong) NSDate *eventDate;
 @property (nonatomic, strong) CLLocation *eventLocation;
 
+
 @end

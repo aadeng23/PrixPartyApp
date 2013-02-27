@@ -1,18 +1,18 @@
 //
-//  EventsListTableViewController.m
+//  ConnectTableViewController.m
 //  PrixParty
 //
-//  Created by Angela Deng on 2/24/13.
+//  Created by Angela Deng on 2/26/13.
 //  Copyright (c) 2013 Team DUNT. All rights reserved.
 //
 
-#import "EventsListTableViewController.h"
+#import "ConnectTableViewController.h"
 
-@interface EventsListTableViewController ()
+@interface ConnectTableViewController ()
 
 @end
 
-@implementation EventsListTableViewController
+@implementation ConnectTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
