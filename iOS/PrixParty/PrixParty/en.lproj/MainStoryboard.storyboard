@@ -115,16 +115,7 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cUq-Tr-wvV" customClass="ConnectTrendingTableView">
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="580" id="LSb-1B-Edj"/>
-                                </constraints>
-                            </tableView>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6Wf-Xq-iq5" customClass="ConnectPhotosCollectionView">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="580" id="abK-2Q-0q5"/>
-                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="iqT-1m-SEI">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -143,15 +134,22 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="cUq-Tr-wvV" customClass="ConnectTrendingTableView">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="580" id="LSb-1B-Edj"/>
+                                </constraints>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="cUq-Tr-wvV" firstAttribute="top" secondItem="tMb-R5-4ih" secondAttribute="top" constant="-62" id="82R-hE-u7n"/>
-                            <constraint firstItem="6Wf-Xq-iq5" firstAttribute="top" secondItem="tMb-R5-4ih" secondAttribute="top" type="default" id="FBL-aD-T2y"/>
+                            <constraint firstItem="6Wf-Xq-iq5" firstAttribute="trailing" secondItem="tMb-R5-4ih" secondAttribute="trailing" type="default" id="HOZ-Dl-y3i"/>
                             <constraint firstItem="cUq-Tr-wvV" firstAttribute="leading" secondItem="tMb-R5-4ih" secondAttribute="leading" type="default" id="JeN-ht-oY0"/>
-                            <constraint firstItem="6Wf-Xq-iq5" firstAttribute="leading" secondItem="tMb-R5-4ih" secondAttribute="leading" type="default" id="XhV-Sb-YKa"/>
+                            <constraint firstItem="6Wf-Xq-iq5" firstAttribute="top" secondItem="cUq-Tr-wvV" secondAttribute="top" type="default" id="LNX-rS-ugK"/>
+                            <constraint firstItem="6Wf-Xq-iq5" firstAttribute="leading" secondItem="tMb-R5-4ih" secondAttribute="leading" type="default" id="Wj5-FM-mWf"/>
+                            <constraint firstItem="6Wf-Xq-iq5" firstAttribute="bottom" secondItem="cUq-Tr-wvV" secondAttribute="bottom" type="default" id="bWd-xs-jE8"/>
                             <constraint firstItem="cUq-Tr-wvV" firstAttribute="trailing" secondItem="tMb-R5-4ih" secondAttribute="trailing" type="default" id="rYh-vo-VwK"/>
-                            <constraint firstItem="cUq-Tr-wvV" firstAttribute="trailing" secondItem="6Wf-Xq-iq5" secondAttribute="trailing" type="default" id="rjI-Bg-9KI"/>
+                            <constraint firstItem="6Wf-Xq-iq5" firstAttribute="top" secondItem="tMb-R5-4ih" secondAttribute="top" constant="-62" id="yuJ-pG-z8D"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lED-4m-q6c">

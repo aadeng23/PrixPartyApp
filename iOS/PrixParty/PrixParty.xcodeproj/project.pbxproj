@@ -25,6 +25,8 @@
 		0BC7EABB16DB2856001A6FE1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC7EABA16DB2856001A6FE1 /* CoreLocation.framework */; };
 		0BC7EABE16DB2AD5001A6FE1 /* EventsMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7EABD16DB2AD5001A6FE1 /* EventsMapView.m */; };
 		0BC7EAC016DB2CFC001A6FE1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC7EABF16DB2CFC001A6FE1 /* MapKit.framework */; };
+		0BC7EAC316DD650E001A6FE1 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7EAC216DD650E001A6FE1 /* Event.m */; };
+		0BC7EAC616DD855E001A6FE1 /* EventsDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +58,10 @@
 		0BC7EABC16DB2AD5001A6FE1 /* EventsMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsMapView.h; sourceTree = "<group>"; };
 		0BC7EABD16DB2AD5001A6FE1 /* EventsMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsMapView.m; sourceTree = "<group>"; };
 		0BC7EABF16DB2CFC001A6FE1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0BC7EAC116DD650E001A6FE1 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		0BC7EAC216DD650E001A6FE1 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsDataController.h; sourceTree = "<group>"; };
+		0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsDataController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +83,10 @@
 		0B56175516DB0D7800939F07 = {
 			isa = PBXGroup;
 			children = (
+				0BC7EAC116DD650E001A6FE1 /* Event.h */,
+				0BC7EAC216DD650E001A6FE1 /* Event.m */,
+				0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */,
+				0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */,
 				0B56177016DB0D7800939F07 /* PrixPartyAppDelegate.h */,
 				0B56177116DB0D7800939F07 /* PrixPartyAppDelegate.m */,
 				0B56177916DB0D7800939F07 /* MainStoryboard.storyboard */,
@@ -241,6 +251,8 @@
 				0BC7EAB616DB26B3001A6FE1 /* EventsListTableViewController.m in Sources */,
 				0BC7EAB916DB26E0001A6FE1 /* EventsMapViewController.m in Sources */,
 				0BC7EABE16DB2AD5001A6FE1 /* EventsMapView.m in Sources */,
+				0BC7EAC316DD650E001A6FE1 /* Event.m in Sources */,
+				0BC7EAC616DD855E001A6FE1 /* EventsDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
