@@ -17,5 +17,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 
+@property (strong, nonatomic) EventsViewController *dataController;
+
 
 @end

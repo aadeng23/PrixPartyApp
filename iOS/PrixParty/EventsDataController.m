@@ -10,6 +10,13 @@
 
 @implementation EventsDataController
 
+- (id)init {
+    if (self = [super init]) {
+        return self;
+    }
+    return nil;
+}
+
 - (void)setEventsList:(NSMutableArray *)newList {
     if(_eventsList != newList){
         _eventsList = [newList mutableCopy];
@@ -32,7 +39,14 @@
 
 - (void)addEventTest{
     
-    //Event *testEvent = [[Event alloc] initWithName:@"PrixParty" ];
+    NSDateComponents *testDate = [[NSDateComponents alloc] init];
+    [testDate setDay:4];
+    [testDate setMonth:5];
+    [testDate setYear:2013];
+    
+    CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:-30 longitude:90];
+    
+    Event *testEvent = [[Event alloc] initWithName:@"PrixParty" description:@"A really fun party!" date:testDate admission:0.00 location:testLocation tags:@"Music, Party" favorite:false];
     
     
 }

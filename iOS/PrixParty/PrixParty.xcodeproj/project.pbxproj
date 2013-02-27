@@ -49,10 +49,10 @@
 		0B56177A16DB0D7800939F07 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		0BC7EABA16DB2856001A6FE1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0BC7EABF16DB2CFC001A6FE1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		0BC7EAC116DD650E001A6FE1 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		0BC7EAC216DD650E001A6FE1 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
-		0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsDataController.h; sourceTree = "<group>"; };
-		0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsDataController.m; sourceTree = "<group>"; };
+		0BC7EAC116DD650E001A6FE1 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../Event.h; sourceTree = "<group>"; };
+		0BC7EAC216DD650E001A6FE1 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = ../Event.m; sourceTree = "<group>"; };
+		0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventsDataController.h; path = ../EventsDataController.h; sourceTree = "<group>"; };
+		0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventsDataController.m; path = ../EventsDataController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,17 +74,13 @@
 		0B56175516DB0D7800939F07 = {
 			isa = PBXGroup;
 			children = (
-				0BC7EAC116DD650E001A6FE1 /* Event.h */,
-				0BC7EAC216DD650E001A6FE1 /* Event.m */,
-				0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */,
-				0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */,
 				0B56177016DB0D7800939F07 /* PrixPartyAppDelegate.h */,
 				0B56177116DB0D7800939F07 /* PrixPartyAppDelegate.m */,
 				0B56177916DB0D7800939F07 /* MainStoryboard.storyboard */,
+				0B56176716DB0D7800939F07 /* PrixParty */,
 				0B56179C16DB1CFC00939F07 /* Home */,
 				0B56179B16DB1CEC00939F07 /* Events */,
 				0B5617A016DB1E2500939F07 /* Connect */,
-				0B56176716DB0D7800939F07 /* PrixParty */,
 				0B56176016DB0D7800939F07 /* Frameworks */,
 				0B56175F16DB0D7800939F07 /* Products */,
 			);
@@ -113,6 +109,10 @@
 		0B56176716DB0D7800939F07 /* PrixParty */ = {
 			isa = PBXGroup;
 			children = (
+				0BC7EAC116DD650E001A6FE1 /* Event.h */,
+				0BC7EAC216DD650E001A6FE1 /* Event.m */,
+				0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */,
+				0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */,
 				0B56176816DB0D7800939F07 /* Supporting Files */,
 			);
 			path = PrixParty;

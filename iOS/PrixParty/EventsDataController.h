@@ -18,5 +18,6 @@
 - (void)addEvent:(Event *)event;
 
 //- (void)sortListByDate;
+/// sort by day, sort by event type, sort by location, sort by price, sort by tags
 
 @end

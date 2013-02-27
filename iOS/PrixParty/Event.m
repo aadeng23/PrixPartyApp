@@ -10,7 +10,7 @@
 
 @implementation Event
 
--(id)initWithName:(NSString *)name description:(NSString *)description date:(NSDate *)date admission:(double)admission location:(CLLocation *)location{
+-(id)initWithName:(NSString *)name description:(NSString *)description date:(NSDateComponents *)date admission:(double)admission location:(CLLocation *)location tags:(NSString *)tags favorite:(BOOL)favorite{
     
     self = [super init];
     if (self) {
@@ -20,6 +20,8 @@
         _eventDate = date;
         _eventAdmission = admission;
         _eventLocation = location;
+        _eventTags = tags;
+        _favorite = favorite;
         
         return self;
     }
