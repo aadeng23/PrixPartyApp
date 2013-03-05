@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "EventsListTableView.h"
 #import <MapKit/MapKit.h>
+#import "EventsDataController.h"
 
 @interface EventsViewController : UIViewController
-
-@property (weak, nonatomic) IBOutlet EventsListTableView *eventsListTableView;
+@property (strong, nonatomic) EventsDataController *dataController;
+@property (weak, nonatomic) IBOutlet UITableView *eventsListTableView;
 @property (weak, nonatomic) IBOutlet MKMapView *eventsMapView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+
+
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 
-@property (strong, nonatomic) EventsViewController *dataController;
-
-
 @end
+

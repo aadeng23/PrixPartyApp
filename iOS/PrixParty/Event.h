@@ -16,9 +16,9 @@
 @property (nonatomic) double eventAdmission;
 @property (nonatomic, strong) NSDateComponents *eventDate;
 @property (nonatomic, strong) CLLocation *eventLocation;
-@property (nonatomic, copy) NSString *eventTags;
+@property (nonatomic, copy) NSMutableArray *eventTags;
 @property (nonatomic) BOOL favorite;
 
--(id)initWithName:(NSString *)name description:(NSString *)description date:(NSDateComponents *)date admission:(double)admission location:(CLLocation *)location tags:(NSString *)tags favorite:(BOOL)favorite;
+-(id)initWithName:(NSString *)name description:(NSString *)description date:(NSDateComponents *)date admission:(double)admission location:(CLLocation *)location tags:(NSMutableArray *)tags favorite:(BOOL)favorite;
 
 @end

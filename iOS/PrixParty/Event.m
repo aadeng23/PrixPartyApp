@@ -10,7 +10,7 @@
 
 @implementation Event
 
--(id)initWithName:(NSString *)name description:(NSString *)description date:(NSDateComponents *)date admission:(double)admission location:(CLLocation *)location tags:(NSString *)tags favorite:(BOOL)favorite{
+-(id)initWithName:(NSString *)name description:(NSString *)description date:(NSDateComponents *)date admission:(double)admission location:(CLLocation *)location tags:(NSMutableArray *)tags favorite:(BOOL)favorite{
     
     self = [super init];
     if (self) {

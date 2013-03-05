@@ -46,7 +46,11 @@
     
     CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:-30 longitude:90];
     
-    Event *testEvent = [[Event alloc] initWithName:@"PrixParty" description:@"A really fun party!" date:testDate admission:0.00 location:testLocation tags:@"Music, Party" favorite:false];
+    NSMutableArray *tagsList = [[NSMutableArray alloc] init];
+    
+    Event *testEvent = [[Event alloc] initWithName:@"PrixParty" description:@"A really fun party!" date:testDate admission:0.00 location:testLocation tags:tagsList favorite:false];
+    
+    [self addEvent:testEvent];
     
     
 }
