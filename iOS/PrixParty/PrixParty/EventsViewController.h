@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "EventsDataController.h"
+#import "Event.h"
 
-@interface EventsViewController : UIViewController
+@interface EventsViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, MKMapViewDelegate>
+
 @property (strong, nonatomic) EventsDataController *dataController;
 @property (weak, nonatomic) IBOutlet UITableView *eventsListTableView;
 @property (weak, nonatomic) IBOutlet MKMapView *eventsMapView;

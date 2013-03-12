@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Event.h"
+#import <EventKit/EventKit.h>
 
 @interface EventsDataController : NSObject
 
