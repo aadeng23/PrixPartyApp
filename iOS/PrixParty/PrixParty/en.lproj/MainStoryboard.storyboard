@@ -213,7 +213,7 @@
                         <sections>
                             <tableViewSection id="Cy3-KV-lEn">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="rBm-xX-cOa" detailTextLabel="aLt-Ly-EGd" style="IBUITableViewCellStyleValue2" id="s23-7W-azZ" userLabel="Event View Cell">
+                                    <tableViewCell userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="rBm-xX-cOa" detailTextLabel="aLt-Ly-EGd" style="IBUITableViewCellStyleValue2" id="s23-7W-azZ" userLabel="Event View Cell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -248,10 +248,10 @@
                                                     <color key="textColor" red="0.32156862749999998" green="0.40000000000000002" blue="0.56862745100000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fvb-j1-wO1">
-                                                    <rect key="frame" x="107" y="12" width="41" height="19"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="asdfa" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fvb-j1-wO1">
+                                                    <rect key="frame" x="107" y="12" width="40" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
@@ -345,7 +345,7 @@
                     <navigationItem key="navigationItem" id="MdQ-4I-aGq"/>
                     <connections>
                         <outlet property="eventAdmissionLabel" destination="Ah8-CK-EFa" id="utZ-4c-xLF"/>
-                        <outlet property="eventDateLabel" destination="dB8-Vi-VhL" id="FtH-zl-BGy"/>
+                        <outlet property="eventDateLabel" destination="fvb-j1-wO1" id="zIt-MP-DRk"/>
                         <outlet property="eventDescriptionLabel" destination="9Ij-0P-ikt" id="SsC-Qc-rXw"/>
                         <outlet property="eventLocationLabel" destination="WOY-BY-3qY" id="Zdm-4M-Xwz"/>
                         <outlet property="eventNameLabel" destination="aLt-Ly-EGd" id="7NJ-sK-fsT"/>
