@@ -10,13 +10,16 @@
 #import "Event.h"
 #import <EventKit/EventKit.h>
 
-@interface EventsDataController : NSObject
+@interface EventsDataController : NSObject 
 
 @property (nonatomic,copy) NSMutableArray *eventsList;
+@property (nonatomic) NSCalendar *eventsCalendar;
+@property (nonatomic) EKEventStore *eventsStore;
 
 - (NSUInteger)sizeOfList;
 - (Event *)objectInListAtIndex:(NSUInteger)theIndex;
 - (void)addEvent:(Event *)event;
+
 - (void)addEventTest;
 
 //- (void)sortListByDate;

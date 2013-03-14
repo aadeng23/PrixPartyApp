@@ -60,7 +60,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    //NSLog(@"SIZE %d", [self.dataController sizeOfList]);
+    
     return [self.dataController sizeOfList];
 }
 
@@ -71,13 +71,13 @@
     static NSDateFormatter *formatter = nil;
     if (formatter == nil) {
         formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
     }
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     Event *eventAtIndex = [self.dataController objectInListAtIndex:indexPath.row];
-    [[cell textLabel] setText:eventAtIndex.eventName];
-    NSCalendar *cal = [[NSCalendar alloc] init];
-    [[cell detailTextLabel] setText:[formatter stringFromDate:(NSDate *)[cal dateFromComponents:eventAtIndex.eventDate]]];
+    [[cell textLabel] setText:eventAtIndex.eventBasic.title];
+    [[cell detailTextLabel] setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
     return cell;
 }
 

@@ -10,7 +10,7 @@
 #import "Event.h"
 
 @interface EventsDetailViewController ()
-
+- (void)configureView;
 @end
 
 @implementation EventsDetailViewController
@@ -20,6 +20,7 @@
     if (_event != newEvent) {
         _event = newEvent;
         // Update the view.
+        
         [self configureView];
     }
     
@@ -29,16 +30,15 @@
 {
     // Update the user interface for the detail item.
     Event *theEvent = self.event;
-    NSLog(@"YAY %s", theEvent);
     static NSDateFormatter *formatter = nil;
     if (formatter == nil) {
         formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
+        [formatter setDateStyle:NSDateFormatterShortStyle];
     }
     if (theEvent) {
-        self.eventNameLabel.text = theEvent.eventName;
-        self.eventLocationLabel.text = theEvent.eventLocation;
-        self.eventDateLabel.text = [formatter stringFromDate:(NSDate *)theEvent.eventDate];
+        self.eventNameLabel.text = @"WWW"; //theEvent.eventName;
+        self.eventLocationLabel.text = @"COOL"; //theEvent.eventLocation;
+        self.eventDateLabel.text = @"%@ %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate];
         self.eventAdmissionLabel.text = @"aSDFASDF"; //theEvent.eventAdmission;
         self.eventDescriptionLabel.text = theEvent.eventDescription;
     }

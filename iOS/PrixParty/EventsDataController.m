@@ -10,21 +10,13 @@
 
 @implementation EventsDataController
 
+
 - (id)init {
     if (self = [super init]) {
         self.eventsList = [NSMutableArray new];
+        self.eventsCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        self.eventsStore = [EKEventStore new];
         
-        EKEventStore *store = [[EKEventStore alloc] init];
-        
-        NSDate *today = [NSDate date]; // Get ref to todays date
-        NSCalendar *gregorian = [[NSCalendar alloc]
-                                 initWithCalendarIdentifier:NSGregorianCalendar];
-        NSDateComponents *weekdayComponents =
-        [gregorian components:(NSWeekdayOrdinalCalendarUnit | NSWeekdayCalendarUnit | NSMonthCalendarUnit) fromDate:today];
-        NSInteger weekday = [weekdayComponents weekday]; // Sun == 1, Mon == 2, Tue...
-        NSInteger weekdayOrdinal = [weekdayComponents weekdayOrdinal]; // First weekday month == 1 etc...
-        NSInteger month = [weekdayComponents month];
-        NSLog (@"%i %i %i", weekday, weekdayOrdinal, month);
         return self;
     }
     return nil;
@@ -52,32 +44,25 @@
 
 - (void)addEventTest{
     
-    NSDateComponents *comps = [[NSDateComponents alloc] init];
-    [comps setYear:1965];
-    [comps setMonth:1];
-    [comps setDay:6];
-    [comps setHour:14];
-    [comps setMinute:10];
-    [comps setSecond:0];
-    NSCalendar *cal = [NSCalendar new];
-    NSDate *date = [cal dateFromComponents:comps];
-    //NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    //[formatter setDateFormat:@"YYYY-MM-dd"];
+    NSString *title = @"Some Cool Event";
     
-    NSLog(@"print date %@", date);
-    //NSString *dateString = [formatter stringFromDate:date];
+    NSString *startDateString = @"1999-07-13 10:45:32";
+    NSString *endDateString = @"1999-08-29 11:45:32";
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSDate *startDate= [dateFormatter dateFromString:startDateString];
+    NSDate *endDate = [dateFormatter dateFromString:endDateString];
     
-   // NSLog(@"date %@ ASDFASDFASDFASDF",dateString);
+    NSString *description = @"this is a really cool event that everyone should come to.";
+    double cost = 10.00;
     
     CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:-30 longitude:90];
     
     NSMutableArray *tagsList = [[NSMutableArray alloc] init];
     
-    Event *testEvent = [[Event alloc] initWithName:@"PrixParty" description:@"A really fun party!" date:date admission:0.00 location:testLocation tags:tagsList favorite:false];
-   // NSLog(@"DATE %@",testDate);
-    
-    [self addEvent:testEvent];
-    
+    Event *testEvent = [[Event alloc] initWithParams:title startDate:startDate endDate:endDate store:self.eventsStore description:description admission:cost location:testLocation tags:tagsList];
+ 
+    [self addEvent:testEvent];   
     
 }
 
