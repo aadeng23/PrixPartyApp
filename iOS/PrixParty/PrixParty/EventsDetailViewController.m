@@ -34,14 +34,16 @@
     if (formatter == nil) {
         formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setTimeStyle:NSDateFormatterShortStyle];
     }
     if (theEvent) {
-        NSLog(@"ERERERE");
         self.eventNameLabel.text = theEvent.eventBasic.title;
         self.eventLocationLabel.text = @"COOL"; //theEvent.eventLocation;
-        self.eventDateLabel.text = [formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate];
         
-        NSString* admissionString = [NSString stringWithFormat:@"%g", theEvent.eventAdmission];
+        NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
+        self.eventDateLabel.text = completeDateString;
+        
+        NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
         self.eventAdmissionLabel.text = admissionString;
         self.eventDescriptionLabel.text = theEvent.eventDescription;
     }
