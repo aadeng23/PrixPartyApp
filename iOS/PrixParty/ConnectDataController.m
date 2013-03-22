@@ -1,48 +1,53 @@
 //
-//  EventsDataController.m
+//  ConnectDataController.m
 //  PrixParty
 //
-//  Created by Angela Deng on 2/26/13.
+//  Created by Angela Deng on 3/20/13.
 //  Copyright (c) 2013 Team DUNT. All rights reserved.
 //
 
-#import "EventsDataController.h"
+#import "ConnectDataController.h"
 
-@implementation EventsDataController
+@implementation ConnectDataController
 
 
 - (id)init {
     if (self = [super init]) {
-        self.eventsList = [NSMutableArray new];
-        self.eventsCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        self.eventsStore = [EKEventStore new];
+        self.tweetsRecentList = [NSMutableArray new];
+        self.tweetsTrendingList = [NSMutableArray new];
         
         return self;
     }
     return nil;
 }
 
-- (void)setEventsList:(NSMutableArray *)newList {
-    if(_eventsList != newList){
-        _eventsList = [newList mutableCopy];
+- (void)setTweetsTrendingList:(NSMutableArray *)newList {
+    if(_tweetsTrendingList != newList){
+        _tweetsTrendingList = [newList mutableCopy];
     }
 }
 
-- (NSUInteger)sizeOfList{
-    return [self.eventsList count];
+- (void)setTweetsRecentList:(NSMutableArray *)newList {
+    if(_tweetsRecentList != newList){
+        _tweetsRecentList = [newList mutableCopy];
+    }
 }
 
-- (Event *)objectInListAtIndex:(NSUInteger)theIndex{
+- (NSUInteger)sizeOfList:(NSMutableArray *)list{
+    return [list count];
+}
+
+- (Tweet *)objectInListAtIndex:(NSMutableArray *)list index:(NSUInteger)theIndex{
     
-    return [self.eventsList objectAtIndex:theIndex];
+    return [list objectAtIndex:theIndex];
 }
 
-- (void)addEvent:(Event *)event{
+- (void)addTweet:(NSMutableArray *)list tweet:(Tweet *)tweet{
     
-    [self.eventsList addObject:event];
+    [list addObject:tweet];
 }
 
-- (void)addEventTest{
+/*- (void)addEventTest{
     
     NSString *title = @"Some Cool Event";
     
@@ -53,7 +58,7 @@
     NSDate *startDate= [dateFormatter dateFromString:startDateString];
     NSDate *endDate = [dateFormatter dateFromString:endDateString];
     
-    NSString *description = @"this is a really cool event that everyone should come to. It's super awesome and fun.";
+    NSString *description = @"this is a really cool event that everyone should come to.";
     double cost = 10.00;
     
     CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:-30 longitude:90];
@@ -61,10 +66,8 @@
     NSMutableArray *tagsList = [[NSMutableArray alloc] init];
     
     Event *testEvent = [[Event alloc] initWithParams:title startDate:startDate endDate:endDate store:self.eventsStore description:description admission:cost location:testLocation tags:tagsList];
- 
-    [self addEvent:testEvent];   
     
-}
-
-
+    [self addTweet:testEvent];
+    
+}*/
 @end

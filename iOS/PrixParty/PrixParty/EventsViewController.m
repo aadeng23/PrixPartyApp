@@ -39,8 +39,16 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.navigationController.navigationBar.tintColor = [UIColor redColor];
+    self.eventsListTableView.backgroundColor = [UIColor clearColor];
+    
     self.eventsListTableView.hidden = NO;
     self.eventsMapView.hidden = YES;
+    
+    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
+    [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+
     
 }
 
@@ -74,12 +82,18 @@
         [formatter setDateStyle:NSDateFormatterShortStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
     }
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
     Event *eventAtIndex = [self.dataController objectInListAtIndex:indexPath.row];
+    
+    cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     [[cell textLabel] setText:eventAtIndex.eventBasic.title];
     [[cell detailTextLabel] setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
     return cell;
 }
+
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {

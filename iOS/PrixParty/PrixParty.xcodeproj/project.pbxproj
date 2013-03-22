@@ -20,7 +20,14 @@
 		0B56177B16DB0D7800939F07 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B56177916DB0D7800939F07 /* MainStoryboard.storyboard */; };
 		0B8CEF5C16E94CDD002BCD82 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8CEF5A16E94CDD002BCD82 /* EventKit.framework */; };
 		0B8CEF5D16E94CDD002BCD82 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B8CEF5B16E94CDD002BCD82 /* EventKitUI.framework */; };
+		0B8E410B16FBAEC20004051B /* middlecell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B8E410A16FBAEC20004051B /* middlecell.png */; };
+		0B8E410E16FBAED70004051B /* topcell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B8E410C16FBAED70004051B /* topcell.png */; };
+		0B8E410F16FBAED70004051B /* bottomcell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B8E410D16FBAED70004051B /* bottomcell.png */; };
 		0B96C8DA16ED4EF900E07968 /* EventsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B96C8D916ED4EF900E07968 /* EventsDetailViewController.m */; };
+		0BA39BA316FA088C00FB07C3 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA39BA216FA088C00FB07C3 /* Tweet.m */; };
+		0BA39BA616FA0FD900FB07C3 /* ConnectDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA39BA516FA0FD900FB07C3 /* ConnectDataController.m */; };
+		0BA39BA816FA42C400FB07C3 /* house.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BA39BA716FA42C400FB07C3 /* house.png */; };
+		0BA39BAB16FA453400FB07C3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA39BAA16FA453400FB07C3 /* HomeViewController.m */; };
 		0BA8B3B416E6ADB9004F8E12 /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA8B3B316E6ADB9004F8E12 /* ConnectViewController.m */; };
 		0BC7EABB16DB2856001A6FE1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC7EABA16DB2856001A6FE1 /* CoreLocation.framework */; };
 		0BC7EAC016DB2CFC001A6FE1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BC7EABF16DB2CFC001A6FE1 /* MapKit.framework */; };
@@ -47,8 +54,18 @@
 		0B56177A16DB0D7800939F07 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		0B8CEF5A16E94CDD002BCD82 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		0B8CEF5B16E94CDD002BCD82 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		0B8E410A16FBAEC20004051B /* middlecell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = middlecell.png; sourceTree = "<group>"; };
+		0B8E410C16FBAED70004051B /* topcell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topcell.png; sourceTree = "<group>"; };
+		0B8E410D16FBAED70004051B /* bottomcell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bottomcell.png; sourceTree = "<group>"; };
 		0B96C8D816ED4EF900E07968 /* EventsDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsDetailViewController.h; sourceTree = "<group>"; };
 		0B96C8D916ED4EF900E07968 /* EventsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsDetailViewController.m; sourceTree = "<group>"; };
+		0BA39BA116FA088C00FB07C3 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
+		0BA39BA216FA088C00FB07C3 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
+		0BA39BA416FA0FD900FB07C3 /* ConnectDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectDataController.h; sourceTree = "<group>"; };
+		0BA39BA516FA0FD900FB07C3 /* ConnectDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectDataController.m; sourceTree = "<group>"; };
+		0BA39BA716FA42C400FB07C3 /* house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = house.png; path = ../house.png; sourceTree = "<group>"; };
+		0BA39BA916FA453400FB07C3 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		0BA39BAA16FA453400FB07C3 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		0BA8B3B216E6ADB9004F8E12 /* ConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectViewController.h; sourceTree = "<group>"; };
 		0BA8B3B316E6ADB9004F8E12 /* ConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectViewController.m; sourceTree = "<group>"; };
 		0BC7EABA16DB2856001A6FE1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -117,10 +134,10 @@
 		0B56176716DB0D7800939F07 /* PrixParty */ = {
 			isa = PBXGroup;
 			children = (
-				0BC7EAC116DD650E001A6FE1 /* Event.h */,
-				0BC7EAC216DD650E001A6FE1 /* Event.m */,
-				0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */,
-				0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */,
+				0B8E410A16FBAEC20004051B /* middlecell.png */,
+				0B8E410C16FBAED70004051B /* topcell.png */,
+				0B8E410D16FBAED70004051B /* bottomcell.png */,
+				0BA39BA716FA42C400FB07C3 /* house.png */,
 				0B56176816DB0D7800939F07 /* Supporting Files */,
 			);
 			path = PrixParty;
@@ -143,6 +160,10 @@
 		0B56179B16DB1CEC00939F07 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				0BC7EAC116DD650E001A6FE1 /* Event.h */,
+				0BC7EAC216DD650E001A6FE1 /* Event.m */,
+				0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */,
+				0BC7EAC516DD855E001A6FE1 /* EventsDataController.m */,
 				0B96C8D816ED4EF900E07968 /* EventsDetailViewController.h */,
 				0B96C8D916ED4EF900E07968 /* EventsDetailViewController.m */,
 				0B42431616DDA20000924736 /* EventsViewController.h */,
@@ -155,6 +176,8 @@
 		0B56179C16DB1CFC00939F07 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				0BA39BA916FA453400FB07C3 /* HomeViewController.h */,
+				0BA39BAA16FA453400FB07C3 /* HomeViewController.m */,
 			);
 			name = Home;
 			path = PrixParty;
@@ -163,6 +186,10 @@
 		0B5617A016DB1E2500939F07 /* Connect */ = {
 			isa = PBXGroup;
 			children = (
+				0BA39BA116FA088C00FB07C3 /* Tweet.h */,
+				0BA39BA216FA088C00FB07C3 /* Tweet.m */,
+				0BA39BA416FA0FD900FB07C3 /* ConnectDataController.h */,
+				0BA39BA516FA0FD900FB07C3 /* ConnectDataController.m */,
 				0BA8B3B216E6ADB9004F8E12 /* ConnectViewController.h */,
 				0BA8B3B316E6ADB9004F8E12 /* ConnectViewController.m */,
 			);
@@ -226,6 +253,10 @@
 				0B56177616DB0D7800939F07 /* Default@2x.png in Resources */,
 				0B56177816DB0D7800939F07 /* Default-568h@2x.png in Resources */,
 				0B56177B16DB0D7800939F07 /* MainStoryboard.storyboard in Resources */,
+				0BA39BA816FA42C400FB07C3 /* house.png in Resources */,
+				0B8E410B16FBAEC20004051B /* middlecell.png in Resources */,
+				0B8E410E16FBAED70004051B /* topcell.png in Resources */,
+				0B8E410F16FBAED70004051B /* bottomcell.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +274,9 @@
 				0B42431816DDA20000924736 /* EventsViewController.m in Sources */,
 				0BA8B3B416E6ADB9004F8E12 /* ConnectViewController.m in Sources */,
 				0B96C8DA16ED4EF900E07968 /* EventsDetailViewController.m in Sources */,
+				0BA39BA316FA088C00FB07C3 /* Tweet.m in Sources */,
+				0BA39BA616FA0FD900FB07C3 /* ConnectDataController.m in Sources */,
+				0BA39BAB16FA453400FB07C3 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

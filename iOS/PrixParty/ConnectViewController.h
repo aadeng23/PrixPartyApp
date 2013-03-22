@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ConnectDataController.h"
 
-@interface ConnectViewController : UIViewController
+@interface ConnectViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *connectTrendingTableView;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UITableView *connectRecentTableView;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+
+@property (strong, nonatomic) ConnectDataController *dataController;
+
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 
 @end
