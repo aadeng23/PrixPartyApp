@@ -12,17 +12,27 @@
 
 -(id)initWithParams:(NSString *)profName userName:(NSString *)userName tweet:(NSString *)tweet userPic:(UIImage *)userPic date:(NSString *)date{
     
-    _profName = profName;
-    _userName = userName;
-    _tweet = tweet;
-    _userPic = userPic;
-    _date = date;
+    
+    self = [super init];
+    if (self) {
+        _profName = profName;
+        _userName = userName;
+        _tweet = tweet;
+        _userPic = userPic;
+        _date = date;
+        return self;
+    }
+    return nil;
 }
 
 -(id)initWithBasics:(NSString *)profName tweet:(NSString *)tweet{
     
-    _profName = profName;
-    _tweet = tweet;
+    self = [super init];
+    if (self) {
+        _profName = profName;
+        _tweet = tweet;
+    }
+    return nil;
     
 }
 

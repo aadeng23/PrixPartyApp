@@ -13,10 +13,16 @@
 
 -(id)initWithBasics:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate store:(EKEventStore *)store{
     
-    _eventBasic = [EKEvent eventWithEventStore:store];
-    _eventBasic.title = name;
-    _eventBasic.startDate = startDate;
-    _eventBasic.endDate = endDate;
+    self = [super init];
+    if (self) {
+        _eventBasic = [EKEvent eventWithEventStore:store];
+        _eventBasic.title = name;
+        _eventBasic.startDate = startDate;
+        _eventBasic.endDate = endDate;
+        
+        return self;
+    }
+    return nil;
 }
 
 -(id)initWithParams:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate store:(EKEventStore *)store description:(NSString *)description  admission:(double)admission location:(CLLocation *)location tags:(NSMutableArray *)tags{
