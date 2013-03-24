@@ -10,4 +10,14 @@
 
 @interface Tweet : NSObject
 
+@property (nonatomic, copy) NSString *profName;
+@property (nonatomic, copy) NSString *userName;
+@property (nonatomic, copy) NSString *tweet;
+@property (nonatomic) UIImage *userPic;
+@property (nonatomic, copy) NSString *date;
+
+-(id)initWithBasics:(NSString *)profName tweet:(NSString *)tweet;
+
+-(id)initWithParams:(NSString *)profName userName:(NSString *)userName tweet:(NSString *)tweet userPic:(UIImage *)userPic date:(NSString *)date;
+
 @end

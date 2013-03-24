@@ -10,4 +10,20 @@
 
 @implementation Tweet
 
+-(id)initWithParams:(NSString *)profName userName:(NSString *)userName tweet:(NSString *)tweet userPic:(UIImage *)userPic date:(NSString *)date{
+    
+    _profName = profName;
+    _userName = userName;
+    _tweet = tweet;
+    _userPic = userPic;
+    _date = date;
+}
+
+-(id)initWithBasics:(NSString *)profName tweet:(NSString *)tweet{
+    
+    _profName = profName;
+    _tweet = tweet;
+    
+}
+
 @end

@@ -28,7 +28,7 @@
         <scene sceneID="5BM-WF-MB7">
             <objects>
                 <navigationController id="VsV-jG-PY6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Connect" id="jUh-VZ-6s1"/>
+                    <tabBarItem key="tabBarItem" title="Connect" image="flags.png" id="jUh-VZ-6s1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EF1-lP-UWO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -148,7 +148,7 @@
         <scene sceneID="zFk-QY-yYJ">
             <objects>
                 <navigationController id="9vV-pW-eDS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" id="vd6-tm-PE3"/>
+                    <tabBarItem key="tabBarItem" title="Events" image="calendar.png" id="vd6-tm-PE3"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="2eg-Ri-ShC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -446,6 +446,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar.png" width="23" height="25"/>
+        <image name="flags.png" width="42" height="21"/>
         <image name="house.png" width="22" height="22"/>
     </resources>
     <classes>
