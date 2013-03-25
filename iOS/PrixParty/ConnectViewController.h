@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ConnectDataController.h"
+#import "Tweet.h"
 
 @interface ConnectViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 

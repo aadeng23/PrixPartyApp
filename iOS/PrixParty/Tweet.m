@@ -10,14 +10,14 @@
 
 @implementation Tweet
 
--(id)initWithParams:(NSString *)profName userName:(NSString *)userName tweet:(NSString *)tweet userPic:(UIImage *)userPic date:(NSString *)date{
+-(id)initWithParams:(NSString *)profName userName:(NSString *)userName tweetText:(NSString *)tweetText userPic:(UIImage *)userPic date:(NSString *)date{
     
     
     self = [super init];
     if (self) {
         _profName = profName;
         _userName = userName;
-        _tweet = tweet;
+        _tweetText = tweetText;
         _userPic = userPic;
         _date = date;
         return self;
@@ -25,12 +25,12 @@
     return nil;
 }
 
--(id)initWithBasics:(NSString *)profName tweet:(NSString *)tweet{
+-(id)initWithBasics:(NSString *)profName tweetText:(NSString *)tweetText{
     
     self = [super init];
     if (self) {
         _profName = profName;
-        _tweet = tweet;
+        _tweetText = tweetText;
     }
     return nil;
     

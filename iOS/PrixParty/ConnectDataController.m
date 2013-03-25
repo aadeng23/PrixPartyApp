@@ -8,6 +8,15 @@
 
 #import "ConnectDataController.h"
 
+@interface ConnectDataController (){
+    
+    NSMutableData *webDataTrending;
+    NSMutableData *webDataRecent;
+    NSURLConnection *connectionTrending;
+    NSURLConnection *connectionRecent;
+}
+@end
+
 @implementation ConnectDataController
 
 
@@ -15,13 +24,14 @@
     if (self = [super init]) {
         self.tweetsRecentList = [NSMutableArray new];
         self.tweetsTrendingList = [NSMutableArray new];
+        self.mode = @"Trending";
         
         return self;
     }
     return nil;
 }
 
-- (void)setTweetsTrendingList:(NSMutableArray *)newList {
+/*- (void)setTweetsTrendingList:(NSMutableArray *)newList {
     if(_tweetsTrendingList != newList){
         _tweetsTrendingList = [newList mutableCopy];
     }
@@ -31,11 +41,8 @@
     if(_tweetsRecentList != newList){
         _tweetsRecentList = [newList mutableCopy];
     }
-}
+}*/
 
-- (NSUInteger)sizeOfList:(NSMutableArray *)list{
-    return [list count];
-}
 
 - (Tweet *)objectInListAtIndex:(NSMutableArray *)list index:(NSUInteger)theIndex{
     
@@ -47,27 +54,82 @@
     [list addObject:tweet];
 }
 
-/*- (void)addEventTest{
+-(void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response{
     
-    NSString *title = @"Some Cool Event";
+    [webDataRecent setLength:0];
+    [webDataTrending setLength:0];
+}
+
+-(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
     
-    NSString *startDateString = @"1999-07-13 10:45:32";
-    NSString *endDateString = @"1999-08-29 11:45:32";
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSDate *startDate= [dateFormatter dateFromString:startDateString];
-    NSDate *endDate = [dateFormatter dateFromString:endDateString];
+    if([self.mode isEqualToString:@"Trending"]){
+        [webDataTrending appendData:data];
+    }
+    else{
+        [webDataRecent appendData:data];
+    }
+}
+
+-(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+
+    NSLog(@"fail with error");
+}
+
+-(void)updateData{
+
+    if([self.mode isEqualToString:@"Trending"]){
+            
+        NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        connectionTrending = [NSURLConnection connectionWithRequest:request delegate:self];
+        
+        if(connectionTrending){
+            webDataTrending = [[NSMutableData alloc] init]; 
+        }
+    }
+    else{
+        
+        NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        connectionRecent = [NSURLConnection connectionWithRequest:request delegate:self];
+        
+        if(connectionRecent){
+            webDataRecent = [[NSMutableData alloc] init];
+        }
+    }
     
-    NSString *description = @"this is a really cool event that everyone should come to.";
-    double cost = 10.00;
+}
+
+-(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     
-    CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:-30 longitude:90];
+    if([self.mode isEqualToString:@"Trending"]){
+
+        NSDictionary *trendingDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataTrending options:0 error:nil];
+        NSArray *trendingResults = [trendingDataDictionary objectForKey:@"results"];
+        
+        for(NSDictionary *dic in trendingResults){
+            NSString *username = [dic objectForKey:@"from_user_name"];
+            NSString *tweetText = [dic objectForKey:@"text"];
+            Tweet *newTweet = [[Tweet alloc] initWithBasics:username tweetText:tweetText];
+            
+            [self.tweetsTrendingList addObject:newTweet];
+        }
+    }
+    else{
+        
+        NSDictionary *recentDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataRecent options:0 error:nil];
+        NSArray *recentResults = [recentDataDictionary objectForKey:@"results"];
+        
+        for(NSDictionary *dic in recentResults){
+            NSString *username = [dic objectForKey:@"from_user_name"];
+            NSString *tweetText = [dic objectForKey:@"text"];
+            Tweet *newTweet = [[Tweet alloc] initWithBasics:username tweetText:tweetText];
+            
+            [self.tweetsRecentList addObject:newTweet];
+        }
+
+    }
     
-    NSMutableArray *tagsList = [[NSMutableArray alloc] init];
-    
-    Event *testEvent = [[Event alloc] initWithParams:title startDate:startDate endDate:endDate store:self.eventsStore description:description admission:cost location:testLocation tags:tagsList];
-    
-    [self addTweet:testEvent];
-    
-}*/
+}
+
 @end

@@ -8,9 +8,7 @@
 
 #import "ConnectViewController.h"
 
-@interface ConnectViewController (){
-    NSArray *tweets;
-}
+@interface ConnectViewController ()
 
 @end
 
@@ -29,7 +27,6 @@
 {
     [super awakeFromNib];
     self.dataController = [[ConnectDataController alloc] init];
-    //[self.dataController addEventTest];
     
 }
 
@@ -45,9 +42,13 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
-	// Do any additional setup after loading the view.
     self.connectTrendingTableView.hidden = NO;
     self.connectRecentTableView.hidden = YES;
+    
+    //setup after view
+    [[self connectRecentTableView]setDelegate:self];
+    [[self connectTrendingTableView]setDelegate:self];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -61,12 +62,18 @@
     switch (sender.selectedSegmentIndex) {
             //list view
         case 0:
+            self.dataController.mode = @"Trending";
             self.connectTrendingTableView.hidden = NO;
             self.connectRecentTableView.hidden = YES;
+            [self.dataController updateData];
+            [[self connectTrendingTableView] reloadData];
             break;
         case 1:
+            self.dataController.mode = @"Recent";
             self.connectTrendingTableView.hidden = YES;
             self.connectRecentTableView.hidden= NO;
+            [self.dataController updateData];
+            [[self connectRecentTableView] reloadData];
             break;
         default:
             break;
@@ -84,52 +91,55 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return [self.dataController sizeOfList];
+    if([self.dataController.mode isEqualToString:@"Trending"]){
+        
+         return [self.dataController.tweetsTrendingList count];
+    }
+    else{
+        return [self.dataController.tweetsRecentList count];
+    }
+    
+   
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
+    static NSString *CellIdentifier = @"TweetCell";
     UITableViewCell *cell;
     
-    if(self.connectRecentTableView.hidden == NO){
+    if([self.dataController.mode isEqualToString:@"Trending"]){
         
-        static NSString *CellIdentifier = @"TweetCell";
-    
         cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
+        
+        if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
 
-        NSDictionary *tweet = [tweets objectAtIndex:indexPath.row];
-        NSString *text = [tweet objectForKey:@"text"];
-        NSString *name = [[tweet objectForKey:@"user"] objectForKey:@"name"];
+        Tweet *tweet = [self.dataController.tweetsTrendingList objectAtIndex:indexPath.row];
+        
+        NSString *username = tweet.userName;
+        NSString *tweetText = tweet.tweetText;
 
-        cell.textLabel.text = text;
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"by %@", name];
+        cell.textLabel.text = username;
+        cell.detailTextLabel.text = tweetText;
     }
     else{
         
-        static NSString *CellIdentifier = @"TweetCell";
         cell = [self.connectRecentTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        if (cell == nil) {
+        
+        if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
+        
+        Tweet *tweet = [self.dataController.tweetsRecentList objectAtIndex:indexPath.row];
+        
+        NSString *username = tweet.userName;
+        NSString *tweetText = tweet.tweetText;
+        
+        cell.textLabel.text = username;
+        cell.detailTextLabel.text = tweetText;
 
     }
-       /* static NSString *CellIdentifier = @"TweetCell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-    }*/
-  /*
-    NSDictionary *tweet = [self.dataController.tweetsList objectAtIndex:indexPath.row];
-    NSString *text = [tweet objectForKey:@"text"];
-    NSString *name = [[tweet objectForKey:@"user"] objectForKey:@"name"];
-    
-    cell.textLabel.text = text;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"by %@", name];*/
-    
     return cell;
 }
 
