@@ -12,11 +12,11 @@
 @interface ConnectDataController : NSObject <NSURLConnectionDataDelegate>
 
 @property (nonatomic, copy) NSString *mode;
-@property (nonatomic,copy) NSMutableArray *tweetsRecentList;
-@property (nonatomic,copy) NSMutableArray *tweetsTrendingList;
+@property (nonatomic, strong) NSMutableArray *tweetsRecentList;
+@property (nonatomic,strong) NSMutableArray *tweetsTrendingList;
 
-- (Tweet *)objectInListAtIndex:(NSUInteger)theIndex;
-- (void)addTweet:(Tweet *)tweet;
+- (Tweet *)objectInListAtIndex:(NSMutableArray *)list theIndex:(NSUInteger)theIndex;
+- (void)addTweet:(NSMutableArray *)list tweet:(Tweet *)tweet;
 - (void)updateData;
 
 @end

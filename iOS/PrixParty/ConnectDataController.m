@@ -22,8 +22,8 @@
 
 - (id)init {
     if (self = [super init]) {
-        self.tweetsRecentList = [NSMutableArray new];
-        self.tweetsTrendingList = [NSMutableArray new];
+        self.tweetsRecentList = [[NSMutableArray alloc] init];
+        self.tweetsTrendingList = [[NSMutableArray alloc] init];
         self.mode = @"Trending";
         
         return self;
@@ -108,9 +108,9 @@
         NSArray *trendingResults = [trendingDataDictionary objectForKey:@"results"];
         
         for(NSDictionary *dic in trendingResults){
-            NSString *username = [dic objectForKey:@"from_user_name"];
+            NSString *profname = [dic objectForKey:@"from_user"];
             NSString *tweetText = [dic objectForKey:@"text"];
-            Tweet *newTweet = [[Tweet alloc] initWithBasics:username tweetText:tweetText];
+            Tweet *newTweet = [[Tweet alloc] initWithBasics:profname tweetText:tweetText];
             
             [self.tweetsTrendingList addObject:newTweet];
         }
@@ -121,11 +121,11 @@
         NSArray *recentResults = [recentDataDictionary objectForKey:@"results"];
         
         for(NSDictionary *dic in recentResults){
-            NSString *username = [dic objectForKey:@"from_user_name"];
+            NSString *profname = [dic objectForKey:@"from_user"];
             NSString *tweetText = [dic objectForKey:@"text"];
-            Tweet *newTweet = [[Tweet alloc] initWithBasics:username tweetText:tweetText];
+            Tweet *newTweet = [[Tweet alloc] initWithBasics:profname tweetText:tweetText];
             
-            [self.tweetsRecentList addObject:newTweet];
+            [self addTweet:self.tweetsRecentList tweet:newTweet];
         }
 
     }

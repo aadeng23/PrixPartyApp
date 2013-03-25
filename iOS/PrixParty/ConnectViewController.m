@@ -46,8 +46,8 @@
     self.connectRecentTableView.hidden = YES;
     
     //setup after view
-    [[self connectRecentTableView]setDelegate:self];
-    [[self connectTrendingTableView]setDelegate:self];
+    //[[self connectRecentTableView]setDelegate:self];
+    //[[self connectTrendingTableView]setDelegate:self];
     
 }
 
@@ -66,6 +66,7 @@
             self.connectTrendingTableView.hidden = NO;
             self.connectRecentTableView.hidden = YES;
             [self.dataController updateData];
+            NSLog(@"counttrend %u", [self.dataController.tweetsTrendingList count]);
             [[self connectTrendingTableView] reloadData];
             break;
         case 1:
@@ -73,6 +74,7 @@
             self.connectTrendingTableView.hidden = YES;
             self.connectRecentTableView.hidden= NO;
             [self.dataController updateData];
+             NSLog(@"countrecent %u", [self.dataController.tweetsRecentList count]);
             [[self connectRecentTableView] reloadData];
             break;
         default:
@@ -92,10 +94,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     if([self.dataController.mode isEqualToString:@"Trending"]){
+        NSLog(@"counttrendsize %u", [self.dataController.tweetsTrendingList count]);
+        return [self.dataController.tweetsTrendingList count];
         
-         return [self.dataController.tweetsTrendingList count];
     }
     else{
+        NSLog(@"countrecentsize %u", [self.dataController.tweetsRecentList count]);
         return [self.dataController.tweetsRecentList count];
     }
     
@@ -107,6 +111,7 @@
     static NSString *CellIdentifier = @"TweetCell";
     UITableViewCell *cell;
     
+    NSLog(@"RERER");
     if([self.dataController.mode isEqualToString:@"Trending"]){
         
         cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -115,12 +120,12 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
 
-        Tweet *tweet = [self.dataController.tweetsTrendingList objectAtIndex:indexPath.row];
+        Tweet *tweet = [self.dataController objectInListAtIndex:self.dataController.tweetsTrendingList theIndex:indexPath.row];
         
-        NSString *username = tweet.userName;
+        NSString *username = tweet.profName;
         NSString *tweetText = tweet.tweetText;
 
-        cell.textLabel.text = username;
+        cell.textLabel.text = @"BOO";
         cell.detailTextLabel.text = tweetText;
     }
     else{
@@ -131,12 +136,12 @@
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
         
-        Tweet *tweet = [self.dataController.tweetsRecentList objectAtIndex:indexPath.row];
+        Tweet *tweet = [self.dataController objectInListAtIndex:self.dataController.tweetsRecentList theIndex:indexPath.row];
         
-        NSString *username = tweet.userName;
+        NSString *username = tweet.profName;
         NSString *tweetText = tweet.tweetText;
         
-        cell.textLabel.text = username;
+        cell.textLabel.text = @"HAHA";
         cell.detailTextLabel.text = tweetText;
 
     }

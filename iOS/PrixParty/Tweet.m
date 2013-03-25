@@ -31,6 +31,7 @@
     if (self) {
         _profName = profName;
         _tweetText = tweetText;
+        return self;
     }
     return nil;
     
