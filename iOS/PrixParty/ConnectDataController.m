@@ -44,7 +44,7 @@
 }*/
 
 
-- (Tweet *)objectInListAtIndex:(NSMutableArray *)list index:(NSUInteger)theIndex{
+- (Tweet *)objectInListAtIndex:(NSMutableArray *)list theIndex:(NSUInteger)theIndex{
     
     return [list objectAtIndex:theIndex];
 }
@@ -89,7 +89,7 @@
     }
     else{
         
-        NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
+        NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40formula1"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         connectionRecent = [NSURLConnection connectionWithRequest:request delegate:self];
         
@@ -108,7 +108,7 @@
         NSArray *trendingResults = [trendingDataDictionary objectForKey:@"results"];
         
         for(NSDictionary *dic in trendingResults){
-            NSString *profname = [dic objectForKey:@"from_user"];
+            NSString *profname = [dic objectForKey:@"from_user_name"];
             NSString *tweetText = [dic objectForKey:@"text"];
             Tweet *newTweet = [[Tweet alloc] initWithBasics:profname tweetText:tweetText];
             
@@ -121,7 +121,7 @@
         NSArray *recentResults = [recentDataDictionary objectForKey:@"results"];
         
         for(NSDictionary *dic in recentResults){
-            NSString *profname = [dic objectForKey:@"from_user"];
+            NSString *profname = [dic objectForKey:@"from_user_name"];
             NSString *tweetText = [dic objectForKey:@"text"];
             Tweet *newTweet = [[Tweet alloc] initWithBasics:profname tweetText:tweetText];
             

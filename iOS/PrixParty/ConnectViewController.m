@@ -27,7 +27,10 @@
 {
     [super awakeFromNib];
     self.dataController = [[ConnectDataController alloc] init];
+    [self.dataController updateData];
     
+    NSLog(@"first %u", [self.dataController.tweetsTrendingList count]);
+
 }
 
 - (void)viewDidLoad
@@ -41,6 +44,8 @@
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    
+    
     
     self.connectTrendingTableView.hidden = NO;
     self.connectRecentTableView.hidden = YES;
@@ -67,7 +72,7 @@
             self.connectRecentTableView.hidden = YES;
             [self.dataController updateData];
             NSLog(@"counttrend %u", [self.dataController.tweetsTrendingList count]);
-            [[self connectTrendingTableView] reloadData];
+            [self.connectTrendingTableView reloadData];
             break;
         case 1:
             self.dataController.mode = @"Recent";
@@ -75,7 +80,7 @@
             self.connectRecentTableView.hidden= NO;
             [self.dataController updateData];
              NSLog(@"countrecent %u", [self.dataController.tweetsRecentList count]);
-            [[self connectRecentTableView] reloadData];
+            [self.connectRecentTableView reloadData];
             break;
         default:
             break;
@@ -93,6 +98,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
+    
+    NSLog(@"print");
     if([self.dataController.mode isEqualToString:@"Trending"]){
         NSLog(@"counttrendsize %u", [self.dataController.tweetsTrendingList count]);
         return [self.dataController.tweetsTrendingList count];
@@ -110,41 +117,42 @@
   
     static NSString *CellIdentifier = @"TweetCell";
     UITableViewCell *cell;
+    NSString *profname;
+    NSString *tweetText;
     
-    NSLog(@"RERER");
     if([self.dataController.mode isEqualToString:@"Trending"]){
         
         cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
-
+        NSLog(@"index %u", indexPath.row);
         Tweet *tweet = [self.dataController objectInListAtIndex:self.dataController.tweetsTrendingList theIndex:indexPath.row];
         
-        NSString *username = tweet.profName;
-        NSString *tweetText = tweet.tweetText;
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+        }
+        
+        profname = tweet.profName;
+        tweetText = tweet.tweetText;
 
-        cell.textLabel.text = @"BOO";
-        cell.detailTextLabel.text = tweetText;
+        
     }
     else{
         
         cell = [self.connectRecentTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-        
+       
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
         Tweet *tweet = [self.dataController objectInListAtIndex:self.dataController.tweetsRecentList theIndex:indexPath.row];
         
-        NSString *username = tweet.profName;
-        NSString *tweetText = tweet.tweetText;
-        
-        cell.textLabel.text = @"HAHA";
-        cell.detailTextLabel.text = tweetText;
+        profname = tweet.profName;
+        tweetText = tweet.tweetText;
 
     }
+    
+    cell.textLabel.text = profname;
+    cell.detailTextLabel.text = tweetText;
     return cell;
 }
 
