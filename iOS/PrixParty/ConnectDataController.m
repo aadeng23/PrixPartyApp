@@ -110,9 +110,11 @@
         for(NSDictionary *dic in trendingResults){
             NSString *profname = [dic objectForKey:@"from_user_name"];
             NSString *tweetText = [dic objectForKey:@"text"];
-            Tweet *newTweet = [[Tweet alloc] initWithBasics:profname tweetText:tweetText];
+            NSString *picURL = [dic objectForKey:@"profile_image_url"];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+            Tweet *newTweet = [[Tweet alloc] initWithBasics:profname tweetText:tweetText userPic:image];
             
-            [self.tweetsTrendingList addObject:newTweet];
+            [self addTweet:self.tweetsTrendingList tweet:newTweet];
         }
     }
     else{
@@ -123,7 +125,9 @@
         for(NSDictionary *dic in recentResults){
             NSString *profname = [dic objectForKey:@"from_user_name"];
             NSString *tweetText = [dic objectForKey:@"text"];
-            Tweet *newTweet = [[Tweet alloc] initWithBasics:profname tweetText:tweetText];
+            NSString *picURL = [dic objectForKey:@"profile_image_url"];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+            Tweet *newTweet = [[Tweet alloc] initWithBasics:profname tweetText:tweetText userPic:image];
             
             [self addTweet:self.tweetsRecentList tweet:newTweet];
         }

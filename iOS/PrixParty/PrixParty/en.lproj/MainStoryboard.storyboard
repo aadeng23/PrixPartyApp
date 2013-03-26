@@ -28,7 +28,7 @@
         <scene sceneID="5BM-WF-MB7">
             <objects>
                 <navigationController id="VsV-jG-PY6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Connect" image="flags.png" id="jUh-VZ-6s1"/>
+                    <tabBarItem key="tabBarItem" title="Connect" image="atsign.png" id="jUh-VZ-6s1"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EF1-lP-UWO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -452,10 +452,51 @@
         </scene>
     </scenes>
     <resources>
+        <image name="atsign.png" width="16" height="16"/>
         <image name="calendar.png" width="23" height="25"/>
-        <image name="flags.png" width="42" height="21"/>
         <image name="house.png" width="22" height="22"/>
     </resources>
+    <classes>
+        <class className="ConnectViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConnectViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="segmentValueChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="connectRecentTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="connectTrendingTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="EventsDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventsDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="eventAdmissionDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventAdmissionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventDateDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventDescriptionDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventLocationDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventNameDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="EventsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="segmentValueChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="eventsListTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="eventsMapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

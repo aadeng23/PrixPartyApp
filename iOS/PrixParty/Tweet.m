@@ -25,16 +25,18 @@
     return nil;
 }
 
--(id)initWithBasics:(NSString *)profName tweetText:(NSString *)tweetText{
+-(id)initWithBasics:(NSString *)profName tweetText:(NSString *)tweetText userPic:(UIImage *)userPic{
     
     self = [super init];
     if (self) {
         _profName = profName;
         _tweetText = tweetText;
+        _userPic = userPic;
         return self;
     }
     return nil;
     
 }
+
 
 @end

@@ -36,7 +36,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    NSLog(@"loadview");
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.connectTrendingTableView.backgroundColor = [UIColor clearColor];
     self.connectRecentTableView.backgroundColor = [UIColor clearColor];
@@ -44,8 +44,6 @@
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    
-    
     
     self.connectTrendingTableView.hidden = NO;
     self.connectRecentTableView.hidden = YES;
@@ -119,6 +117,7 @@
     UITableViewCell *cell;
     NSString *profname;
     NSString *tweetText;
+    UIImage *userPic;
     
     if([self.dataController.mode isEqualToString:@"Trending"]){
         
@@ -133,6 +132,7 @@
         
         profname = tweet.profName;
         tweetText = tweet.tweetText;
+        userPic = tweet.userPic;
 
         
     }
@@ -148,11 +148,13 @@
         
         profname = tweet.profName;
         tweetText = tweet.tweetText;
+        userPic = tweet.userPic;
 
     }
     
     cell.textLabel.text = profname;
     cell.detailTextLabel.text = tweetText;
+    cell.imageView.image = userPic;
     return cell;
 }
 

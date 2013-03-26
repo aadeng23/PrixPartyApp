@@ -16,7 +16,7 @@
 @property (nonatomic) UIImage *userPic;
 @property (nonatomic, copy) NSString *date;
 
--(id)initWithBasics:(NSString *)profName tweetText:(NSString *)tweetText;
+-(id)initWithBasics:(NSString *)profName tweetText:(NSString *)tweetText userPic:(UIImage *)userPic;
 
 -(id)initWithParams:(NSString *)profName userName:(NSString *)userName tweetText:(NSString *)tweetText userPic:(UIImage *)userPic date:(NSString *)date;
 
