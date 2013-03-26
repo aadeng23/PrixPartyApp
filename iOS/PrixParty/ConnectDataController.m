@@ -25,6 +25,7 @@
         self.tweetsRecentList = [[NSMutableArray alloc] init];
         self.tweetsTrendingList = [[NSMutableArray alloc] init];
         self.mode = @"Trending";
+        self.networkCallInProgress = NO;
         
         return self;
     }
@@ -76,7 +77,12 @@
 }
 
 -(void)updateData{
-
+    if (self.networkCallInProgress == YES) {
+        return;
+    }
+    
+    self.networkCallInProgress = YES;
+    
     if([self.mode isEqualToString:@"Trending"]){
             
         NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
@@ -98,6 +104,40 @@
         }
     }
     
+}
+
+-(void)loadMoreData{
+    if (self.networkCallInProgress == YES) {
+        return;
+    }
+    
+    self.networkCallInProgress = YES;
+    
+    if([self.mode isEqualToString:@"Trending"]){
+        
+        NSDictionary *trendingDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataTrending options:0 error:nil];
+        NSString *nextURL = [trendingDataDictionary objectForKey:@"next_page"];
+        NSString *curURL = @"http://search.twitter.com/search.json";
+        NSString *newURL = [curURL stringByAppendingString:nextURL];
+        
+        NSURL *url = [NSURL URLWithString:newURL];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        connectionTrending = [NSURLConnection connectionWithRequest:request delegate:self];
+        
+        if(connectionTrending){
+            webDataTrending = [[NSMutableData alloc] init];
+        }
+    }
+    else{
+        
+        NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40formula1"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        connectionRecent = [NSURLConnection connectionWithRequest:request delegate:self];
+        
+        if(connectionRecent){
+            webDataRecent = [[NSMutableData alloc] init];
+        }
+    }
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
@@ -133,6 +173,7 @@
         }
 
     }
+    self.networkCallInProgress = NO;
     
 }
 

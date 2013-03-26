@@ -14,9 +14,11 @@
 @property (nonatomic, copy) NSString *mode;
 @property (nonatomic, strong) NSMutableArray *tweetsRecentList;
 @property (nonatomic,strong) NSMutableArray *tweetsTrendingList;
+@property (nonatomic) BOOL *networkCallInProgress;
 
 - (Tweet *)objectInListAtIndex:(NSMutableArray *)list theIndex:(NSUInteger)theIndex;
 - (void)addTweet:(NSMutableArray *)list tweet:(Tweet *)tweet;
 - (void)updateData;
+- (void)loadMoreData;
 
 @end

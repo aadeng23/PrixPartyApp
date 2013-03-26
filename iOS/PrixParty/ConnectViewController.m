@@ -35,8 +35,9 @@
 
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
-    NSLog(@"loadview");
+    
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.connectTrendingTableView.backgroundColor = [UIColor clearColor];
     self.connectRecentTableView.backgroundColor = [UIColor clearColor];
@@ -151,11 +152,76 @@
         userPic = tweet.userPic;
 
     }
+    cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16.0];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12.0];
     
     cell.textLabel.text = profname;
     cell.detailTextLabel.text = tweetText;
     cell.imageView.image = userPic;
     return cell;
+}
+
+/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cellforRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if(indexPath.row == 15) //self.array is the array of items you are displaying
+    {
+        NSLog(@"ASDFASF");
+    }
+}*/
+
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
+    
+    CGPoint offset = aScrollView.contentOffset;
+    CGRect bounds = aScrollView.bounds;
+    CGSize size = aScrollView.contentSize;
+    UIEdgeInsets inset = aScrollView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    // NSLog(@"offset: %f", offset.y);
+    // NSLog(@"content.height: %f", size.height);
+    // NSLog(@"bounds.height: %f", bounds.size.height);
+    // NSLog(@"inset.top: %f", inset.top);
+    // NSLog(@"inset.bottom: %f", inset.bottom);
+    // NSLog(@"pos: %f of %f", y, h);
+    
+    float reload_distance = 10;
+    if(y > h + reload_distance) {
+        NSLog(@"load more rows");
+        if([self.dataController.mode isEqualToString:@"Trending"]){
+            [self.dataController loadMoreData];
+             NSLog(@"counttrend %u", [self.dataController.tweetsTrendingList count]);
+            [self.connectTrendingTableView reloadData];
+            
+        }
+        else{
+            [self.dataController loadMoreData];
+            NSLog(@"counttrend %u", [self.dataController.tweetsRecentList count]);
+            [self.connectRecentTableView reloadData];
+        }
+        
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *CellIdentifier = @"TweetCell";
+     UITableViewCell *cell;
+    if([self.dataController.mode isEqualToString:@"Trending"]){
+        cell = [self.connectTrendingTableView cellForRowAtIndexPath:indexPath];
+    }
+    else{
+        cell = [self.connectRecentTableView cellForRowAtIndexPath:indexPath];
+    }
+   
+    NSString *cellText = cell.textLabel.text;
+    NSLog(@"text %@", cellText);
+    UIFont *cellFont = [UIFont fontWithName:@"Avenir-Book" size:12.0];
+    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
+    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+     
+    return labelSize.height + 40;
+
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

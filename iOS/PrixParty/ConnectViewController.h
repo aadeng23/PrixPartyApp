@@ -10,7 +10,7 @@
 #import "ConnectDataController.h"
 #import "Tweet.h"
 
-@interface ConnectViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
+@interface ConnectViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, UIGestureRecognizerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *connectTrendingTableView;
 @property (weak, nonatomic) IBOutlet UITableView *connectRecentTableView;

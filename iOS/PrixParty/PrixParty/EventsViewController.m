@@ -31,7 +31,9 @@
     [super awakeFromNib];
     self.dataController = [[EventsDataController alloc] init];
     [self.dataController addEventTest];
-    
+    [self.dataController addEventTest];
+    [self.dataController addEventTest];
+
 }
 
 
@@ -41,6 +43,7 @@
 	// Do any additional setup after loading the view.
     self.navigationController.navigationBar.tintColor = [UIColor redColor];
     self.eventsListTableView.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
     
     self.eventsListTableView.hidden = NO;
     self.eventsMapView.hidden = YES;
@@ -89,7 +92,13 @@
     
     cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
     cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
-    [[cell textLabel] setText:eventAtIndex.eventBasic.title];
+    
+    UIImage *rowBackground = [UIImage imageNamed:@"Top_Cel.png"];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top_Cel.png"]];
+   
+    cell.textLabel.textColor = [UIColor whiteColor];
+    cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+    cell.textLabel.text = eventAtIndex.eventBasic.title;
     [[cell detailTextLabel] setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
     return cell;
 }
