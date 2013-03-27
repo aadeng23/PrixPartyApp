@@ -32,19 +32,6 @@
     return nil;
 }
 
-/*- (void)setTweetsTrendingList:(NSMutableArray *)newList {
-    if(_tweetsTrendingList != newList){
-        _tweetsTrendingList = [newList mutableCopy];
-    }
-}
-
-- (void)setTweetsRecentList:(NSMutableArray *)newList {
-    if(_tweetsRecentList != newList){
-        _tweetsRecentList = [newList mutableCopy];
-    }
-}*/
-
-
 - (Tweet *)objectInListAtIndex:(NSMutableArray *)list theIndex:(NSUInteger)theIndex{
     
     return [list objectAtIndex:theIndex];
@@ -77,11 +64,11 @@
 }
 
 -(void)updateData{
-    if (self.networkCallInProgress == YES) {
+    /*if (self.networkCallInProgress == YES) {
         return;
     }
     
-    self.networkCallInProgress = YES;
+    self.networkCallInProgress = YES;*/
     
     if([self.mode isEqualToString:@"Trending"]){
             

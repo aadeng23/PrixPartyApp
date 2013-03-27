@@ -14,37 +14,38 @@
 
 @implementation ConnectViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
     }
     return self;
-}
+}*/
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     self.dataController = [[ConnectDataController alloc] init];
     [self.dataController updateData];
-    
-    NSLog(@"first %u", [self.dataController.tweetsTrendingList count]);
-
 }
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.tintColor = [UIColor redColor];
-    self.connectTrendingTableView.backgroundColor = [UIColor clearColor];
-    self.connectRecentTableView.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
     
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    
+    /*self.dataController.mode = @"Recent";
+    [self.dataController updateData];
+    [self.connectRecentTableView reloadData];
+    self.dataController.mode = @"Trending";
+    [self.dataController updateData];
+    [self.connectTrendingTableView reloadData];*/
     
     self.connectTrendingTableView.hidden = NO;
     self.connectRecentTableView.hidden = YES;
@@ -69,16 +70,14 @@
             self.dataController.mode = @"Trending";
             self.connectTrendingTableView.hidden = NO;
             self.connectRecentTableView.hidden = YES;
-            [self.dataController updateData];
-            NSLog(@"counttrend %u", [self.dataController.tweetsTrendingList count]);
+            //[self.dataController updateData];
             [self.connectTrendingTableView reloadData];
             break;
         case 1:
             self.dataController.mode = @"Recent";
             self.connectTrendingTableView.hidden = YES;
             self.connectRecentTableView.hidden= NO;
-            [self.dataController updateData];
-             NSLog(@"countrecent %u", [self.dataController.tweetsRecentList count]);
+            //[self.dataController updateData];
             [self.connectRecentTableView reloadData];
             break;
         default:
@@ -98,11 +97,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     
-    NSLog(@"print");
     if([self.dataController.mode isEqualToString:@"Trending"]){
         NSLog(@"counttrendsize %u", [self.dataController.tweetsTrendingList count]);
         return [self.dataController.tweetsTrendingList count];
-        
     }
     else{
         NSLog(@"countrecentsize %u", [self.dataController.tweetsRecentList count]);
@@ -124,7 +121,6 @@
         
         cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:CellIdentifier];
         
-        NSLog(@"index %u", indexPath.row);
         Tweet *tweet = [self.dataController objectInListAtIndex:self.dataController.tweetsTrendingList theIndex:indexPath.row];
         
         if (!cell) {
@@ -134,7 +130,6 @@
         profname = tweet.profName;
         tweetText = tweet.tweetText;
         userPic = tweet.userPic;
-
         
     }
     else{
@@ -203,7 +198,7 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+/*- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"TweetCell";
      UITableViewCell *cell;
@@ -222,7 +217,7 @@
      
     return labelSize.height + 40;
 
-}
+}*/
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -36,14 +36,20 @@
 
 }
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.navigationController.navigationBar.tintColor = [UIColor redColor];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
     self.eventsListTableView.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"background.png"]];
+    
+    UIImage * targetImage = [UIImage imageNamed:@"background.png"];
+    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
+    [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
+    UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:resultImage];
     
     self.eventsListTableView.hidden = NO;
     self.eventsMapView.hidden = YES;
@@ -90,16 +96,42 @@
 
     Event *eventAtIndex = [self.dataController objectInListAtIndex:indexPath.row];
     
+    UIImage *rowBackground;
+    //UIImage *selectionBackground;
+    NSInteger sectionRows = [self.eventsListTableView numberOfRowsInSection:[indexPath section]];
+    NSInteger row = [indexPath row];
+    
+    /*if (row == 0 && row == sectionRows - 1)
+    {
+        rowBackground = [UIImage imageNamed:@"topAndBottomRow.png"];
+        //selectionBackground = [UIImage imageNamed:@"topAndBottomRowSelected.png"];
+    }
+    else */if (row == 0)
+    {
+        rowBackground = [UIImage imageNamed:@"Top_Cel.png"];
+        //selectionBackground = [UIImage imageNamed:@"topRowSelected.png"];
+    }
+    else if (row == sectionRows - 1)
+    {
+        rowBackground = [UIImage imageNamed:@"BottomCel.png"];
+        //selectionBackground = [UIImage imageNamed:@"bottomRowSelected.png"];
+    }
+    else
+    {
+        rowBackground = [UIImage imageNamed:@"CenterCel.png"];
+        //selectionBackground = [UIImage imageNamed:@"middleRowSelected.png"];
+    }
+    ((UIImageView *)cell.backgroundView).image = rowBackground;
+    //((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top_Cel.png"]];
+    
     cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
     cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
-    
-    UIImage *rowBackground = [UIImage imageNamed:@"Top_Cel.png"];
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top_Cel.png"]];
-   
     cell.textLabel.textColor = [UIColor whiteColor];
     cell.detailTextLabel.textColor = [UIColor lightGrayColor];
     cell.textLabel.text = eventAtIndex.eventBasic.title;
     [[cell detailTextLabel] setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
+    
     return cell;
 }
 
@@ -110,19 +142,7 @@
     return NO;
 }
 
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
- {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- }
- else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
+
 
 /*
  // Override to support rearranging the table view.
