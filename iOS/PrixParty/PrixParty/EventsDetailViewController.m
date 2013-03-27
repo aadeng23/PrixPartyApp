@@ -45,45 +45,52 @@
 
         [self.navigationItem.backBarButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];*/
         
+        
+        
         //Name
-        self.eventNameLabel.textColor = [UIColor darkGrayColor];
+        self.eventNameLabel.textColor = [UIColor lightGrayColor];
         self.eventNameLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         self.eventNameDetail.lineBreakMode = UILineBreakModeWordWrap;
         self.eventNameDetail.numberOfLines = 0;
+        self.eventNameDetail.textColor = [UIColor whiteColor];
         self.eventNameDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         self.eventNameDetail.text = theEvent.eventBasic.title;
         
         //Location
-        self.eventLocationLabel.textColor = [UIColor darkGrayColor];
+        self.eventLocationLabel.textColor = [UIColor lightGrayColor];
         self.eventLocationLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         self.eventLocationDetail.lineBreakMode = UILineBreakModeWordWrap;
         self.eventLocationDetail.numberOfLines = 0;
+        self.eventLocationDetail.textColor = [UIColor whiteColor];
         self.eventLocationDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         self.eventLocationDetail.text = @"COOL"; //theEvent.eventLocation;
         
         //Date
-        self.eventDateLabel.textColor = [UIColor darkGrayColor];
+        self.eventDateLabel.textColor = [UIColor lightGrayColor];
         self.eventDateLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         self.eventDateDetail.lineBreakMode = UILineBreakModeWordWrap;
         self.eventDateDetail.numberOfLines = 0;
+        self.eventDateDetail.textColor = [UIColor whiteColor];
         self.eventDateDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
         self.eventDateDetail.text = completeDateString;
         
         //Admission
-        self.eventAdmissionLabel.textColor = [UIColor darkGrayColor];
+        self.eventAdmissionLabel.textColor = [UIColor lightGrayColor];
         self.eventAdmissionLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         self.eventAdmissionDetail.lineBreakMode = UILineBreakModeWordWrap;
         self.eventAdmissionDetail.numberOfLines = 0;
+        self.eventAdmissionDetail.textColor = [UIColor whiteColor];
         self.eventAdmissionDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
         self.eventAdmissionDetail.text = admissionString;
         
         //Description
-        self.eventDescriptionLabel.textColor = [UIColor darkGrayColor];
+        self.eventDescriptionLabel.textColor = [UIColor lightGrayColor];
         self.eventDescriptionLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         self.eventDescriptionDetail.lineBreakMode = UILineBreakModeWordWrap;
         self.eventDescriptionDetail.numberOfLines = 0;
+        self.eventDescriptionDetail.textColor = [UIColor whiteColor];
         self.eventDescriptionDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
         self.eventDescriptionDetail.text = theEvent.eventDescription;
     }
@@ -95,7 +102,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor lightGrayColor];
+    UIImage * targetImage = [UIImage imageNamed:@"background.png"];
+    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
+    [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
+    UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    self.view.backgroundColor = [UIColor colorWithPatternImage:resultImage];
     
     [self configureView];
 }

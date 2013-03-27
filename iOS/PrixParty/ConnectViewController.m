@@ -68,17 +68,21 @@
             //list view
         case 0:
             self.dataController.mode = @"Trending";
+            [self.dataController updateData];
+            [self.connectTrendingTableView reloadData];
             self.connectTrendingTableView.hidden = NO;
             self.connectRecentTableView.hidden = YES;
-            //[self.dataController updateData];
-            [self.connectTrendingTableView reloadData];
+            
             break;
         case 1:
             self.dataController.mode = @"Recent";
-            self.connectTrendingTableView.hidden = YES;
-            self.connectRecentTableView.hidden= NO;
-            //[self.dataController updateData];
+            [self.dataController updateData];
+            NSLog(@"ERER");
             [self.connectRecentTableView reloadData];
+            self.connectRecentTableView.hidden= NO;
+            self.connectTrendingTableView.hidden = YES;
+            
+            
             break;
         default:
             break;
@@ -182,16 +186,16 @@
     
     float reload_distance = 10;
     if(y > h + reload_distance) {
-        NSLog(@"load more rows");
+        //NSLog(@"load more rows");
         if([self.dataController.mode isEqualToString:@"Trending"]){
             [self.dataController loadMoreData];
-             NSLog(@"counttrend %u", [self.dataController.tweetsTrendingList count]);
+             //NSLog(@"counttrend %u", [self.dataController.tweetsTrendingList count]);
             [self.connectTrendingTableView reloadData];
             
         }
         else{
             [self.dataController loadMoreData];
-            NSLog(@"counttrend %u", [self.dataController.tweetsRecentList count]);
+            //NSLog(@"counttrend %u", [self.dataController.tweetsRecentList count]);
             [self.connectRecentTableView reloadData];
         }
         

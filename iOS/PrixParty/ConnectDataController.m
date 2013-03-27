@@ -14,6 +14,8 @@
     NSMutableData *webDataRecent;
     NSURLConnection *connectionTrending;
     NSURLConnection *connectionRecent;
+    BOOL firstLoadTrending;
+    BOOL firstLoadRecent;
 }
 @end
 
@@ -26,6 +28,8 @@
         self.tweetsTrendingList = [[NSMutableArray alloc] init];
         self.mode = @"Trending";
         self.networkCallInProgress = NO;
+        firstLoadTrending = YES;
+        firstLoadRecent = YES;
         
         return self;
     }
@@ -64,13 +68,13 @@
 }
 
 -(void)updateData{
-    /*if (self.networkCallInProgress == YES) {
+    if (self.networkCallInProgress == YES) {
         return;
     }
     
-    self.networkCallInProgress = YES;*/
+    self.networkCallInProgress = YES;
     
-    if([self.mode isEqualToString:@"Trending"]){
+    if([self.mode isEqualToString:@"Trending"] && firstLoadTrending){
             
         NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -79,8 +83,9 @@
         if(connectionTrending){
             webDataTrending = [[NSMutableData alloc] init]; 
         }
+        firstLoadTrending = NO;
     }
-    else{
+    else if(firstLoadRecent){
         
         NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40formula1"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -89,6 +94,7 @@
         if(connectionRecent){
             webDataRecent = [[NSMutableData alloc] init];
         }
+        firstLoadRecent = NO;
     }
     
 }
@@ -116,8 +122,12 @@
         }
     }
     else{
+        NSDictionary *recentDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataRecent options:0 error:nil];
+        NSString *nextURL = [recentDataDictionary objectForKey:@"next_page"];
+        NSString *curURL = @"http://search.twitter.com/search.json";
+        NSString *newURL = [curURL stringByAppendingString:nextURL];
         
-        NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40formula1"];
+        NSURL *url = [NSURL URLWithString:newURL];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         connectionRecent = [NSURLConnection connectionWithRequest:request delegate:self];
         
