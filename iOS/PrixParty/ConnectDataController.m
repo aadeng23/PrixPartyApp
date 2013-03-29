@@ -14,8 +14,7 @@
     NSMutableData *webDataRecent;
     NSURLConnection *connectionTrending;
     NSURLConnection *connectionRecent;
-    BOOL firstLoadTrending;
-    BOOL firstLoadRecent;
+    BOOL firstLoad;
 }
 @end
 
@@ -28,8 +27,7 @@
         self.tweetsTrendingList = [[NSMutableArray alloc] init];
         self.mode = @"Trending";
         self.networkCallInProgress = NO;
-        firstLoadTrending = YES;
-        firstLoadRecent = YES;
+        firstLoad = YES;
         
         return self;
     }
@@ -67,6 +65,7 @@
     NSLog(@"fail with error");
 }
 
+
 -(void)updateData{
     if (self.networkCallInProgress == YES) {
         return;
@@ -74,8 +73,9 @@
     
     self.networkCallInProgress = YES;
     
-    if([self.mode isEqualToString:@"Trending"] && firstLoadTrending){
-            
+    if([self.mode isEqualToString:@"Trending"]){
+        
+        NSLog(@"trendupdate");
         NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         connectionTrending = [NSURLConnection connectionWithRequest:request delegate:self];
@@ -83,10 +83,9 @@
         if(connectionTrending){
             webDataTrending = [[NSMutableData alloc] init]; 
         }
-        firstLoadTrending = NO;
     }
-    else if(firstLoadRecent){
-        
+    else{
+        NSLog(@"recentupdate");
         NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40formula1"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         connectionRecent = [NSURLConnection connectionWithRequest:request delegate:self];
@@ -94,12 +93,12 @@
         if(connectionRecent){
             webDataRecent = [[NSMutableData alloc] init];
         }
-        firstLoadRecent = NO;
     }
     
 }
 
 -(void)loadMoreData{
+    
     if (self.networkCallInProgress == YES) {
         return;
     }
@@ -138,9 +137,9 @@
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
-    
+    //NSLog(@"connect");
     if([self.mode isEqualToString:@"Trending"]){
-
+        NSLog(@"Trendconnect");
         NSDictionary *trendingDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataTrending options:0 error:nil];
         NSArray *trendingResults = [trendingDataDictionary objectForKey:@"results"];
         
@@ -155,7 +154,7 @@
         }
     }
     else{
-        
+        NSLog(@"recentconnecT");
         NSDictionary *recentDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataRecent options:0 error:nil];
         NSArray *recentResults = [recentDataDictionary objectForKey:@"results"];
         
@@ -170,6 +169,7 @@
         }
 
     }
+    
     self.networkCallInProgress = NO;
     
 }

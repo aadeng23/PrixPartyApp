@@ -26,8 +26,10 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    NSLog(@"awake");
     self.dataController = [[ConnectDataController alloc] init];
     [self.dataController updateData];
+    NSLog(@"awakeend");
 }
 
 - (void)viewDidLoad
@@ -40,15 +42,18 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
-    /*self.dataController.mode = @"Recent";
+    NSLog(@"viewload");
+    self.dataController.mode = @"Recent";
     [self.dataController updateData];
     [self.connectRecentTableView reloadData];
-    self.dataController.mode = @"Trending";
-    [self.dataController updateData];
-    [self.connectTrendingTableView reloadData];*/
+    //self.dataController.mode = @"Trending";
+    //[self.dataController updateData];
+    //[self.connectTrendingTableView reloadData];
     
+    self.connectRecentTableView.hidden = NO;
     self.connectTrendingTableView.hidden = NO;
-    self.connectRecentTableView.hidden = YES;
+    NSLog(@"viewend");
+    
     
     //setup after view
     //[[self connectRecentTableView]setDelegate:self];
@@ -68,7 +73,7 @@
             //list view
         case 0:
             self.dataController.mode = @"Trending";
-            [self.dataController updateData];
+            //[self.dataController updateData];
             [self.connectTrendingTableView reloadData];
             self.connectTrendingTableView.hidden = NO;
             self.connectRecentTableView.hidden = YES;
@@ -76,12 +81,11 @@
             break;
         case 1:
             self.dataController.mode = @"Recent";
-            [self.dataController updateData];
-            NSLog(@"ERER");
+            //[self.dataController updateData];
+            //NSLog(@"ERER");
             [self.connectRecentTableView reloadData];
             self.connectRecentTableView.hidden= NO;
             self.connectTrendingTableView.hidden = YES;
-            
             
             break;
         default:
@@ -151,23 +155,18 @@
         userPic = tweet.userPic;
 
     }
+    
     cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16.0];
     cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12.0];
     
     cell.textLabel.text = profname;
     cell.detailTextLabel.text = tweetText;
+    cell.detailTextLabel.numberOfLines = 0;
+    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.imageView.image = userPic;
+    
     return cell;
 }
-
-/*- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cellforRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    if(indexPath.row == 15) //self.array is the array of items you are displaying
-    {
-        NSLog(@"ASDFASF");
-    }
-}*/
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
     
@@ -186,42 +185,41 @@
     
     float reload_distance = 10;
     if(y > h + reload_distance) {
-        //NSLog(@"load more rows");
+        
         if([self.dataController.mode isEqualToString:@"Trending"]){
             [self.dataController loadMoreData];
-             //NSLog(@"counttrend %u", [self.dataController.tweetsTrendingList count]);
             [self.connectTrendingTableView reloadData];
             
         }
         else{
             [self.dataController loadMoreData];
-            //NSLog(@"counttrend %u", [self.dataController.tweetsRecentList count]);
             [self.connectRecentTableView reloadData];
         }
         
     }
 }
 
-/*- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"TweetCell";
-     UITableViewCell *cell;
+    
+    UITableViewCell *cell;
+    
     if([self.dataController.mode isEqualToString:@"Trending"]){
-        cell = [self.connectTrendingTableView cellForRowAtIndexPath:indexPath];
+        cell = [self tableView:self.connectTrendingTableView cellForRowAtIndexPath:indexPath];
     }
     else{
-        cell = [self.connectRecentTableView cellForRowAtIndexPath:indexPath];
+        cell = [self tableView:self.connectRecentTableView cellForRowAtIndexPath:indexPath];
     }
    
-    NSString *cellText = cell.textLabel.text;
-    NSLog(@"text %@", cellText);
+    NSString *cellText = cell.detailTextLabel.text;
+    
     UIFont *cellFont = [UIFont fontWithName:@"Avenir-Book" size:12.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
      
     return labelSize.height + 40;
 
-}*/
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {

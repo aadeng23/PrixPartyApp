@@ -50,7 +50,7 @@
         //Name
         self.eventNameLabel.textColor = [UIColor lightGrayColor];
         self.eventNameLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        self.eventNameDetail.lineBreakMode = UILineBreakModeWordWrap;
+        self.eventNameDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventNameDetail.numberOfLines = 0;
         self.eventNameDetail.textColor = [UIColor whiteColor];
         self.eventNameDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
@@ -59,7 +59,7 @@
         //Location
         self.eventLocationLabel.textColor = [UIColor lightGrayColor];
         self.eventLocationLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        self.eventLocationDetail.lineBreakMode = UILineBreakModeWordWrap;
+        self.eventLocationDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventLocationDetail.numberOfLines = 0;
         self.eventLocationDetail.textColor = [UIColor whiteColor];
         self.eventLocationDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
@@ -68,7 +68,7 @@
         //Date
         self.eventDateLabel.textColor = [UIColor lightGrayColor];
         self.eventDateLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        self.eventDateDetail.lineBreakMode = UILineBreakModeWordWrap;
+        self.eventDateDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventDateDetail.numberOfLines = 0;
         self.eventDateDetail.textColor = [UIColor whiteColor];
         self.eventDateDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
@@ -78,7 +78,7 @@
         //Admission
         self.eventAdmissionLabel.textColor = [UIColor lightGrayColor];
         self.eventAdmissionLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        self.eventAdmissionDetail.lineBreakMode = UILineBreakModeWordWrap;
+        self.eventAdmissionDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventAdmissionDetail.numberOfLines = 0;
         self.eventAdmissionDetail.textColor = [UIColor whiteColor];
         self.eventAdmissionDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
@@ -88,7 +88,7 @@
         //Description
         self.eventDescriptionLabel.textColor = [UIColor lightGrayColor];
         self.eventDescriptionLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        self.eventDescriptionDetail.lineBreakMode = UILineBreakModeWordWrap;
+        self.eventDescriptionDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventDescriptionDetail.numberOfLines = 0;
         self.eventDescriptionDetail.textColor = [UIColor whiteColor];
         self.eventDescriptionDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
@@ -126,26 +126,15 @@
 
 //TABLE STUFF
 
-/*- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"NameCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    return cell;
-}*/
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    //NSString *cellText = cell.textLabel.text;
-    //NSLog(@"text %@", cellText);
-    /*UIFont *cellFont = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+    UITableViewCell *cell = [tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+    NSString *cellText = cell.detailTextLabel.text;
+    UIFont *cellFont = [UIFont fontWithName:@"Avenir-Book" size:14.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:UILineBreakModeWordWrap];
+    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     
-    return labelSize.height + 20;*/
-
-    return 80;
+    return labelSize.height + 40;
 }
 
 

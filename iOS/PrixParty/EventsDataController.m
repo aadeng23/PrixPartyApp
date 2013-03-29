@@ -44,7 +44,7 @@
 
 - (void)addEventTest{
     
-    NSString *title = @"Some Cool Event";
+    NSString *title = @"F1 Party";
     
     NSString *startDateString = @"1999-07-13 10:45:32";
     NSString *endDateString = @"1999-08-29 11:45:32";
@@ -53,7 +53,7 @@
     NSDate *startDate= [dateFormatter dateFromString:startDateString];
     NSDate *endDate = [dateFormatter dateFromString:endDateString];
     
-    NSString *description = @"this is a really cool event that everyone should come to. It's super awesome and fun.";
+    NSString *description = @"this is a really cool event that everyone should come to. It's super awesome and fun. xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxasdfasdfasdfasdfasdfa";
     double cost = 10.00;
     
     CLLocation *testLocation = [[CLLocation alloc] initWithLatitude:-30 longitude:90];
