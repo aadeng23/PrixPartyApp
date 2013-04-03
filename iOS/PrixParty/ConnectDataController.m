@@ -14,20 +14,21 @@
     NSMutableData *webDataRecent;
     NSURLConnection *connectionTrending;
     NSURLConnection *connectionRecent;
-    BOOL firstLoad;
+    BOOL dataReceived;
 }
 @end
 
 @implementation ConnectDataController
 
 
-- (id)init {
+/*- (id)init {
     if (self = [super init]) {
         self.tweetsRecentList = [[NSMutableArray alloc] init];
         self.tweetsTrendingList = [[NSMutableArray alloc] init];
         self.mode = @"Trending";
         self.networkCallInProgress = NO;
-        firstLoad = YES;
+        self.firstLoad = YES;
+        self.dataReceived = YES;
         
         return self;
     }
@@ -52,10 +53,10 @@
 
 -(void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
     
-    if([self.mode isEqualToString:@"Trending"]){
+    if([self.mode isEqualToString:@"Trending"] || self.firstLoad){
         [webDataTrending appendData:data];
     }
-    else{
+    if([self.mode isEqualToString:@"Recent"] || self.firstLoad){
         [webDataRecent appendData:data];
     }
 }
@@ -72,8 +73,9 @@
     }
     
     self.networkCallInProgress = YES;
+    self.dataReceived = NO;
     
-    if([self.mode isEqualToString:@"Trending"]){
+    if([self.mode isEqualToString:@"Trending"] || self.firstLoad){
         
         NSLog(@"trendupdate");
         NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
@@ -84,7 +86,7 @@
             webDataTrending = [[NSMutableData alloc] init]; 
         }
     }
-    else{
+    else{//if([self.mode isEqualToString:@"Recent"] || self.firstLoad){
         NSLog(@"recentupdate");
         NSURL *url = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40formula1"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -105,40 +107,51 @@
     
     self.networkCallInProgress = YES;
     
+    
     if([self.mode isEqualToString:@"Trending"]){
         
-        NSDictionary *trendingDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataTrending options:0 error:nil];
-        NSString *nextURL = [trendingDataDictionary objectForKey:@"next_page"];
-        NSString *curURL = @"http://search.twitter.com/search.json";
-        NSString *newURL = [curURL stringByAppendingString:nextURL];
-        
-        NSURL *url = [NSURL URLWithString:newURL];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        connectionTrending = [NSURLConnection connectionWithRequest:request delegate:self];
-        
-        if(connectionTrending){
-            webDataTrending = [[NSMutableData alloc] init];
+        if(!self.tweetsTrendingList){
+            [self updateData];
+        }
+        else{
+            NSDictionary *trendingDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataTrending options:0 error:nil];
+            NSString *nextURL = [trendingDataDictionary objectForKey:@"next_page"];
+            NSString *curURL = @"http://search.twitter.com/search.json";
+            NSString *newURL = [curURL stringByAppendingString:nextURL];
+            
+            NSURL *url = [NSURL URLWithString:newURL];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            connectionTrending = [NSURLConnection connectionWithRequest:request delegate:self];
+            
+            if(connectionTrending){
+                webDataTrending = [[NSMutableData alloc] init];
+            }
         }
     }
     else{
-        NSDictionary *recentDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataRecent options:0 error:nil];
-        NSString *nextURL = [recentDataDictionary objectForKey:@"next_page"];
-        NSString *curURL = @"http://search.twitter.com/search.json";
-        NSString *newURL = [curURL stringByAppendingString:nextURL];
-        
-        NSURL *url = [NSURL URLWithString:newURL];
-        NSURLRequest *request = [NSURLRequest requestWithURL:url];
-        connectionRecent = [NSURLConnection connectionWithRequest:request delegate:self];
-        
-        if(connectionRecent){
-            webDataRecent = [[NSMutableData alloc] init];
+        if(!self.tweetsRecentList){
+            [self updateData];
+        }
+        else{
+            NSDictionary *recentDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataRecent options:0 error:nil];
+            NSString *nextURL = [recentDataDictionary objectForKey:@"next_page"];
+            NSString *curURL = @"http://search.twitter.com/search.json";
+            NSString *newURL = [curURL stringByAppendingString:nextURL];
+            
+            NSURL *url = [NSURL URLWithString:newURL];
+            NSURLRequest *request = [NSURLRequest requestWithURL:url];
+            connectionRecent = [NSURLConnection connectionWithRequest:request delegate:self];
+            
+            if(connectionRecent){
+                webDataRecent = [[NSMutableData alloc] init];
+            }
         }
     }
 }
 
 -(void)connectionDidFinishLoading:(NSURLConnection *)connection{
     //NSLog(@"connect");
-    if([self.mode isEqualToString:@"Trending"]){
+    if([self.mode isEqualToString:@"Trending"] || self.firstLoad){
         NSLog(@"Trendconnect");
         NSDictionary *trendingDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataTrending options:0 error:nil];
         NSArray *trendingResults = [trendingDataDictionary objectForKey:@"results"];
@@ -153,7 +166,7 @@
             [self addTweet:self.tweetsTrendingList tweet:newTweet];
         }
     }
-    else{
+    if([self.mode isEqualToString:@"Recent"] || self.firstLoad){
         NSLog(@"recentconnecT");
         NSDictionary *recentDataDictionary = [NSJSONSerialization JSONObjectWithData:webDataRecent options:0 error:nil];
         NSArray *recentResults = [recentDataDictionary objectForKey:@"results"];
@@ -169,9 +182,9 @@
         }
 
     }
-    
+    self.dataReceived = YES;
     self.networkCallInProgress = NO;
     
-}
+}*/
 
 @end

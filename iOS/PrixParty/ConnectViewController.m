@@ -8,56 +8,45 @@
 
 #import "ConnectViewController.h"
 
-@interface ConnectViewController ()
+@interface ConnectViewController (){
+    
+    NSMutableData *webDataTrending;
+    NSMutableData *webDataRecent;
+    NSMutableArray *tweetsRecentList;
+    NSMutableArray *tweetsTrendingList;
+    NSString *nextPageTrending;
+    NSString *nextPageRecent;
+    
+}
 
 @end
 
 @implementation ConnectViewController
 
-/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}*/
-
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    NSLog(@"awake");
-    self.dataController = [[ConnectDataController alloc] init];
-    [self.dataController updateData];
-    NSLog(@"awakeend");
+    
+    tweetsRecentList = [[NSMutableArray alloc] init];
+    tweetsTrendingList = [[NSMutableArray alloc] init];
+    webDataRecent = [[NSMutableData alloc] init];
+    webDataTrending = [[NSMutableData alloc] init];
+    
+    [self loadFirstData];
 }
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
     
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+
     
-    NSLog(@"viewload");
-    self.dataController.mode = @"Recent";
-    [self.dataController updateData];
-    [self.connectRecentTableView reloadData];
-    //self.dataController.mode = @"Trending";
-    //[self.dataController updateData];
-    //[self.connectTrendingTableView reloadData];
-    
-    self.connectRecentTableView.hidden = NO;
+    [super viewDidLoad];
+    self.connectRecentTableView.hidden = YES;
     self.connectTrendingTableView.hidden = NO;
-    NSLog(@"viewend");
-    
-    
-    //setup after view
-    //[[self connectRecentTableView]setDelegate:self];
-    //[[self connectTrendingTableView]setDelegate:self];
     
 }
 
@@ -72,18 +61,11 @@
     switch (sender.selectedSegmentIndex) {
             //list view
         case 0:
-            self.dataController.mode = @"Trending";
-            //[self.dataController updateData];
-            [self.connectTrendingTableView reloadData];
             self.connectTrendingTableView.hidden = NO;
             self.connectRecentTableView.hidden = YES;
             
             break;
         case 1:
-            self.dataController.mode = @"Recent";
-            //[self.dataController updateData];
-            //NSLog(@"ERER");
-            [self.connectRecentTableView reloadData];
             self.connectRecentTableView.hidden= NO;
             self.connectTrendingTableView.hidden = YES;
             
@@ -91,6 +73,58 @@
         default:
             break;
     }
+}
+
+- (void)loadFirstData{
+    
+    NSURL *urlTrending = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
+    NSURL *urlRecent = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40formula1"];
+    
+    NSURLRequest *requestTrending = [NSURLRequest requestWithURL:urlTrending];
+    NSURLRequest *requestRecent = [NSURLRequest requestWithURL:urlRecent];
+    
+    AFJSONRequestOperation *operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        id results = [JSON valueForKey:@"results"];
+        [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+            
+            Tweet *newTweet = [[Tweet alloc] init];
+            newTweet.profName = [obj valueForKey:@"from_user_name"];
+            newTweet.tweetText = [obj valueForKey:@"text"];
+            NSString *picURL = [obj valueForKey:@"profile_image_url"];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+            newTweet.userPic = image;
+            
+            [tweetsTrendingList addObject:newTweet];
+        }];
+        
+        nextPageTrending = [JSON valueForKey:@"next_page"];
+        [self.connectTrendingTableView reloadData];
+        
+    } failure:nil];
+    
+    AFJSONRequestOperation *operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        id results = [JSON valueForKey:@"results"];
+        [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+            
+            Tweet *newTweet = [[Tweet alloc] init];
+            newTweet.profName = [obj valueForKey:@"from_user_name"];
+            newTweet.tweetText = [obj valueForKey:@"text"];
+            NSString *picURL = [obj valueForKey:@"profile_image_url"];
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+            newTweet.userPic = image;
+          
+            [tweetsRecentList addObject:newTweet];
+        }];
+        
+        nextPageRecent = [JSON valueForKey:@"next_page"];
+        [self.connectRecentTableView reloadData];
+    
+    }failure:nil];
+    
+    [operationTrending start];
+    [operationRecent start];
 }
 
 
@@ -105,13 +139,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
     
-    if([self.dataController.mode isEqualToString:@"Trending"]){
-        NSLog(@"counttrendsize %u", [self.dataController.tweetsTrendingList count]);
-        return [self.dataController.tweetsTrendingList count];
+    if(tableView == self.connectTrendingTableView){
+        return [tweetsTrendingList count];
     }
     else{
-        NSLog(@"countrecentsize %u", [self.dataController.tweetsRecentList count]);
-        return [self.dataController.tweetsRecentList count];
+        return [tweetsRecentList count];
     }
     
    
@@ -125,16 +157,19 @@
     NSString *tweetText;
     UIImage *userPic;
     
-    if([self.dataController.mode isEqualToString:@"Trending"]){
+    if(tableView == self.connectTrendingTableView){
         
-        cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        if(cell == nil){
+            cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        }
         
-        Tweet *tweet = [self.dataController objectInListAtIndex:self.dataController.tweetsTrendingList theIndex:indexPath.row];
         
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
+        Tweet *tweet = [tweetsTrendingList objectAtIndex:indexPath.row];
+
         profname = tweet.profName;
         tweetText = tweet.tweetText;
         userPic = tweet.userPic;
@@ -142,13 +177,15 @@
     }
     else{
         
-        cell = [self.connectRecentTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-       
+        if(cell == nil){
+            cell = [self.connectRecentTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        }
+        
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
-        Tweet *tweet = [self.dataController objectInListAtIndex:self.dataController.tweetsRecentList theIndex:indexPath.row];
+        Tweet *tweet = [tweetsRecentList objectAtIndex:indexPath.row];
         
         profname = tweet.profName;
         tweetText = tweet.tweetText;
@@ -184,19 +221,71 @@
     // NSLog(@"pos: %f of %f", y, h);
     
     float reload_distance = 10;
-    if(y > h + reload_distance) {
+    if(y > h + reload_distance) { 
+        [self loadMoreData];
+    }
+}
+
+- (void)loadMoreData{
+    
+    AFJSONRequestOperation *operationTrending;
+    AFJSONRequestOperation *operationRecent;
+    
+    if(self.connectTrendingTableView.hidden == NO){
         
-        if([self.dataController.mode isEqualToString:@"Trending"]){
-            [self.dataController loadMoreData];
+        NSString *newURL = [NSString stringWithFormat:@"http://search.twitter.com/search.json%@",nextPageTrending];
+        NSURL *url = [NSURL URLWithString:newURL];
+        NSURLRequest *requestTrending = [NSURLRequest requestWithURL:url];
+        
+        operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+            id results = [JSON valueForKey:@"results"];
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                
+                Tweet *newTweet = [[Tweet alloc] init];
+                newTweet.profName = [obj valueForKey:@"from_user_name"];
+                newTweet.tweetText = [obj valueForKey:@"text"];
+                NSString *picURL = [obj valueForKey:@"profile_image_url"];
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+                newTweet.userPic = image;
+                
+                [tweetsTrendingList addObject:newTweet];
+            }];
+            
+            nextPageTrending = [JSON valueForKey:@"next_page"];
             [self.connectTrendingTableView reloadData];
             
-        }
-        else{
-            [self.dataController loadMoreData];
-            [self.connectRecentTableView reloadData];
-        }
-        
+        } failure:nil];
     }
+    else{
+        
+        NSString *newURL = [NSString stringWithFormat:@"http://search.twitter.com/search.json%@",nextPageRecent];
+        NSURL *url = [NSURL URLWithString:newURL];
+        NSURLRequest *requestRecent = [NSURLRequest requestWithURL:url];
+        
+        operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            
+            id results = [JSON valueForKey:@"results"];
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                
+                Tweet *newTweet = [[Tweet alloc] init];
+                newTweet.profName = [obj valueForKey:@"from_user_name"];
+                newTweet.tweetText = [obj valueForKey:@"text"];
+                NSString *picURL = [obj valueForKey:@"profile_image_url"];
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+                newTweet.userPic = image;
+                
+                [tweetsRecentList addObject:newTweet];
+            }];
+            
+            nextPageRecent = [JSON valueForKey:@"next_page"];
+            [self.connectRecentTableView reloadData];
+            
+        }failure:nil];
+    }
+        
+    [operationTrending start];
+    [operationRecent start];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -204,7 +293,7 @@
     
     UITableViewCell *cell;
     
-    if([self.dataController.mode isEqualToString:@"Trending"]){
+    if(tableView == self.connectTrendingTableView){
         cell = [self tableView:self.connectTrendingTableView cellForRowAtIndexPath:indexPath];
     }
     else{

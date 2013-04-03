@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSMutableArray *tweetsRecentList;
 @property (nonatomic,strong) NSMutableArray *tweetsTrendingList;
 @property (nonatomic) BOOL *networkCallInProgress;
+@property (nonatomic) BOOL *firstLoad;
+@property (nonatomic) BOOL *dataReceived;
 
 - (Tweet *)objectInListAtIndex:(NSMutableArray *)list theIndex:(NSUInteger)theIndex;
 - (void)addTweet:(NSMutableArray *)list tweet:(Tweet *)tweet;

@@ -10,6 +10,7 @@
 
 @implementation Tweet
 
+
 -(id)initWithParams:(NSString *)profName userName:(NSString *)userName tweetText:(NSString *)tweetText userPic:(UIImage *)userPic date:(NSString *)date{
     
     
