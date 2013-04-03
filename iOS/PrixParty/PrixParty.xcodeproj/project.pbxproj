@@ -36,7 +36,6 @@
 		0B8E5C39170B97980087B3CA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 0B8E5C38170B97980087B3CA /* Podfile */; };
 		0B96C8DA16ED4EF900E07968 /* EventsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B96C8D916ED4EF900E07968 /* EventsDetailViewController.m */; };
 		0BA39BA316FA088C00FB07C3 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA39BA216FA088C00FB07C3 /* Tweet.m */; };
-		0BA39BA616FA0FD900FB07C3 /* ConnectDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA39BA516FA0FD900FB07C3 /* ConnectDataController.m */; };
 		0BA39BA816FA42C400FB07C3 /* house.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BA39BA716FA42C400FB07C3 /* house.png */; };
 		0BA39BAB16FA453400FB07C3 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA39BAA16FA453400FB07C3 /* HomeViewController.m */; };
 		0BA8B3B416E6ADB9004F8E12 /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BA8B3B316E6ADB9004F8E12 /* ConnectViewController.m */; };
@@ -85,8 +84,6 @@
 		0B96C8D916ED4EF900E07968 /* EventsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsDetailViewController.m; sourceTree = "<group>"; };
 		0BA39BA116FA088C00FB07C3 /* Tweet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tweet.h; sourceTree = "<group>"; };
 		0BA39BA216FA088C00FB07C3 /* Tweet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tweet.m; sourceTree = "<group>"; };
-		0BA39BA416FA0FD900FB07C3 /* ConnectDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnectDataController.h; sourceTree = "<group>"; };
-		0BA39BA516FA0FD900FB07C3 /* ConnectDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnectDataController.m; sourceTree = "<group>"; };
 		0BA39BA716FA42C400FB07C3 /* house.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = house.png; path = ../house.png; sourceTree = "<group>"; };
 		0BA39BA916FA453400FB07C3 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		0BA39BAA16FA453400FB07C3 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
@@ -217,8 +214,6 @@
 				0B8E5C36170B89AC0087B3CA /* ConnectTweetsCell.m */,
 				0BA39BA116FA088C00FB07C3 /* Tweet.h */,
 				0BA39BA216FA088C00FB07C3 /* Tweet.m */,
-				0BA39BA416FA0FD900FB07C3 /* ConnectDataController.h */,
-				0BA39BA516FA0FD900FB07C3 /* ConnectDataController.m */,
 				0BA8B3B216E6ADB9004F8E12 /* ConnectViewController.h */,
 				0BA8B3B316E6ADB9004F8E12 /* ConnectViewController.m */,
 			);
@@ -352,7 +347,6 @@
 				0BA8B3B416E6ADB9004F8E12 /* ConnectViewController.m in Sources */,
 				0B96C8DA16ED4EF900E07968 /* EventsDetailViewController.m in Sources */,
 				0BA39BA316FA088C00FB07C3 /* Tweet.m in Sources */,
-				0BA39BA616FA0FD900FB07C3 /* ConnectDataController.m in Sources */,
 				0BA39BAB16FA453400FB07C3 /* HomeViewController.m in Sources */,
 				0B8E5C37170B89AC0087B3CA /* ConnectTweetsCell.m in Sources */,
 			);

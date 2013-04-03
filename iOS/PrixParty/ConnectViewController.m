@@ -8,14 +8,24 @@
 
 #import "ConnectViewController.h"
 
+
 @interface ConnectViewController (){
     
     NSMutableData *webDataTrending;
     NSMutableData *webDataRecent;
     NSMutableArray *tweetsRecentList;
     NSMutableArray *tweetsTrendingList;
+    
+    NSString *trendingURL;
+    NSString *recentURL;
     NSString *nextPageTrending;
     NSString *nextPageRecent;
+    
+    UIRefreshControl *refreshControlTrending;
+    UIRefreshControl *refreshControlRecent;
+    UITableViewController *trendingController;
+    UITableViewController *recentController;
+    BOOL loadInProgress;
     
 }
 
@@ -31,20 +41,37 @@
     tweetsTrendingList = [[NSMutableArray alloc] init];
     webDataRecent = [[NSMutableData alloc] init];
     webDataTrending = [[NSMutableData alloc] init];
+    trendingController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
+    recentController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
     
+    trendingURL = @"http://search.twitter.com/search.json?q=%40twitterapi";
+    recentURL = @"http://search.twitter.com/search.json?q=%40formula1";
+    
+    [self addChildViewController:trendingController];
+    [self addChildViewController:recentController];
+    
+    loadInProgress = NO;
     [self loadFirstData];
 }
 
 - (void)viewDidLoad
 {
+    [super viewDidLoad];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
     
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
-
     
-    [super viewDidLoad];
+    trendingController.tableView = self.connectTrendingTableView;
+    recentController.tableView = self.connectRecentTableView;
+    
+    trendingController.refreshControl = [[UIRefreshControl alloc]init];
+    recentController.refreshControl = [[UIRefreshControl alloc] init];
+    
+    [trendingController.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [recentController.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+
     self.connectRecentTableView.hidden = YES;
     self.connectTrendingTableView.hidden = NO;
     
@@ -75,10 +102,81 @@
     }
 }
 
+- (void)refresh:(id)sender
+{
+    
+    AFJSONRequestOperation *operationTrending;
+    AFJSONRequestOperation *operationRecent;
+    
+    if(self.connectTrendingTableView.hidden == NO){
+        
+        NSURL *urlTrending = [NSURL URLWithString:trendingURL];
+        NSURLRequest *requestTrending = [NSURLRequest requestWithURL:urlTrending];
+        
+        operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [tweetsTrendingList removeAllObjects];
+            id results = [JSON valueForKey:@"results"];
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                
+                Tweet *newTweet = [[Tweet alloc] init];
+                newTweet.profName = [obj valueForKey:@"from_user_name"];
+                newTweet.tweetText = [obj valueForKey:@"text"];
+                NSString *picURL = [obj valueForKey:@"profile_image_url"];
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+                newTweet.userPic = image;
+                
+                [tweetsTrendingList addObject:newTweet];
+            }];
+            
+            nextPageTrending = [JSON valueForKey:@"next_page"];
+            
+            [self.connectTrendingTableView reloadData];
+            [(UIRefreshControl *)sender endRefreshing];
+            loadInProgress = NO;
+            
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [(UIRefreshControl *)sender endRefreshing];
+        }];
+    }
+    else{
+        NSLog(@"RECENT");
+        NSURL *urlRecent = [NSURL URLWithString:recentURL];
+        NSURLRequest *requestRecent = [NSURLRequest requestWithURL:urlRecent];
+        
+        operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [tweetsRecentList removeAllObjects];
+            id results = [JSON valueForKey:@"results"];
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                
+                Tweet *newTweet = [[Tweet alloc] init];
+                newTweet.profName = [obj valueForKey:@"from_user_name"];
+                newTweet.tweetText = [obj valueForKey:@"text"];
+                NSString *picURL = [obj valueForKey:@"profile_image_url"];
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+                newTweet.userPic = image;
+                
+                [tweetsRecentList addObject:newTweet];
+            }];
+            
+            nextPageRecent = [JSON valueForKey:@"next_page"];
+            
+            [self.connectRecentTableView reloadData];
+            [(UIRefreshControl *)sender endRefreshing];
+            loadInProgress = NO;
+            
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [(UIRefreshControl *)sender endRefreshing];
+        }];
+    }
+    
+    [operationTrending start];
+    [operationRecent start];
+}
+
 - (void)loadFirstData{
     
-    NSURL *urlTrending = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40twitterapi"];
-    NSURL *urlRecent = [NSURL URLWithString:@"http://search.twitter.com/search.json?q=%40formula1"];
+    NSURL *urlTrending = [NSURL URLWithString:trendingURL];
+    NSURL *urlRecent = [NSURL URLWithString:recentURL];
     
     NSURLRequest *requestTrending = [NSURLRequest requestWithURL:urlTrending];
     NSURLRequest *requestRecent = [NSURLRequest requestWithURL:urlRecent];
@@ -140,6 +238,7 @@
     // Return the number of rows in the section.
     
     if(tableView == self.connectTrendingTableView){
+        NSLog(@"SIZE %u",[tweetsTrendingList count]);
         return [tweetsTrendingList count];
     }
     else{
@@ -221,7 +320,7 @@
     // NSLog(@"pos: %f of %f", y, h);
     
     float reload_distance = 10;
-    if(y > h + reload_distance) { 
+    if((y > h + reload_distance) && !loadInProgress) {
         [self loadMoreData];
     }
 }
@@ -254,6 +353,7 @@
             
             nextPageTrending = [JSON valueForKey:@"next_page"];
             [self.connectTrendingTableView reloadData];
+            loadInProgress = NO;
             
         } failure:nil];
     }
@@ -280,6 +380,7 @@
             
             nextPageRecent = [JSON valueForKey:@"next_page"];
             [self.connectRecentTableView reloadData];
+            loadInProgress = NO;
             
         }failure:nil];
     }
