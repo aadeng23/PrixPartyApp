@@ -284,7 +284,7 @@
             nextPageRecent = [JSON valueForKey:@"next_page"];
             [self.connectRecentTableView reloadData];
             loadInProgress = NO;
-            [self.trendingLoadIndicator stopAnimating];
+            [self.recentLoadIndicator stopAnimating];
             
         }failure:nil];
     }

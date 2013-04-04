@@ -102,13 +102,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    UIImage * targetImage = [UIImage imageNamed:@"background.png"];
+    /*UIImage * targetImage = [UIImage imageNamed:@"background.png"];
     UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
     [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
     UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIGraphicsEndImageContext();*/
 
-    self.view.backgroundColor = [UIColor colorWithPatternImage:resultImage];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"squares.png"]];
     
     [self configureView];
 }

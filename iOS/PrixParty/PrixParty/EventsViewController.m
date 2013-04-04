@@ -43,13 +43,13 @@
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
     self.eventsListTableView.backgroundColor = [UIColor clearColor];
     
-    UIImage * targetImage = [UIImage imageNamed:@"background.png"];
+    /*UIImage * targetImage = [UIImage imageNamed:@"triangles.png"];
     UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
     [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
     UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIGraphicsEndImageContext();*/
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:resultImage];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"squares.png"]];
     
     self.eventsListTableView.hidden = NO;
     self.eventsMapView.hidden = YES;
