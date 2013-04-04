@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *connectTrendingTableView;
 @property (weak, nonatomic) IBOutlet UITableView *connectRecentTableView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *trendingLoadIndicator;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *recentLoadIndicator;
 
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 

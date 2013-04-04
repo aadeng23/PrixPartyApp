@@ -139,7 +139,6 @@
         }];
     }
     else{
-        NSLog(@"RECENT");
         NSURL *urlRecent = [NSURL URLWithString:recentURL];
         NSURLRequest *requestRecent = [NSURLRequest requestWithURL:urlRecent];
         
@@ -225,6 +224,97 @@
     [operationRecent start];
 }
 
+- (void)loadMoreData{
+    
+    
+    AFJSONRequestOperation *operationTrending;
+    AFJSONRequestOperation *operationRecent;
+    
+    if(self.connectTrendingTableView.hidden == NO){
+        
+        [self.trendingLoadIndicator startAnimating];
+        NSString *newURL = [NSString stringWithFormat:@"http://search.twitter.com/search.json%@",nextPageTrending];
+        NSURL *url = [NSURL URLWithString:newURL];
+        NSURLRequest *requestTrending = [NSURLRequest requestWithURL:url];
+        
+        operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            
+            id results = [JSON valueForKey:@"results"];
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                
+                Tweet *newTweet = [[Tweet alloc] init];
+                newTweet.profName = [obj valueForKey:@"from_user_name"];
+                newTweet.tweetText = [obj valueForKey:@"text"];
+                NSString *picURL = [obj valueForKey:@"profile_image_url"];
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+                newTweet.userPic = image;
+                
+                [tweetsTrendingList addObject:newTweet];
+            }];
+            
+            nextPageTrending = [JSON valueForKey:@"next_page"];
+            [self.connectTrendingTableView reloadData];
+            loadInProgress = NO;
+            [self.trendingLoadIndicator stopAnimating];
+            
+        } failure:nil];
+    }
+    else{
+        
+        [self.recentLoadIndicator startAnimating];
+        NSString *newURL = [NSString stringWithFormat:@"http://search.twitter.com/search.json%@",nextPageRecent];
+        NSURL *url = [NSURL URLWithString:newURL];
+        NSURLRequest *requestRecent = [NSURLRequest requestWithURL:url];
+        
+        operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            
+            id results = [JSON valueForKey:@"results"];
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                
+                Tweet *newTweet = [[Tweet alloc] init];
+                newTweet.profName = [obj valueForKey:@"from_user_name"];
+                newTweet.tweetText = [obj valueForKey:@"text"];
+                NSString *picURL = [obj valueForKey:@"profile_image_url"];
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+                newTweet.userPic = image;
+                
+                [tweetsRecentList addObject:newTweet];
+            }];
+            
+            nextPageRecent = [JSON valueForKey:@"next_page"];
+            [self.connectRecentTableView reloadData];
+            loadInProgress = NO;
+            [self.trendingLoadIndicator stopAnimating];
+            
+        }failure:nil];
+    }
+    
+    [operationTrending start];
+    [operationRecent start];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
+    
+    CGPoint offset = aScrollView.contentOffset;
+    CGRect bounds = aScrollView.bounds;
+    CGSize size = aScrollView.contentSize;
+    UIEdgeInsets inset = aScrollView.contentInset;
+    float y = offset.y + bounds.size.height - inset.bottom;
+    float h = size.height;
+    // NSLog(@"offset: %f", offset.y);
+    // NSLog(@"content.height: %f", size.height);
+    // NSLog(@"bounds.height: %f", bounds.size.height);
+    // NSLog(@"inset.top: %f", inset.top);
+    // NSLog(@"inset.bottom: %f", inset.bottom);
+    // NSLog(@"pos: %f of %f", y, h);
+    
+    float reload_distance = 10;
+    if((y > h + reload_distance) && !loadInProgress) {
+        loadInProgress = YES;
+        [self loadMoreData];
+    }
+}
+
 
 #pragma mark - Table View
 
@@ -304,90 +394,6 @@
     return cell;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
-    
-    CGPoint offset = aScrollView.contentOffset;
-    CGRect bounds = aScrollView.bounds;
-    CGSize size = aScrollView.contentSize;
-    UIEdgeInsets inset = aScrollView.contentInset;
-    float y = offset.y + bounds.size.height - inset.bottom;
-    float h = size.height;
-    // NSLog(@"offset: %f", offset.y);
-    // NSLog(@"content.height: %f", size.height);
-    // NSLog(@"bounds.height: %f", bounds.size.height);
-    // NSLog(@"inset.top: %f", inset.top);
-    // NSLog(@"inset.bottom: %f", inset.bottom);
-    // NSLog(@"pos: %f of %f", y, h);
-    
-    float reload_distance = 10;
-    if((y > h + reload_distance) && !loadInProgress) {
-        [self loadMoreData];
-    }
-}
-
-- (void)loadMoreData{
-    
-    AFJSONRequestOperation *operationTrending;
-    AFJSONRequestOperation *operationRecent;
-    
-    if(self.connectTrendingTableView.hidden == NO){
-        
-        NSString *newURL = [NSString stringWithFormat:@"http://search.twitter.com/search.json%@",nextPageTrending];
-        NSURL *url = [NSURL URLWithString:newURL];
-        NSURLRequest *requestTrending = [NSURLRequest requestWithURL:url];
-        
-        operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
-            id results = [JSON valueForKey:@"results"];
-            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                
-                Tweet *newTweet = [[Tweet alloc] init];
-                newTweet.profName = [obj valueForKey:@"from_user_name"];
-                newTweet.tweetText = [obj valueForKey:@"text"];
-                NSString *picURL = [obj valueForKey:@"profile_image_url"];
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
-                newTweet.userPic = image;
-                
-                [tweetsTrendingList addObject:newTweet];
-            }];
-            
-            nextPageTrending = [JSON valueForKey:@"next_page"];
-            [self.connectTrendingTableView reloadData];
-            loadInProgress = NO;
-            
-        } failure:nil];
-    }
-    else{
-        
-        NSString *newURL = [NSString stringWithFormat:@"http://search.twitter.com/search.json%@",nextPageRecent];
-        NSURL *url = [NSURL URLWithString:newURL];
-        NSURLRequest *requestRecent = [NSURLRequest requestWithURL:url];
-        
-        operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            
-            id results = [JSON valueForKey:@"results"];
-            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                
-                Tweet *newTweet = [[Tweet alloc] init];
-                newTweet.profName = [obj valueForKey:@"from_user_name"];
-                newTweet.tweetText = [obj valueForKey:@"text"];
-                NSString *picURL = [obj valueForKey:@"profile_image_url"];
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
-                newTweet.userPic = image;
-                
-                [tweetsRecentList addObject:newTweet];
-            }];
-            
-            nextPageRecent = [JSON valueForKey:@"next_page"];
-            [self.connectRecentTableView reloadData];
-            loadInProgress = NO;
-            
-        }failure:nil];
-    }
-        
-    [operationTrending start];
-    [operationRecent start];
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -417,5 +423,12 @@
     return NO;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UILabel *footer = [[UILabel alloc] init];
+    footer.text = @"Loading...";
+    
+    return footer;
+    
+}
 
 @end

@@ -53,9 +53,6 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="TgG-5E-8ST" userLabel="connectTrendingTableView">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="463" id="elW-H9-Xn5"/>
-                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" textLabel="oYm-br-S5b" detailTextLabel="hlJ-XU-P2k" style="IBUITableViewCellStyleSubtitle" id="Khz-mr-aQP" userLabel="TweetCell">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
@@ -84,10 +81,11 @@
                                     <outlet property="delegate" destination="rxT-ZE-8wZ" id="CQB-5T-63Q"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="cMh-Rg-Ghy"/>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Dvt-8P-fP1" userLabel="connectRecentTableView">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="463" id="Bz2-SM-E2t"/>
+                                    <constraint firstAttribute="height" constant="457" id="N5t-68-AZI"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="TweetCell" textLabel="pnh-ot-aTg" detailTextLabel="YhC-ux-ClX" style="IBUITableViewCellStyleSubtitle" id="lEX-ev-acy" userLabel="TweetCell">
@@ -117,16 +115,22 @@
                                     <outlet property="delegate" destination="rxT-ZE-8wZ" id="8mQ-Bi-7fq"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Mos-G7-jtQ"/>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="Dvt-8P-fP1" firstAttribute="top" secondItem="Qip-Yj-Fer" secondAttribute="top" type="default" id="6P2-Os-66W"/>
-                            <constraint firstItem="Dvt-8P-fP1" firstAttribute="trailing" secondItem="Qip-Yj-Fer" secondAttribute="trailing" type="default" id="Jct-A5-vxw"/>
                             <constraint firstItem="TgG-5E-8ST" firstAttribute="trailing" secondItem="Qip-Yj-Fer" secondAttribute="trailing" type="default" id="Qvb-77-FjQ"/>
-                            <constraint firstItem="TgG-5E-8ST" firstAttribute="top" secondItem="Qip-Yj-Fer" secondAttribute="top" constant="-5" id="ZVy-Bm-Z30"/>
+                            <constraint firstAttribute="bottom" secondItem="Mos-G7-jtQ" secondAttribute="bottom" constant="15" id="fJD-Gm-IEA"/>
+                            <constraint firstItem="Dvt-8P-fP1" firstAttribute="top" secondItem="Qip-Yj-Fer" secondAttribute="top" type="default" id="hLh-7J-hao"/>
+                            <constraint firstItem="Mos-G7-jtQ" firstAttribute="leading" secondItem="Qip-Yj-Fer" secondAttribute="leading" constant="141" id="huD-ay-0tu"/>
                             <constraint firstItem="TgG-5E-8ST" firstAttribute="leading" secondItem="Qip-Yj-Fer" secondAttribute="leading" type="default" id="iiH-D7-7L9"/>
-                            <constraint firstItem="Dvt-8P-fP1" firstAttribute="leading" secondItem="Qip-Yj-Fer" secondAttribute="leading" type="default" id="ulW-Ba-efN"/>
+                            <constraint firstItem="TgG-5E-8ST" firstAttribute="top" secondItem="Qip-Yj-Fer" secondAttribute="top" type="default" id="kx9-JN-CoV"/>
+                            <constraint firstItem="Dvt-8P-fP1" firstAttribute="trailing" secondItem="Qip-Yj-Fer" secondAttribute="trailing" type="default" id="pgz-KB-Zvy"/>
+                            <constraint firstItem="Dvt-8P-fP1" firstAttribute="leading" secondItem="Qip-Yj-Fer" secondAttribute="leading" type="default" id="sLq-Qo-Uuz"/>
+                            <constraint firstItem="Dvt-8P-fP1" firstAttribute="bottom" secondItem="TgG-5E-8ST" secondAttribute="bottom" type="default" id="tQA-33-6FX"/>
+                            <constraint firstItem="Mos-G7-jtQ" firstAttribute="leading" secondItem="cMh-Rg-Ghy" secondAttribute="leading" type="default" id="ts3-2D-MPR"/>
+                            <constraint firstItem="Mos-G7-jtQ" firstAttribute="top" secondItem="cMh-Rg-Ghy" secondAttribute="top" type="default" id="veX-Ji-CXW"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Dw7-kh-e8a">
@@ -146,7 +150,9 @@
                     <connections>
                         <outlet property="connectRecentTableView" destination="Dvt-8P-fP1" id="Kde-sW-g5h"/>
                         <outlet property="connectTrendingTableView" destination="TgG-5E-8ST" id="cT5-wI-RQS"/>
+                        <outlet property="recentLoadIndicator" destination="Mos-G7-jtQ" id="hDS-Ra-Oga"/>
                         <outlet property="segmentedControl" destination="YYn-5e-KNi" id="6b0-K1-9R6"/>
+                        <outlet property="trendingLoadIndicator" destination="cMh-Rg-Ghy" id="uNy-Qt-nLD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6bd-dc-RyB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -459,6 +465,50 @@
         <image name="calendar.png" width="23" height="25"/>
         <image name="house.png" width="22" height="22"/>
     </resources>
+    <classes>
+        <class className="ConnectViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConnectViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="segmentValueChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="connectRecentTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="connectTrendingTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="indicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="recentLoadIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="trendingLoadIndicator" candidateClass="UIActivityIndicatorView"/>
+            </relationships>
+        </class>
+        <class className="EventsDetailViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventsDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="eventAdmissionDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventAdmissionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventDateDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventDateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventDescriptionDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventLocationDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventLocationLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventNameDetail" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="eventNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="EventsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="segmentValueChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="eventsListTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="eventsMapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+            </relationships>
+        </class>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
