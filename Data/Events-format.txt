@@ -1,0 +1,34 @@
+| Column Name       | Datatype | Data Source | Populated From | Modifiable | Used in app                     | Description                                               | Comments                                                       |
+| objectId          | (Parse)  | N/A: Parse  |                | No         | Parse's internal row identifier |                                                           | Can't modify this                                              |
+| ARECategories     | String   | ARE         |                | No         | No                              | ARE iCAL: CATEGORIES                                      | This should not be modified or processed by the parsing script |
+| AREDescription    | String   | ARE         |                | No         | No                              | ARE iCAL: DESCRIPTION                                     |                                                                |
+| AREStartTimestamp | String   | ARE         |                | No         | No                              | ARE iCAL: DTSTART                                         |                                                                |
+| AREEndTimestamp   | String   | ARE         |                | No         | No                              | ARE iCAL: DTEND                                           |                                                                |
+| ARELocationString | String   | ARE         |                | No         | No                              | ARE iCAL: LOCATION                                        |                                                                |
+| ARESummary        | String   | ARE         |                | No         | No                              | ARE iCAL: SUMMARY                                         |                                                                |
+| AREUID            | String   | ARE         |                | No         | No                              | ARE iCAL: UID                                             |                                                                |
+| AREURL            | String   | ARE         |                | No         | No                              | ARE iCAL: URL                                             |                                                                |
+| DataSource        | String   |             |                | No         | Not currently                   | Where the data came from                                  |                                                                |
+| Description       | String   | From ARE    | AREDescription | Yes        | Yes                             | Description for the event                                 |                                                                |
+| EntryPrice        | String   |             |                | Yes        | Eventually                      | The entry price or cover for the event                    | Not sure how we will find this.                                |
+| EventName         | String   | From ARE    | ARESummary     | Yes        | Yes                             | Name of the Event                                         |                                                                |
+| FriendlyLocation  | String   |             |                | Yes        | Eventually                      | Friendly name of the venue                                | We have the option of modifying this name                      |
+| HostName          | String   |             |                | Yes        | Eventually                      | The company, group, etc putting on the event              | Not sure how we will find this.                                |
+| HostURL           | String   |             |                | Yes        | Eventually                      | The URL of the host                                       | Not sure how we will find this.                                |
+| ParseLocation     | GeoPoint |             | Script         | Yes        | Eventually                      | The geolocation of the event, determined by PP            | We will have to write a script to guess this                   |
+| Tagline           | String   |             |                | Yes        | Eventually                      | Subtitle to the EventName                                 | Not sure how we will find this.                                |
+| VenueName         | String   |             |                | Yes        | Eventually                      | Name of the venue                                         | Not sure how we will find this.                                |
+| createdAt         | (Parse)  | N/A: Parse  |                | No         |                                 | Auto-populated field for the creation date of the cell    | Do not touch                                                   |
+| updatedAt         | (Parse)  | N/A: Parse  |                | No         |                                 | Auto-populated field for the last update time of the cell | Do not touch                                                   |
+| ACL               | (Parse)  | N/A: Parse  |                | No         |                                 | Parse-controlled Access Controll List                     | Do not touch                                                   |
+
+Data Sources: 
+ARE: Austin Race Events
+N/A Parse: Parse creates and controls these. We can't change them.
+From (source): Copied from the source, but we put them in this column so that we can fix typos/change it later on
+
+
+Populated from: 
+ARE*: Straght from the Austin Race Events page
+Script: Script we will have to write
+
