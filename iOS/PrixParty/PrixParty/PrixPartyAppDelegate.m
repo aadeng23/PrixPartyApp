@@ -6,14 +6,20 @@
 //  Copyright (c) 2013 Team DUNT. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import "PrixPartyAppDelegate.h"
+
 
 @implementation PrixPartyAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [Parse setApplicationId:@"EkP8anFxnkwtrDEnjqmEje0LKedCTK4CID38HpX2"
+                  clientKey:@"ltFTLEENTGumBQh1XIzDa8EKWxKWxDsJlsAa7AGc"];
     
+    // Track app opens
+    [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
