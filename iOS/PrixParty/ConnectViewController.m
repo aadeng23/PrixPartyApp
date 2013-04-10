@@ -45,7 +45,7 @@
     recentController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
     
     trendingURL = @"http://search.twitter.com/search.json?q=%40twitterapi";
-    recentURL = @"http://search.twitter.com/search.json?q=%40formula1";
+    recentURL = @"http://search.twitter.com/search.json?q=%40kitten";
     
     [self addChildViewController:trendingController];
     [self addChildViewController:recentController];
@@ -102,8 +102,7 @@
     }
 }
 
-- (void)refresh:(id)sender
-{
+- (void)refresh:(id)sender{
     
     AFJSONRequestOperation *operationTrending;
     AFJSONRequestOperation *operationRecent;
@@ -117,15 +116,8 @@
             [tweetsTrendingList removeAllObjects];
             id results = [JSON valueForKey:@"results"];
             [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                
-                Tweet *newTweet = [[Tweet alloc] init];
-                newTweet.profName = [obj valueForKey:@"from_user_name"];
-                newTweet.tweetText = [obj valueForKey:@"text"];
-                NSString *picURL = [obj valueForKey:@"profile_image_url"];
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
-                newTweet.userPic = image;
-                
-                [tweetsTrendingList addObject:newTweet];
+ 
+                [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];
             }];
             
             nextPageTrending = [JSON valueForKey:@"next_page"];
@@ -147,14 +139,7 @@
             id results = [JSON valueForKey:@"results"];
             [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
                 
-                Tweet *newTweet = [[Tweet alloc] init];
-                newTweet.profName = [obj valueForKey:@"from_user_name"];
-                newTweet.tweetText = [obj valueForKey:@"text"];
-                NSString *picURL = [obj valueForKey:@"profile_image_url"];
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
-                newTweet.userPic = image;
-                
-                [tweetsRecentList addObject:newTweet];
+                [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
             }];
             
             nextPageRecent = [JSON valueForKey:@"next_page"];
@@ -174,7 +159,9 @@
 
 - (void)loadFirstData{
     
-    NSURL *urlTrending = [NSURL URLWithString:trendingURL];
+    
+    
+    /*NSURL *urlTrending = [NSURL URLWithString:trendingURL];
     NSURL *urlRecent = [NSURL URLWithString:recentURL];
     
     NSURLRequest *requestTrending = [NSURLRequest requestWithURL:urlTrending];
@@ -184,15 +171,8 @@
         
         id results = [JSON valueForKey:@"results"];
         [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-            
-            Tweet *newTweet = [[Tweet alloc] init];
-            newTweet.profName = [obj valueForKey:@"from_user_name"];
-            newTweet.tweetText = [obj valueForKey:@"text"];
-            NSString *picURL = [obj valueForKey:@"profile_image_url"];
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
-            newTweet.userPic = image;
-            
-            [tweetsTrendingList addObject:newTweet];
+           
+            [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];
         }];
         
         nextPageTrending = [JSON valueForKey:@"next_page"];
@@ -205,14 +185,7 @@
         id results = [JSON valueForKey:@"results"];
         [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
             
-            Tweet *newTweet = [[Tweet alloc] init];
-            newTweet.profName = [obj valueForKey:@"from_user_name"];
-            newTweet.tweetText = [obj valueForKey:@"text"];
-            NSString *picURL = [obj valueForKey:@"profile_image_url"];
-            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
-            newTweet.userPic = image;
-          
-            [tweetsRecentList addObject:newTweet];
+            [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
         }];
         
         nextPageRecent = [JSON valueForKey:@"next_page"];
@@ -221,11 +194,37 @@
     }failure:nil];
     
     [operationTrending start];
-    [operationRecent start];
+    [operationRecent start];*/
+    
+    Tweet *newTweet = [[Tweet alloc] init];
+    newTweet.profName = @"from_user_name";
+    newTweet.tweetText = @"text";
+    newTweet.userName = @"from_user";
+    newTweet.date = @"created_at";
+    
+    [tweetsRecentList addObject:newTweet];
+    
+    newTweet = [[Tweet alloc] init];
+    newTweet.profName = @"from_user_name";
+    newTweet.tweetText = @"textasdfasdfasdfaestustsutsutuasasetaaeR@#$@#$ASFASDFASFASDFASDFAW$@#$@#$@#$@#$SFAsdfasdfsfjoaekoakoeakwpfoasdofkasdokfpaskfpokawoekfapokpoksaodkfpokwepokfaposkdofakpowekfopaksdpofkpaoskofasf";
+    newTweet.userName = @"from_user";
+    newTweet.date = @"created_at";
+    
+    [tweetsRecentList addObject:newTweet];
+    
+    newTweet = [[Tweet alloc] init];
+    newTweet.profName = @"from_user_name";
+    newTweet.tweetText = @"awewerwerwerwrewwrwerwrerwrewrwerwerwerwerewrwerwerwer";
+    newTweet.userName = @"from_user";
+    newTweet.date = @"created_at";
+    
+    [tweetsRecentList addObject:newTweet];
+   
 }
 
 - (void)loadMoreData{
     
+    NSLog(@"loadrmore");
     
     AFJSONRequestOperation *operationTrending;
     AFJSONRequestOperation *operationRecent;
@@ -241,15 +240,7 @@
             
             id results = [JSON valueForKey:@"results"];
             [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                
-                Tweet *newTweet = [[Tweet alloc] init];
-                newTweet.profName = [obj valueForKey:@"from_user_name"];
-                newTweet.tweetText = [obj valueForKey:@"text"];
-                NSString *picURL = [obj valueForKey:@"profile_image_url"];
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
-                newTweet.userPic = image;
-                
-                [tweetsTrendingList addObject:newTweet];
+                [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];
             }];
             
             nextPageTrending = [JSON valueForKey:@"next_page"];
@@ -269,16 +260,9 @@
         operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             
             id results = [JSON valueForKey:@"results"];
-            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){   
                 
-                Tweet *newTweet = [[Tweet alloc] init];
-                newTweet.profName = [obj valueForKey:@"from_user_name"];
-                newTweet.tweetText = [obj valueForKey:@"text"];
-                NSString *picURL = [obj valueForKey:@"profile_image_url"];
-                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
-                newTweet.userPic = image;
-                
-                [tweetsRecentList addObject:newTweet];
+                [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
             }];
             
             nextPageRecent = [JSON valueForKey:@"next_page"];
@@ -289,8 +273,23 @@
         }failure:nil];
     }
     
-    [operationTrending start];
     [operationRecent start];
+    [operationTrending start];
+    
+}
+
+- (Tweet *)retrieveTweetFromDataSource:(id) obj{
+
+    Tweet *newTweet = [[Tweet alloc] init];
+    newTweet.profName = [obj valueForKey:@"from_user_name"];
+    newTweet.tweetText = [obj valueForKey:@"text"];
+    newTweet.userName = [obj valueForKey:@"from_user"];
+    newTweet.date = [obj valueForKey:@"created_at"];
+    NSString *picURL = [obj valueForKey:@"profile_image_url"];
+    UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
+    newTweet.userPic = image;
+
+    return newTweet;  
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
@@ -301,17 +300,11 @@
     UIEdgeInsets inset = aScrollView.contentInset;
     float y = offset.y + bounds.size.height - inset.bottom;
     float h = size.height;
-    // NSLog(@"offset: %f", offset.y);
-    // NSLog(@"content.height: %f", size.height);
-    // NSLog(@"bounds.height: %f", bounds.size.height);
-    // NSLog(@"inset.top: %f", inset.top);
-    // NSLog(@"inset.bottom: %f", inset.bottom);
-    // NSLog(@"pos: %f of %f", y, h);
     
     float reload_distance = 10;
     if((y > h + reload_distance) && !loadInProgress) {
         loadInProgress = YES;
-        [self loadMoreData];
+        //[self loadMoreData];
     }
 }
 
@@ -328,10 +321,11 @@
     // Return the number of rows in the section.
     
     if(tableView == self.connectTrendingTableView){
-        NSLog(@"SIZE %u",[tweetsTrendingList count]);
+        NSLog(@"SIZE trending %u",[tweetsTrendingList count]);
         return [tweetsTrendingList count];
     }
     else{
+        NSLog(@"SIZE recent %u",[tweetsRecentList count]);
         return [tweetsRecentList count];
     }
     
@@ -340,26 +334,30 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   
-    static NSString *CellIdentifier = @"TweetCell";
     UITableViewCell *cell;
     NSString *profname;
     NSString *tweetText;
+    NSString *userName;
+    NSString *date;
     UIImage *userPic;
     
     if(tableView == self.connectTrendingTableView){
         
         if(cell == nil){
-            cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:@"TweetCellTrending"];
         }
         
         
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            NSLog(@"*********************************************");
+            //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
         Tweet *tweet = [tweetsTrendingList objectAtIndex:indexPath.row];
 
         profname = tweet.profName;
+        userName = tweet.userName;
+        date = tweet.date;
         tweetText = tweet.tweetText;
         userPic = tweet.userPic;
         
@@ -367,29 +365,132 @@
     else{
         
         if(cell == nil){
-            cell = [self.connectRecentTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+            
+            cell = [self.connectRecentTableView dequeueReusableCellWithIdentifier:@"TweetCellRecent"];
         }
         
         if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
+            NSLog(@"*********************************************");
+            //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
         Tweet *tweet = [tweetsRecentList objectAtIndex:indexPath.row];
         
         profname = tweet.profName;
+        userName = tweet.userName;
+        date = tweet.date;
         tweetText = tweet.tweetText;
         userPic = tweet.userPic;
 
     }
+    //Getting label pointers
+    UIImageView *imageView = (UIImageView *)[cell.contentView viewWithTag:1];
+    UILabel *profNameLabel = (UILabel *)[cell.contentView viewWithTag:2];
+    UILabel *userNameLabel = (UILabel *)[cell.contentView viewWithTag:3];
+    UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:4];
+    UILabel *tweetTextLabel = (UILabel *)[cell.contentView viewWithTag:5];
     
-    cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16.0];
+    //Setting fonts and sizes
+    profNameLabel.font = [UIFont fontWithName:@"Avenir-Black" size:12.0];
+    userNameLabel.font = [UIFont fontWithName:@"Avenir-Book" size:11.0];
+    userNameLabel.textColor = [UIColor grayColor];
+    dateLabel.font = [UIFont fontWithName:@"Avenir-Book" size:11.0];
+    dateLabel.textColor = [UIColor grayColor];
+    tweetTextLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12.0];
+    
+    //Setting content
+    profNameLabel.text = profname;
+    NSString *atUserName = @"@";
+    atUserName = [atUserName stringByAppendingString:userName];
+    userNameLabel.text = atUserName;
+    dateLabel.text = date;
+    tweetTextLabel.text = tweetText;
+    //tweetTextLabel.text = @"ASDFASFASFASDFASDFASDFASFASDFSDAF";
+    
+    //textLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    //[textLabel sizeToFit];
+    
+    
+   /* tweetTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    tweetTextLabel.numberOfLines = 0;*/
+    
+    //[tweetTextLabel sizeToFit];
+    CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
+
+    CGSize textSize = [tweetTextLabel.text sizeWithFont:tweetTextLabel.font constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    CGRect newFrame = tweetTextLabel.frame;
+    newFrame.size.height = textSize.height;
+    UILabel *newTweetTextLabel = [[UILabel alloc] init];
+    tweetTextLabel.frame = newFrame;
+    //tweetTextLabel.text = @"ASDFASFASFASDFASDFASDFASFASDFSDAF";
+    imageView.image = userPic;
+    
+     UILabel *tweetTextLabel2 = (UILabel *)[cell.contentView viewWithTag:5];
+    
+     //NSLog(@"height1 %f", tweetTextLabel2.frame.size.height);
+    // NSLog(@"height2 %f", tweetTextLabel2.frame.size.height);
+    
+    
+    /*int row = indexPath.row;
+    int sectionRows = [tableView numberOfRowsInSection:1];
+    UIImage *rowBackground;*/
+    /*if (row == 0)
+    {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TopCel01"]];
+    }
+    else if (row == sectionRows - 1)
+    {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomCel01"]];
+        //selectionBackground = [UIImage imageNamed:@"bottomRowSelected.png"];
+    }
+    else
+    {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CenterCel02"]];
+        //selectionBackground = [UIImage imageNamed:@"middleRowSelected.png"];
+    }*/
+    //((UIImageView *)cell.backgroundView).image = rowBackground;
+    //((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
+
+   
+    //cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:rowBackground]];
+    /*CGSize maximumLabelSize = CGSizeMake(247,CGFLOAT_MAX);
+    
+    CGSize expectedLabelSize = [tweetText sizeWithFont:textLabel.font
+                                      constrainedToSize:maximumLabelSize
+                                          lineBreakMode:NSLineBreakByWordWrapping];
+   
+    textLabel.frame = CGRectMake(0, 0, 320, expectedLabelSize.height);*/
+    //textLabel.text = tweetText;
+    
+   // NSLog(@"line %@", textLabel.lineBreakMode);
+    
+    //NSLog(@"before %f", textLabel.frame.size.height);
+    /*CGRect newFrame = textLabel.frame;
+    newFrame.size.height = expectedLabelSize.height;
+    textLabel.frame = newFrame;*/
+
+    //NSLog(@"after %f", textLabel.frame.size.height);
+    
+    
+    /* textLabel.attributedText = tweetText;
+    CGSize maximumLabelSize = CGSizeMake(187,CGFLOAT_MAX);
+    CGSize requiredSize = [textLabel sizeThatFits:maximumLabelSize];
+    CGRect labelFrame = textLabel.frame;
+    labelFrame.size.height = requiredSize.height;
+    textLabel.frame = labelFrame;
+    */
+        
+    
+    
+    /*cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16.0];
     cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12.0];
     
     cell.textLabel.text = profname;
     cell.detailTextLabel.text = tweetText;
     cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.imageView.image = userPic;
+    cell.imageView.image = userPic;*/
     
     return cell;
 }
@@ -407,13 +508,18 @@
         cell = [self tableView:self.connectRecentTableView cellForRowAtIndexPath:indexPath];
     }
    
-    NSString *cellText = cell.detailTextLabel.text;
-    
+    //NSString *cellText = cell.detailTextLabel.text;
+    UILabel *textLabel = (UILabel *)[cell.contentView viewWithTag:5];
+    NSString *cellText = textLabel.text;    
     UIFont *cellFont = [UIFont fontWithName:@"Avenir-Book" size:12.0];
-    CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
-    CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-     
-    return labelSize.height + 40;
+    CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
+    //UILabel *tweetTextLabel = (UILabel *)[cell.contentView viewWithTag:5];
+    
+    //NSLog(@"heght %@ %f", tweetTextLabel.text ,tweetTextLabel.frame.size.height);
+    
+    CGSize textSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
+    
+    return textSize.height + 90; //tweetTextLabel.frame.size.height + 90;
 
 }
 
@@ -423,12 +529,12 @@
     return NO;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+/*- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UILabel *footer = [[UILabel alloc] init];
     footer.text = @"Loading...";
     
     return footer;
     
-}
+}*/
 
 @end

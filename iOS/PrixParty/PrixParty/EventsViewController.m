@@ -41,15 +41,20 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
+    UIImage *image = [UIImage imageNamed:@"TopNav01.png"];
+    //[image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopNav01.png"] forBarMetrics:UIBarMetricsDefault];
+    
     self.eventsListTableView.backgroundColor = [UIColor clearColor];
     
-    /*UIImage * targetImage = [UIImage imageNamed:@"triangles.png"];
+    UIImage * targetImage = [UIImage imageNamed:@"pp-black(large).png"];
     UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
     [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
     UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();*/
+    UIGraphicsEndImageContext();
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"squares.png"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:resultImage];
+    //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pp-black(large).png"]];
     
     self.eventsListTableView.hidden = NO;
     self.eventsMapView.hidden = YES;
@@ -108,22 +113,29 @@
     }
     else */if (row == 0)
     {
-        rowBackground = [UIImage imageNamed:@"Top_Cel.png"];
+        rowBackground = [UIImage imageNamed:@"cell.png"];
         //selectionBackground = [UIImage imageNamed:@"topRowSelected.png"];
     }
     else if (row == sectionRows - 1)
     {
-        rowBackground = [UIImage imageNamed:@"BottomCel.png"];
+        rowBackground = [UIImage imageNamed:@"cell.png"];
         //selectionBackground = [UIImage imageNamed:@"bottomRowSelected.png"];
     }
     else
     {
-        rowBackground = [UIImage imageNamed:@"CenterCel.png"];
+        rowBackground = [UIImage imageNamed:@"cell.png"];
         //selectionBackground = [UIImage imageNamed:@"middleRowSelected.png"];
     }
-    ((UIImageView *)cell.backgroundView).image = rowBackground;
+    //((UIImageView *)cell.backgroundView).image = rowBackground;
     //((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top_Cel.png"]];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TopCel01.png"]];
+    
+    //cell.frame.size.width = cell.frame.size.width - 10;
+   /* NSLog(@"framesize bef %f", cell.frame.size.width);
+    CGRect cellFrame = cell.frame;
+    cellFrame.size.width = cellFrame.size.width - 50;
+    cell.frame = cellFrame;
+    NSLog(@"framesize aft %f", cell.frame.size.width);*/
     
     cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
     cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
