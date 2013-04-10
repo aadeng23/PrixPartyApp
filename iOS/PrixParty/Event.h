@@ -6,24 +6,38 @@
 //  Copyright (c) 2013 Team DUNT. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 #import <EventKit/EventKit.h>
 
 @interface Event : NSObject
 
-@property (nonatomic, copy) EKEvent *eventBasic;
-@property (nonatomic, copy) NSString *eventDescription;
-@property (nonatomic) double eventAdmission;
-@property (nonatomic, strong) CLLocation *eventLocation;
-@property (nonatomic, copy) NSMutableArray *eventTags;
-@property (nonatomic) BOOL favorite;
+// Center latitude and longitude of the annotion view.
+// The implementation of this property must be KVO compliant.
+//nyc
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
--(id)initWithBasics:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate store:(EKEventStore *)store;
 
--(id)initWithParams:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate store:(EKEventStore *)store description:(NSString *)description admission:(double)admission location:(CLLocation *)location tags:(NSMutableArray *)tags;
+//nyc
+@property (nonatomic, readonly, copy) NSString *eventName;
+@property (nonatomic, readonly, copy) NSString *description;
 
--(void)setDateWithString:(NSString *)startDateString endDate:(NSString *)endDateString;
+//parse
+//nyc
+// Other properties:
+@property (nonatomic, readonly, strong) PFObject *object;
+@property (nonatomic, readonly, strong) PFGeoPoint *geopoint;
 
+@property (nonatomic, readonly) MKPinAnnotationColor pinColor;
+@property (nonatomic, assign) BOOL animatesDrop;
+
+
+
+- (id)initWithPFObject:(PFObject *)object;
+- (BOOL)equalToPost:(Event *)aPost;
+
+- (void)setTitleAndSubtitleOutsideDistance:(BOOL)outside;
 
 @end

@@ -15,7 +15,7 @@
 
 @property (strong, nonatomic) EventsDataController *dataController;
 @property (weak, nonatomic) IBOutlet UITableView *eventsListTableView;
-@property (weak, nonatomic) IBOutlet MKMapView *eventsMapView;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
 
