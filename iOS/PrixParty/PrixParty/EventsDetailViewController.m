@@ -54,7 +54,7 @@
         self.eventNameDetail.numberOfLines = 0;
         self.eventNameDetail.textColor = [UIColor whiteColor];
         self.eventNameDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        self.eventNameDetail.text = theEvent.eventBasic.title;
+        self.eventNameDetail.text = theEvent.eventName;
         
         //Location
         self.eventLocationLabel.textColor = [UIColor lightGrayColor];
@@ -72,8 +72,10 @@
         self.eventDateDetail.numberOfLines = 0;
         self.eventDateDetail.textColor = [UIColor whiteColor];
         self.eventDateDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
-        self.eventDateDetail.text = completeDateString;
+        
+        //r
+//        NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
+  //      self.eventDateDetail.text = completeDateString;
         
         //Admission
         self.eventAdmissionLabel.textColor = [UIColor lightGrayColor];
@@ -82,8 +84,10 @@
         self.eventAdmissionDetail.numberOfLines = 0;
         self.eventAdmissionDetail.textColor = [UIColor whiteColor];
         self.eventAdmissionDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
-        self.eventAdmissionDetail.text = admissionString;
+        
+        //r
+//        NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
+//        self.eventAdmissionDetail.text = admissionString;
         
         //Description
         self.eventDescriptionLabel.textColor = [UIColor lightGrayColor];
@@ -92,7 +96,7 @@
         self.eventDescriptionDetail.numberOfLines = 0;
         self.eventDescriptionDetail.textColor = [UIColor whiteColor];
         self.eventDescriptionDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
-        self.eventDescriptionDetail.text = theEvent.eventDescription;
+        self.eventDescriptionDetail.text = theEvent.description;
     }
 }
 

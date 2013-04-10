@@ -20,7 +20,6 @@
 - (Event *)objectInListAtIndex:(NSUInteger)theIndex;
 - (void)addEvent:(Event *)event;
 
-- (void)addEventTest;
 
 //- (void)sortListByDate;
 /// sort by date/time, sort by location, sort by price, sort by tags
