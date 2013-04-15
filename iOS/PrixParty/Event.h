@@ -25,5 +25,6 @@
 
 -(void)setDateWithString:(NSString *)startDateString endDate:(NSString *)endDateString;
 
+-(NSDictionary *)convertToDictionary;
 
 @end

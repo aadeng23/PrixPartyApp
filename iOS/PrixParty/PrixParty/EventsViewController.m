@@ -39,14 +39,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view.
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
-    UIImage *image = [UIImage imageNamed:@"TopNav01.png"];
-    //[image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"TopNav01.png"] forBarMetrics:UIBarMetricsDefault];
     
+    //Setting background and navigation bar
+    self.view.backgroundColor = [UIColor blackColor];
     self.eventsListTableView.backgroundColor = [UIColor clearColor];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"]
+                                                  forBarMetrics:UIBarMetricsDefault];
     
+    //Setting segment controls
+    /*UIImage * targetImage = [UIImage imageNamed:@"listbutton.png"];
+    UIGraphicsBeginImageContextWithOptions(self.segmentedControl.frame.size, NO, 0.f);
+    [targetImage drawInRect:CGRectMake(0.f, 0.f, self.segmentedControl.frame.size.width, self.segmentedControl.frame.size.height)];
+    UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();*/
+
+    [self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
+    
+    [self.segmentedControl setImage:[UIImage imageNamed:@"mapbuttonselect.png"] forSegmentAtIndex:1];
+    /*
     UIImage * targetImage = [UIImage imageNamed:@"pp-black(large).png"];
     UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
     [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
@@ -54,7 +66,7 @@
     UIGraphicsEndImageContext();
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:resultImage];
-    //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pp-black(large).png"]];
+    //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pp-black(large).png"]];*/
     
     self.eventsListTableView.hidden = NO;
     self.eventsMapView.hidden = YES;
@@ -101,41 +113,7 @@
 
     Event *eventAtIndex = [self.dataController objectInListAtIndex:indexPath.row];
     
-    UIImage *rowBackground;
-    //UIImage *selectionBackground;
-    NSInteger sectionRows = [self.eventsListTableView numberOfRowsInSection:[indexPath section]];
-    NSInteger row = [indexPath row];
-    
-    /*if (row == 0 && row == sectionRows - 1)
-    {
-        rowBackground = [UIImage imageNamed:@"topAndBottomRow.png"];
-        //selectionBackground = [UIImage imageNamed:@"topAndBottomRowSelected.png"];
-    }
-    else */if (row == 0)
-    {
-        rowBackground = [UIImage imageNamed:@"cell.png"];
-        //selectionBackground = [UIImage imageNamed:@"topRowSelected.png"];
-    }
-    else if (row == sectionRows - 1)
-    {
-        rowBackground = [UIImage imageNamed:@"cell.png"];
-        //selectionBackground = [UIImage imageNamed:@"bottomRowSelected.png"];
-    }
-    else
-    {
-        rowBackground = [UIImage imageNamed:@"cell.png"];
-        //selectionBackground = [UIImage imageNamed:@"middleRowSelected.png"];
-    }
-    //((UIImageView *)cell.backgroundView).image = rowBackground;
-    //((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TopCel01.png"]];
-    
-    //cell.frame.size.width = cell.frame.size.width - 10;
-   /* NSLog(@"framesize bef %f", cell.frame.size.width);
-    CGRect cellFrame = cell.frame;
-    cellFrame.size.width = cellFrame.size.width - 50;
-    cell.frame = cellFrame;
-    NSLog(@"framesize aft %f", cell.frame.size.width);*/
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
     
     cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
     cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
@@ -205,7 +183,9 @@
     if ([[segue identifier] isEqualToString:@"ShowEventDetails"]) {
         
         EventsDetailViewController *detailViewController = [segue destinationViewController];
+        detailViewController.dataController = self.dataController;
         detailViewController.event = [self.dataController objectInListAtIndex:[self.eventsListTableView indexPathForSelectedRow].row];
+        
     }
 }
 

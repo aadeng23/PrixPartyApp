@@ -9,18 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "Event.h"
 #import <EventKit/EventKit.h>
+#import "MyManager.h"
 
-@interface EventsDataController : NSObject 
+@interface EventsDataController : NSObject{
+    MyManager *manager;
+}
 
 @property (nonatomic,copy) NSMutableArray *eventsList;
 @property (nonatomic) NSCalendar *eventsCalendar;
+@property (nonatomic) NSMutableArray *favoritesList;
 @property (nonatomic) EKEventStore *eventsStore;
 
 - (NSUInteger)sizeOfList;
 - (Event *)objectInListAtIndex:(NSUInteger)theIndex;
 - (void)addEvent:(Event *)event;
-
 - (void)addEventTest;
+- (void)addToFavorites:(Event *)event;
 
 //- (void)sortListByDate;
 /// sort by date/time, sort by location, sort by price, sort by tags

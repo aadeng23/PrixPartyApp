@@ -14,9 +14,10 @@
 - (id)init {
     if (self = [super init]) {
         self.eventsList = [NSMutableArray new];
+        self.favoritesList = [NSMutableArray new];
         self.eventsCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         self.eventsStore = [EKEventStore new];
-        
+        manager = [MyManager sharedManager];
         return self;
     }
     return nil;
@@ -40,6 +41,14 @@
 - (void)addEvent:(Event *)event{
     
     [self.eventsList addObject:event];
+}
+
+- (void)addToFavorites:(NSString *)event{
+    
+    NSLog(@"Adding to favs");
+    [manager.favoritesList addObject:event];
+    
+    //[self.favoritesList addObject:event];
 }
 
 - (void)addEventTest{

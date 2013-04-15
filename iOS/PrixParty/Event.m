@@ -57,4 +57,19 @@
     _eventBasic.endDate = endDate;
 }
 
+
+
+-(Event *)convertFromDictionary:(NSDictionary *)dic{
+    /*
+    _eventBasic.title = name;
+    _eventBasic.startDate = startDate;
+    _eventBasic.endDate = endDate;
+    
+    _eventDescription = description;
+    _eventAdmission = admission;
+    _eventLocation = location;
+    _eventTags = tags;
+    _favorite = NO;*/
+}
+
 @end

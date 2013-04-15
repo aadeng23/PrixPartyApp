@@ -57,7 +57,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
+    
+    self.view.backgroundColor = [UIColor blackColor];
+    self.connectRecentTableView.backgroundColor = [UIColor clearColor];
+    self.connectTrendingTableView.backgroundColor = [UIColor clearColor];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"]
+                                                  forBarMetrics:UIBarMetricsDefault];
     
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
@@ -321,11 +327,11 @@
     // Return the number of rows in the section.
     
     if(tableView == self.connectTrendingTableView){
-        NSLog(@"SIZE trending %u",[tweetsTrendingList count]);
+        //NSLog(@"SIZE trending %u",[tweetsTrendingList count]);
         return [tweetsTrendingList count];
     }
     else{
-        NSLog(@"SIZE recent %u",[tweetsRecentList count]);
+        //NSLog(@"SIZE recent %u",[tweetsRecentList count]);
         return [tweetsRecentList count];
     }
     

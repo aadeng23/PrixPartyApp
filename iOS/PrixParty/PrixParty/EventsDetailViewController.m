@@ -8,9 +8,10 @@
 
 #import "EventsDetailViewController.h"
 #import "Event.h"
+#import "MyManager.h"
 
 @interface EventsDetailViewController ()
-- (void)configureView;
+    - (void)configureView;
 @end
 
 @implementation EventsDetailViewController
@@ -101,14 +102,16 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
+    self.view.backgroundColor = [UIColor blackColor];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"]
+                                                  forBarMetrics:UIBarMetricsDefault];
+
     /*UIImage * targetImage = [UIImage imageNamed:@"background.png"];
     UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
     [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
     UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();*/
-
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"squares.png"]];
     
     [self configureView];
 }
@@ -125,6 +128,10 @@
 }
 
 //TABLE STUFF
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
@@ -144,4 +151,57 @@
     return NO;
 }
 
+/*- (IBAction)favoriteButtonPressed:(id)sender {
+    NSLog(@"LALA");
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *favorites = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"favoriteEvents"]];
+    
+    if(!favorites){
+        favorites = [NSMutableArray new];
+    }
+    [favorites addObject:self.event];
+    [defaults setObject:favorites forKey:@"favoriteEvents"];
+    [defaults synchronize];
+    
+}*/
+- (IBAction)favoriteButtonPressed:(UIButton *)sender {
+    
+    NSLog(@"Favorite button pressed");
+    [self.dataController addToFavorites:self.event];
+    
+    
+    //[self.dataController.favoritesList addObject:self.event];
+    
+   /* NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *dictionaries = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"dictionaries"]];
+    
+    if(!dictionaries){
+        dictionaries = [NSMutableArray new];
+    }
+    
+    NSDictionary *favDictionary = self.event.convertToDictionary;
+    [dictionaries addObject:favDictionary];
+    [defaults setObject:(NSArray *)dictionaries forKey:@"dictionaries"];
+    [defaults synchronize];*/
+    
+/*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSArray *list;
+    NSMutableArray *favsList;
+    NSData *data = [defaults objectForKey:@"favsListData"];
+    
+    if(data){
+        list = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+        favsList = [NSMutableArray arrayWithArray:list];
+    }
+    else{
+        data = [NSData new];
+        favsList = [NSMutableArray new];
+    }
+
+    [favsList addObject:self.event];
+    data = [NSKeyedArchiver archivedDataWithRootObject:(NSArray *)favsList];
+    [defaults setObject:data forKey:@"favsListData"];
+    [defaults synchronize];*/
+}
 @end

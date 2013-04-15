@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EventsViewController.h"
 
 @interface PrixPartyAppDelegate : UIResponder <UIApplicationDelegate>
 
