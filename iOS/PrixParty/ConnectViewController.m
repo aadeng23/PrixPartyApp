@@ -62,12 +62,17 @@
     self.connectRecentTableView.backgroundColor = [UIColor clearColor];
     self.connectTrendingTableView.backgroundColor = [UIColor clearColor];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"]
+    //self.tabBarItem setBac
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"]
                                                   forBarMetrics:UIBarMetricsDefault];
     
-    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
+    UIFont *font = [UIFont fontWithName:@"Futura" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    
+    self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    self.segmentedControl.tintColor = [UIColor clearColor];
     
     trendingController.tableView = self.connectTrendingTableView;
     recentController.tableView = self.connectRecentTableView;
@@ -167,7 +172,7 @@
     
     
     
-    /*NSURL *urlTrending = [NSURL URLWithString:trendingURL];
+    NSURL *urlTrending = [NSURL URLWithString:trendingURL];
     NSURL *urlRecent = [NSURL URLWithString:recentURL];
     
     NSURLRequest *requestTrending = [NSURLRequest requestWithURL:urlTrending];
@@ -200,9 +205,9 @@
     }failure:nil];
     
     [operationTrending start];
-    [operationRecent start];*/
+    [operationRecent start];
     
-    Tweet *newTweet = [[Tweet alloc] init];
+    /*Tweet *newTweet = [[Tweet alloc] init];
     newTweet.profName = @"from_user_name";
     newTweet.tweetText = @"text";
     newTweet.userName = @"from_user";
@@ -224,7 +229,7 @@
     newTweet.userName = @"from_user";
     newTweet.date = @"created_at";
     
-    [tweetsRecentList addObject:newTweet];
+    [tweetsRecentList addObject:newTweet];*/
    
 }
 
@@ -353,12 +358,6 @@
             cell = [self.connectTrendingTableView dequeueReusableCellWithIdentifier:@"TweetCellTrending"];
         }
         
-        
-        if (!cell) {
-            NSLog(@"*********************************************");
-            //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        }
-        
         Tweet *tweet = [tweetsTrendingList objectAtIndex:indexPath.row];
 
         profname = tweet.profName;
@@ -373,11 +372,6 @@
         if(cell == nil){
             
             cell = [self.connectRecentTableView dequeueReusableCellWithIdentifier:@"TweetCellRecent"];
-        }
-        
-        if (!cell) {
-            NSLog(@"*********************************************");
-            //cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
         }
         
         Tweet *tweet = [tweetsRecentList objectAtIndex:indexPath.row];
@@ -397,12 +391,14 @@
     UILabel *tweetTextLabel = (UILabel *)[cell.contentView viewWithTag:5];
     
     //Setting fonts and sizes
-    profNameLabel.font = [UIFont fontWithName:@"Avenir-Black" size:12.0];
-    userNameLabel.font = [UIFont fontWithName:@"Avenir-Book" size:11.0];
-    userNameLabel.textColor = [UIColor grayColor];
-    dateLabel.font = [UIFont fontWithName:@"Avenir-Book" size:11.0];
-    dateLabel.textColor = [UIColor grayColor];
-    tweetTextLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12.0];
+    profNameLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+    profNameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+    userNameLabel.font = [UIFont fontWithName:@"Futura" size:11.0];
+    userNameLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+    dateLabel.font = [UIFont fontWithName:@"Futura" size:11.0];
+    dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+    tweetTextLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+    tweetTextLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
     
     //Setting content
     profNameLabel.text = profname;
@@ -489,14 +485,15 @@
         
     
     
-    /*cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:16.0];
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Book" size:12.0];
+    /*cell.textLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
+    cell.detailTextLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
     
     cell.textLabel.text = profname;
     cell.detailTextLabel.text = tweetText;
     cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.imageView.image = userPic;*/
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
     
     return cell;
 }
@@ -517,7 +514,7 @@
     //NSString *cellText = cell.detailTextLabel.text;
     UILabel *textLabel = (UILabel *)[cell.contentView viewWithTag:5];
     NSString *cellText = textLabel.text;    
-    UIFont *cellFont = [UIFont fontWithName:@"Avenir-Book" size:12.0];
+    UIFont *cellFont = [UIFont fontWithName:@"Futura" size:12.0];
     CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
     //UILabel *tweetTextLabel = (UILabel *)[cell.contentView viewWithTag:5];
     

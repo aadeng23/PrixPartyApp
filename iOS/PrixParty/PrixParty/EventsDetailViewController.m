@@ -10,8 +10,9 @@
 #import "Event.h"
 #import "MyManager.h"
 
-@interface EventsDetailViewController ()
-    - (void)configureView;
+@interface EventsDetailViewController (){
+    //- (void)configureView;
+}
 @end
 
 @implementation EventsDetailViewController
@@ -30,7 +31,7 @@
 {
     Event *theEvent = self.event;
     static NSDateFormatter *formatter = nil;
-    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
+    //self.navigationController.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
     
     //Set date formatter
     if (formatter == nil) {
@@ -107,7 +108,17 @@
     self.view.backgroundColor = [UIColor blackColor];
     self.tableView.backgroundColor = [UIColor clearColor];
     
-    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
+    UIButton *favButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    if(!_event.favorite){
+        [favButton setBackgroundImage:[UIImage imageNamed:@"favoritebutton.png"]  forState:UIControlStateNormal];
+    }
+    else{
+        [favButton setBackgroundImage:[UIImage imageNamed:@"favoritebuttonselect.png"] forState:UIControlStateNormal];
+    }
+    [favButton addTarget:self action:@selector(favoriteButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    favButton.frame = CGRectMake(0, 0, 35, 30);
+    UIBarButtonItem *favoriteButton = [[UIBarButtonItem alloc] initWithCustomView:favButton] ;
+    self.navigationItem.rightBarButtonItem = favoriteButton;
     
     [self configureView];
 }
@@ -148,14 +159,26 @@
     return NO;
 }
 
+-(void) viewWillDisappear:(BOOL)animated {
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"] forBarMetrics:UIBarMetricsDefault];
+    }
+    [super viewWillDisappear:animated];
+}
+
 - (IBAction)favoriteButtonPressed:(UIButton *)sender {
-    
+
+
     if(!self.event.favorite){
         self.event.favorite = YES;
+        [sender setBackgroundImage:[UIImage imageNamed:@"favoritebuttonselect.png"] forState:UIControlStateNormal];
         [self.dataController addToFavorites:self.event];
     }
     else{
         self.event.favorite = NO;
+            [sender setBackgroundImage:[UIImage imageNamed:@"favoritebutton.png"] forState:UIControlStateNormal];
         [self.dataController removeFromFavorites:self.event];
     }
 }

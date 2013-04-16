@@ -18,6 +18,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
     self.dataController = [[EventsDataController alloc] init];
     
     [self.dataController addEventTest];
@@ -35,13 +36,12 @@
     //Setting background and navigation bar
     self.view.backgroundColor = [UIColor blackColor];
     self.eventsListTableView.backgroundColor = [UIColor clearColor];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"]
-                                                  forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"] forBarMetrics:UIBarMetricsDefault];
     
     //Setting segment controls
-    [self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
+    [self.segmentedControl setImage:[UIImage imageNamed:@"listbuttonselect.png"] forSegmentAtIndex:0];
     [self.segmentedControl setImage:[UIImage imageNamed:@"mapbutton.png"] forSegmentAtIndex:1];
-    //[self.segmentedControl setDividerImage:<#(UIImage *)#> forLeftSegmentState:<#(UIControlState)#> rightSegmentState:<#(UIControlState)#> barMetrics:<#(UIBarMetrics)#>];
+    [self.segmentedControl setDividerImage:[UIImage imageNamed:@"leftside_select.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
 
     //Show view
     self.eventsListTableView.hidden = NO;
@@ -153,16 +153,16 @@
     switch (sender.selectedSegmentIndex) {
             //list view
         case 0:
-            //[self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
+            [self.segmentedControl setImage:[UIImage imageNamed:@"listbuttonselect.png"] forSegmentAtIndex:0];
             [self.segmentedControl setImage:[UIImage imageNamed:@"mapbutton.png"] forSegmentAtIndex:1];
-            //[self.segmentedControl setDividerImage:<#(UIImage *)#> forLeftSegmentState:<#(UIControlState)#> rightSegmentState:<#(UIControlState)#> barMetrics:<#(UIBarMetrics)#>];
+            [self.segmentedControl setDividerImage:[UIImage imageNamed:@"leftside_select.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
             self.eventsListTableView.hidden = NO;
             self.eventsMapView.hidden = YES;
             break;
         case 1:
             [self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
-            //[self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
-            //[self.segmentedControl setDividerImage:<#(UIImage *)#> forLeftSegmentState:<#(UIControlState)#> rightSegmentState:<#(UIControlState)#> barMetrics:<#(UIBarMetrics)#>];
+            [self.segmentedControl setImage:[UIImage imageNamed:@"mapbuttonselect.png"] forSegmentAtIndex:1];
+           [self.segmentedControl setDividerImage:[UIImage imageNamed:@"rightside_select.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
             self.eventsListTableView.hidden = YES;
             self.eventsMapView.hidden = NO;
             break;
@@ -178,6 +178,22 @@
         detailViewController.dataController = self.dataController;
         detailViewController.event = [self.dataController objectInListAtIndex:[self.eventsListTableView indexPathForSelectedRow].row];
         
+        detailViewController.navBar = self.navigationController.navigationBar;
+        
+        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        [UIView transitionWithView:self.view
+                          duration:10.0f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            [self.navigationController.navigationBar setBackgroundImage:toImage forBarMetrics:UIBarMetricsDefault];
+                        } completion:nil];
+        
+        //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"] forBarMetrics:UIBarMetricsDefault];
+        //self.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Return" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        backButton.tintColor = [UIColor clearColor];
+        [[self navigationItem] setBackBarButtonItem:backButton];
     }
 }
 

@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *eventAdmissionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *eventDescriptionLabel;
 
-
+@property (weak, nonatomic) UINavigationBar *navBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *favoriteButton;
 - (IBAction)favoriteButtonPressed:(id)sender;
 //- (IBAction)favoriteButtonPressed:(UIButton *)sender;

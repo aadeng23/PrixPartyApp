@@ -7,7 +7,7 @@
 //
 
 #import "HomeTableViewController.h"
-
+#import "EventsDetailViewController.h"
 
 @interface HomeTableViewController (){
     MyManager *manager;
@@ -240,4 +240,30 @@
      */
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"ShowEventDetails"]) {
+        
+        EventsDetailViewController *detailViewController = [segue destinationViewController];
+        //detailViewController.dataController = self.dataController;
+        detailViewController.event = [manager.favoritesList objectAtIndex:[self.tableView indexPathForSelectedRow].row];
+        
+        detailViewController.navBar = self.navigationController.navigationBar;
+        
+        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        [UIView transitionWithView:self.view
+                          duration:10.0f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            [self.navigationController.navigationBar setBackgroundImage:toImage forBarMetrics:UIBarMetricsDefault];
+                        } completion:nil];
+        
+        //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"] forBarMetrics:UIBarMetricsDefault];
+        //self.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Return" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        backButton.tintColor = [UIColor clearColor];
+        [[self navigationItem] setBackBarButtonItem:backButton];
+    }
+
+}
 @end
