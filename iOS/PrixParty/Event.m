@@ -67,7 +67,7 @@
 
 
 - (BOOL)equalToPost:(Event *)aPost {
-    
+    NSLog(@"equalToPost called");
 	if (aPost == nil) {
 		return NO;
 	}

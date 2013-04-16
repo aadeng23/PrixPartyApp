@@ -131,6 +131,8 @@
                 
 				// Animate all pins after the initial load:
 				newPost.animatesDrop = mapPinsPlaced;
+                
+                [self addEvent:newPost];
 			}
             
 			// At this point, newAllPosts contains a new list of post objects.
@@ -142,10 +144,8 @@
             
             for (Event *newPost in allPosts) {
                 NSLog(@"Title: %@", newPost.eventName);
-                [self addEvent:newPost];
+                //[self addEvent:newPost];
             }
-            
-            
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kPPEventDataLoadedNotification object:self];
             
