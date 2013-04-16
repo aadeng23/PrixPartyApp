@@ -25,8 +25,6 @@
 - (void)addEvent:(Event *)event;
 - (void)addEventTest;
 - (void)addToFavorites:(Event *)event;
-
-//- (void)sortListByDate;
-/// sort by date/time, sort by location, sort by price, sort by tags
+- (void)removeFromFavorites:(Event *)event;
 
 @end

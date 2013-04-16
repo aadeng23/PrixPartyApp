@@ -43,12 +43,14 @@
     [self.eventsList addObject:event];
 }
 
-- (void)addToFavorites:(NSString *)event{
+- (void)addToFavorites:(Event *)event{
     
-    NSLog(@"Adding to favs");
     [manager.favoritesList addObject:event];
+}
+
+- (void)removeFromFavorites:(Event *)event{
     
-    //[self.favoritesList addObject:event];
+    [manager.favoritesList removeObjectIdenticalTo:event];
 }
 
 - (void)addEventTest{

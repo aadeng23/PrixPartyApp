@@ -15,21 +15,11 @@
 
 @implementation EventsViewController
 
-/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        self.dataController = [[EventsDataController alloc] init];
-        [self.dataController addEventTest];
-    }
-    return self;
-}*/
-
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     self.dataController = [[EventsDataController alloc] init];
+    
     [self.dataController addEventTest];
     [self.dataController addEventTest];
     [self.dataController addEventTest];
@@ -49,32 +39,13 @@
                                                   forBarMetrics:UIBarMetricsDefault];
     
     //Setting segment controls
-    /*UIImage * targetImage = [UIImage imageNamed:@"listbutton.png"];
-    UIGraphicsBeginImageContextWithOptions(self.segmentedControl.frame.size, NO, 0.f);
-    [targetImage drawInRect:CGRectMake(0.f, 0.f, self.segmentedControl.frame.size.width, self.segmentedControl.frame.size.height)];
-    UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();*/
-
     [self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
-    
-    [self.segmentedControl setImage:[UIImage imageNamed:@"mapbuttonselect.png"] forSegmentAtIndex:1];
-    /*
-    UIImage * targetImage = [UIImage imageNamed:@"pp-black(large).png"];
-    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
-    [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
-    UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    self.view.backgroundColor = [UIColor colorWithPatternImage:resultImage];
-    //self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pp-black(large).png"]];*/
-    
+    [self.segmentedControl setImage:[UIImage imageNamed:@"mapbutton.png"] forSegmentAtIndex:1];
+    //[self.segmentedControl setDividerImage:<#(UIImage *)#> forLeftSegmentState:<#(UIControlState)#> rightSegmentState:<#(UIControlState)#> barMetrics:<#(UIBarMetrics)#>];
+
+    //Show view
     self.eventsListTableView.hidden = NO;
     self.eventsMapView.hidden = YES;
-    
-    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
-    [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
-
     
 }
 
@@ -93,36 +64,51 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     
     return [self.dataController sizeOfList];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"EventCell";
+
     
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
+    
+    //Setting date formatter
     static NSDateFormatter *formatter = nil;
     if (formatter == nil) {
         formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
+    //Getting labels from cell
+    UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
+    UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:2];
+    UILabel *descriptionLabel = (UILabel *)[cell.contentView viewWithTag:3];
     Event *eventAtIndex = [self.dataController objectInListAtIndex:indexPath.row];
     
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
+    //Setting label settings
+    nameLabel.backgroundColor = [UIColor clearColor];
+    nameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+    nameLabel.font = [UIFont fontWithName:@"Futura" size:15.0];
+    nameLabel.text = eventAtIndex.eventBasic.title;
     
-    cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.detailTextLabel.textColor = [UIColor lightGrayColor];
-    cell.textLabel.text = eventAtIndex.eventBasic.title;
-    [[cell detailTextLabel] setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
+    dateLabel.backgroundColor = [UIColor clearColor];
+    dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+    dateLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+    [dateLabel setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
+    
+    descriptionLabel.backgroundColor = [UIColor clearColor];
+    descriptionLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+    descriptionLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+    descriptionLabel.text = eventAtIndex.eventDescription;
+    descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    descriptionLabel.numberOfLines = 2;
     
     return cell;
+
 }
 
 
@@ -167,10 +153,16 @@
     switch (sender.selectedSegmentIndex) {
             //list view
         case 0:
+            //[self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
+            [self.segmentedControl setImage:[UIImage imageNamed:@"mapbutton.png"] forSegmentAtIndex:1];
+            //[self.segmentedControl setDividerImage:<#(UIImage *)#> forLeftSegmentState:<#(UIControlState)#> rightSegmentState:<#(UIControlState)#> barMetrics:<#(UIBarMetrics)#>];
             self.eventsListTableView.hidden = NO;
             self.eventsMapView.hidden = YES;
             break;
         case 1:
+            [self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
+            //[self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
+            //[self.segmentedControl setDividerImage:<#(UIImage *)#> forLeftSegmentState:<#(UIControlState)#> rightSegmentState:<#(UIControlState)#> barMetrics:<#(UIBarMetrics)#>];
             self.eventsListTableView.hidden = YES;
             self.eventsMapView.hidden = NO;
             break;

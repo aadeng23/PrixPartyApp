@@ -11,7 +11,7 @@
 
 @interface HomeTableViewController (){
     MyManager *manager;
-    //NSUserDefaults *defaults;
+    NSMutableArray *topNews;
 }
 
 @end
@@ -34,8 +34,12 @@
     self.view.backgroundColor = [UIColor blackColor];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"]
                    forBarMetrics:UIBarMetricsDefault];
+    [self.tableView setBackgroundView:nil];
    
     manager = [MyManager sharedManager];
+    topNews = [NSMutableArray new];
+    
+    [topNews addObject:@"creepy"];
     
     //defaults = [NSUserDefaults standardUserDefaults];
     // Uncomment the following line to preserve selection between presentations.
@@ -60,41 +64,102 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
     // Return the number of rows in the section.
     //NSLog(@"size of list %u", [manager.favoritesList count]);
-    return [manager.favoritesList count];
+    if(section == 0){
+        return [topNews count];
+    }
+    else{
+        return [manager.favoritesList count];
+    }
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //static NSString *CellIdentifier = @"FavoriteCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavoriteCell"];
+    UITableViewCell *cell;
     
-    static NSDateFormatter *formatter = nil;
-    if (formatter == nil) {
-        formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterShortStyle];
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
+    if(indexPath.section == 0){ //Cell is a top news cell
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:@"TopNewsCell"];
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
+        
+        UILabel *newsTitle = (UILabel *)[cell.contentView viewWithTag:1];
+        UILabel *newsDate = (UILabel *)[cell.contentView viewWithTag:2];
+        UILabel *newsContent = (UILabel *)[cell.contentView viewWithTag:3];
+        
+        newsTitle.backgroundColor = [UIColor clearColor];
+        newsTitle.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        newsTitle.font = [UIFont fontWithName:@"Futura" size:15.0];
+        //newsTitle.text = [topNews objectAtIndex:indexPath.row];
+        newsTitle.text = @"High drama in F1 Chinese Grand Prix: Fernando Alonso wins for Ferrari";
+        
+        newsDate.backgroundColor = [UIColor clearColor];
+        newsDate.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+        newsDate.font = [UIFont fontWithName:@"Futura" size:12.0];
+        //newsDate.text = [topNews objectAtIndex:indexPath.row];
+        newsDate.text = @"8 hours ago";
+        
+        newsContent.backgroundColor = [UIColor clearColor];
+        newsContent.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        newsContent.font = [UIFont fontWithName:@"Futura" size:12.0];
+        //newsContent.text = [topNews objectAtIndex:indexPath.row];
+        newsContent.lineBreakMode = NSLineBreakByTruncatingTail;
+        newsContent.numberOfLines = 2;
+        newsContent.text = @"After Fernando Alonso's supreme drive to victory in last weekend's Chinese Grand Prix, it looks increasingly likely the world of Formula One racing will be in flux for some time to come.";
+            
     }
-    
-    
-    Event *eventAtIndex = [manager.favoritesList objectAtIndex:indexPath.row];
-    cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.detailTextLabel.textColor = [UIColor lightGrayColor];
-    cell.textLabel.text = eventAtIndex.eventBasic.title;
-    [[cell detailTextLabel] setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
-    //cell.backgroundColor = [UIColor greenColor];//[UIColor colorWithPatternImage:[UIImage imageNamed:@"regcell.png"]];
+    else{ //Cell is a favorites cell
+        
+        cell = [tableView dequeueReusableCellWithIdentifier:@"FavoriteCell"];
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
+        
+        //Setting date formatter
+        static NSDateFormatter *formatter = nil;
+        if (formatter == nil) {
+            formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateStyle:NSDateFormatterMediumStyle];
+            [formatter setTimeStyle:NSDateFormatterShortStyle];
+        }
+        
+        UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
+        UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:2];
+        UILabel *descriptionLabel = (UILabel *)[cell.contentView viewWithTag:3];
+        Event *eventAtIndex = [manager.favoritesList objectAtIndex:indexPath.row];
+        
+        nameLabel.backgroundColor = [UIColor clearColor];
+        nameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        nameLabel.font = [UIFont fontWithName:@"Futura" size:15.0];
+        nameLabel.text = eventAtIndex.eventBasic.title;
+        
+        dateLabel.backgroundColor = [UIColor clearColor];
+        dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+        dateLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+        [dateLabel setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
 
+        
+        descriptionLabel.backgroundColor = [UIColor clearColor];
+        descriptionLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        descriptionLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+        descriptionLabel.text = eventAtIndex.eventDescription;
+        descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        descriptionLabel.numberOfLines = 2;
+        
+        /*cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
+        cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
+        cell.textLabel.textColor = [UIColor whiteColor];
+        cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+        cell.textLabel.text = eventAtIndex.eventBasic.title;
+        cell.textLabel.backgroundColor = [UIColor clearColor];
+        [[cell detailTextLabel] setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];*/
+
+    }
     return cell;
 }
 
@@ -105,9 +170,14 @@
     
     UILabel *headerLabel = [[UILabel alloc] initWithFrame:CGRectMake (0,0,200,30)];
     headerLabel.backgroundColor = [UIColor clearColor];
-    headerLabel.font = [UIFont fontWithName:@"Avenir-Book" size:18.0];
+    headerLabel.font = [UIFont fontWithName:@"Futura" size:18.0];
     headerLabel.textColor = [UIColor lightGrayColor];
-    headerLabel.text = @"Your favorite events";
+    if(section == 0){
+        headerLabel.text = @"Top news";
+    }
+    else{
+        headerLabel.text = @"Your favorited events";
+    }
     [headerView addSubview:headerLabel];
     return headerView;
 }

@@ -30,7 +30,9 @@
 {
     Event *theEvent = self.event;
     static NSDateFormatter *formatter = nil;
+    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
     
+    //Set date formatter
     if (formatter == nil) {
         formatter = [[NSDateFormatter alloc] init];
         [formatter setDateStyle:NSDateFormatterShortStyle];
@@ -49,50 +51,50 @@
         
         
         //Name
-        self.eventNameLabel.textColor = [UIColor lightGrayColor];
-        self.eventNameLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventNameLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+        self.eventNameLabel.font = [UIFont fontWithName:@"Futura" size:14.0];
         self.eventNameDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventNameDetail.numberOfLines = 0;
-        self.eventNameDetail.textColor = [UIColor whiteColor];
-        self.eventNameDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventNameDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        self.eventNameDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
         self.eventNameDetail.text = theEvent.eventBasic.title;
         
         //Location
-        self.eventLocationLabel.textColor = [UIColor lightGrayColor];
-        self.eventLocationLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventLocationLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+        self.eventLocationLabel.font = [UIFont fontWithName:@"Futura" size:14.0];
         self.eventLocationDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventLocationDetail.numberOfLines = 0;
-        self.eventLocationDetail.textColor = [UIColor whiteColor];
-        self.eventLocationDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventLocationDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        self.eventLocationDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
         self.eventLocationDetail.text = @"COOL"; //theEvent.eventLocation;
         
         //Date
-        self.eventDateLabel.textColor = [UIColor lightGrayColor];
-        self.eventDateLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventDateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+        self.eventDateLabel.font = [UIFont fontWithName:@"Futura" size:14.0];
         self.eventDateDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventDateDetail.numberOfLines = 0;
-        self.eventDateDetail.textColor = [UIColor whiteColor];
-        self.eventDateDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventDateDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        self.eventDateDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
         NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
         self.eventDateDetail.text = completeDateString;
         
         //Admission
-        self.eventAdmissionLabel.textColor = [UIColor lightGrayColor];
-        self.eventAdmissionLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventAdmissionLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+        self.eventAdmissionLabel.font = [UIFont fontWithName:@"Futura" size:14.0];
         self.eventAdmissionDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventAdmissionDetail.numberOfLines = 0;
-        self.eventAdmissionDetail.textColor = [UIColor whiteColor];
-        self.eventAdmissionDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventAdmissionDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        self.eventAdmissionDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
         NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
         self.eventAdmissionDetail.text = admissionString;
         
         //Description
-        self.eventDescriptionLabel.textColor = [UIColor lightGrayColor];
-        self.eventDescriptionLabel.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventDescriptionLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+        self.eventDescriptionLabel.font = [UIFont fontWithName:@"Futura" size:14.0];
         self.eventDescriptionDetail.lineBreakMode = NSLineBreakByWordWrapping;
         self.eventDescriptionDetail.numberOfLines = 0;
-        self.eventDescriptionDetail.textColor = [UIColor whiteColor];
-        self.eventDescriptionDetail.font = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+        self.eventDescriptionDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        self.eventDescriptionDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
         self.eventDescriptionDetail.text = theEvent.eventDescription;
     }
 }
@@ -104,14 +106,8 @@
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor blackColor];
     self.tableView.backgroundColor = [UIColor clearColor];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"]
-                                                  forBarMetrics:UIBarMetricsDefault];
-
-    /*UIImage * targetImage = [UIImage imageNamed:@"background.png"];
-    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
-    [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
-    UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();*/
+    
+    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
     
     [self configureView];
 }
@@ -130,6 +126,7 @@
 //TABLE STUFF
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
 }
 
@@ -137,7 +134,7 @@
 
     UITableViewCell *cell = [tableView.dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
     NSString *cellText = cell.detailTextLabel.text;
-    UIFont *cellFont = [UIFont fontWithName:@"Avenir-Book" size:14.0];
+    UIFont *cellFont = [UIFont fontWithName:@"Futura" size:14.0];
     CGSize constraintSize = CGSizeMake(280.0f, MAXFLOAT);
     CGSize labelSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     
@@ -151,57 +148,15 @@
     return NO;
 }
 
-/*- (IBAction)favoriteButtonPressed:(id)sender {
-    NSLog(@"LALA");
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *favorites = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"favoriteEvents"]];
-    
-    if(!favorites){
-        favorites = [NSMutableArray new];
-    }
-    [favorites addObject:self.event];
-    [defaults setObject:favorites forKey:@"favoriteEvents"];
-    [defaults synchronize];
-    
-}*/
 - (IBAction)favoriteButtonPressed:(UIButton *)sender {
     
-    NSLog(@"Favorite button pressed");
-    [self.dataController addToFavorites:self.event];
-    
-    
-    //[self.dataController.favoritesList addObject:self.event];
-    
-   /* NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *dictionaries = [NSMutableArray arrayWithArray:[defaults arrayForKey:@"dictionaries"]];
-    
-    if(!dictionaries){
-        dictionaries = [NSMutableArray new];
-    }
-    
-    NSDictionary *favDictionary = self.event.convertToDictionary;
-    [dictionaries addObject:favDictionary];
-    [defaults setObject:(NSArray *)dictionaries forKey:@"dictionaries"];
-    [defaults synchronize];*/
-    
-/*NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSArray *list;
-    NSMutableArray *favsList;
-    NSData *data = [defaults objectForKey:@"favsListData"];
-    
-    if(data){
-        list = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-        favsList = [NSMutableArray arrayWithArray:list];
+    if(!self.event.favorite){
+        self.event.favorite = YES;
+        [self.dataController addToFavorites:self.event];
     }
     else{
-        data = [NSData new];
-        favsList = [NSMutableArray new];
+        self.event.favorite = NO;
+        [self.dataController removeFromFavorites:self.event];
     }
-
-    [favsList addObject:self.event];
-    data = [NSKeyedArchiver archivedDataWithRootObject:(NSArray *)favsList];
-    [defaults setObject:data forKey:@"favsListData"];
-    [defaults synchronize];*/
 }
 @end
