@@ -19,10 +19,8 @@
 @property (nonatomic, strong) NSMutableArray *annotations;
 @property (nonatomic, copy) NSString *className;
 //@property (nonatomic, strong) PPWallPostsTableViewController *wallPostsTableViewController;
-@property (nonatomic, assign) BOOL mapPinsPlaced;
-@property (nonatomic, assign) BOOL mapPannedSinceLocationUpdate;
 
-@property (nonatomic, strong) NSMutableArray *allPosts;
+@property (nonatomic, assign) BOOL mapPannedSinceLocationUpdate;
 
 @end
 
@@ -31,8 +29,8 @@
 @synthesize mapView;
 @synthesize _locationManager = locationManager;
 @synthesize eventsListTableView;
-@synthesize allPosts;
-@synthesize mapPinsPlaced;
+
+
 
 /*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -78,13 +76,14 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distanceFilterDidChange:) name:kPPFilterDistanceChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidChange:) name:kPPLocationChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(eventDataDidLoad:) name: kPPEventDataLoadedNotification object:nil];
     
     self.mapPannedSinceLocationUpdate = NO;
 	[self startStandardUpdates];
     
     //r
 	PrixPartyAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
-    [self queryForAllPostsNearLocation:appDelegate.currentLocation withNearbyDistance:appDelegate.filterDistance];
+    [self.dataController queryForAllPostsNearLocation:appDelegate.currentLocation withNearbyDistance:appDelegate.filterDistance];
 }
 
 - (void) viewWillAppear:(BOOL) animated {
@@ -107,8 +106,9 @@
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kPPFilterDistanceChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:kPPLocationChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPPEventDataLoadedNotification object:nil];
 	
-	self.mapPinsPlaced = NO; // reset this for the next time we show the map.
+    [self.dataController viewDealloc]; // reset this for the next time we show the map.
 }
 
 - (void)didReceiveMemoryWarning
@@ -262,7 +262,7 @@
 	}
     
 	// Update our pins for the new filter distance:
-	[self updatePostsForLocation:appDelegate.currentLocation withNearbyDistance:filterDistance];
+	[self.dataController updatePostsForLocation:appDelegate.currentLocation withNearbyDistance:filterDistance];
 	
 	// If they panned the map since our last location update, don't recenter it.
 	if (!self.mapPannedSinceLocationUpdate) {
@@ -307,9 +307,16 @@
 	 */
     
 	// Update the map with new pins:
-	[self queryForAllPostsNearLocation:appDelegate.currentLocation withNearbyDistance:appDelegate.filterDistance];
+	[self.dataController queryForAllPostsNearLocation:appDelegate.currentLocation withNearbyDistance:appDelegate.filterDistance];
 	// And update the existing pins to reflect any changes in filter distance:
-	[self updatePostsForLocation:appDelegate.currentLocation withNearbyDistance:appDelegate.filterDistance];
+	[self.dataController updatePostsForLocation:appDelegate.currentLocation withNearbyDistance:appDelegate.filterDistance];
+}
+
+- (void) eventDataDidLoad:(NSNotification *)note {
+    NSLog(@"Got event");
+    [mapView removeAnnotations:self.dataController.postsToRemove];
+    [mapView addAnnotations:self.dataController.postsThatAreNew];
+    [eventsListTableView reloadData];
 }
 
 
@@ -473,109 +480,6 @@
 }
 
 
-#pragma mark - Fetch map pins
-
-- (void)queryForAllPostsNearLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy)nearbyDistance {
-    NSLog(@"This!");
-	PFQuery *query = [PFQuery queryWithClassName:kPPParseEventsClassKey];
-    
-	if (currentLocation == nil) {
-		NSLog(@"%s got a nil location!", __PRETTY_FUNCTION__);
-	}
-    
-	// If no objects are loaded in memory, we look to the cache first to fill the table
-	// and then subsequently do a query against the network.
-	if ([self.allPosts count] == 0) {
-		query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-	}
-    
-	// Query for posts sort of kind of near our current location.
-	PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude];
-	[query whereKey:kPPParseLocationKey nearGeoPoint:point withinKilometers:kPPWallPostMaximumSearchDistance];
-	//[query includeKey:kPPParseUserKey];
-	query.limit = kPPWallPostsSearch;
-    
-	[query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-		if (error) {
-			NSLog(@"error in geo query!"); // todo why is this ever happening?
-		} else {
-            NSLog(@"no error!");
-			// We need to make new post objects from objects,
-			// and update allPosts and the map to reflect this new array.
-			// But we don't want to remove all annotations from the mapview blindly,
-			// so let's do some work to figure out what's new and what needs removing.
-            
-			// 1. Find genuinely new posts:
-			NSMutableArray *newPosts = [[NSMutableArray alloc] initWithCapacity:kPPWallPostsSearch];
-			// (Cache the objects we make for the search in step 2:)
-			NSMutableArray *allNewPosts = [[NSMutableArray alloc] initWithCapacity:kPPWallPostsSearch];
-			for (PFObject *object in objects) {
-				Event *newPost = [[Event alloc] initWithPFObject:object];
-				[allNewPosts addObject:newPost];
-				BOOL found = NO;
-				for (Event *currentPost in allPosts) {
-					if ([newPost equalToPost:currentPost]) {
-						found = YES;
-					}
-				}
-				if (!found) {
-					[newPosts addObject:newPost];
-				}
-			}
-			// newPosts now contains our new objects.
-            
-			// 2. Find posts in allPosts that didn't make the cut.
-			NSMutableArray *postsToRemove = [[NSMutableArray alloc] initWithCapacity:kPPWallPostsSearch];
-			for (Event *currentPost in allPosts) {
-				BOOL found = NO;
-				// Use our object cache from the first loop to save some work.
-				for (Event *allNewPost in allNewPosts) {
-					if ([currentPost equalToPost:allNewPost]) {
-						found = YES;
-					}
-				}
-				if (!found) {
-					[postsToRemove addObject:currentPost];
-				}
-			}
-			// postsToRemove has objects that didn't come in with our new results.
-            
-			// 3. Configure our new posts; these are about to go onto the map.
-			for (Event *newPost in newPosts) {
-				CLLocation *objectLocation = [[CLLocation alloc] initWithLatitude:newPost.coordinate.latitude longitude:newPost.coordinate.longitude];
-                
-				// Animate all pins after the initial load:
-				newPost.animatesDrop = mapPinsPlaced;
-                
-                [self.dataController addEvent:newPost];
-                
-                NSLog(@"Title: %@", newPost.eventName);
-			}
-
-            [self.eventsListTableView reloadData];
-			// At this point, newAllPosts contains a new list of post objects.
-			// We should add everything in newPosts to the map, remove everything in postsToRemove,
-			// and add newPosts to allPosts.
-			[mapView removeAnnotations:postsToRemove];
-			[mapView addAnnotations:newPosts];
-			[allPosts addObjectsFromArray:newPosts];
-			[allPosts removeObjectsInArray:postsToRemove];
-            
-			self.mapPinsPlaced = YES;
-		}
-	}];
-}
-
-// When we update the search filter distance, we need to update our pins' titles to match.
-- (void)updatePostsForLocation:(CLLocation *)currentLocation withNearbyDistance:(CLLocationAccuracy) nearbyDistance {
-	for (Event *post in allPosts) {
-		CLLocation *objectLocation = [[CLLocation alloc] initWithLatitude:post.coordinate.latitude longitude:post.coordinate.longitude];
-		// if this post is outside the filter distance, don't show the regular callout.
-        //CLLocationDistance distanceFromCurrent = [currentLocation distanceFromLocation:objectLocation];
-		[mapView viewForAnnotation:post];
-		[(MKPinAnnotationView *) [mapView viewForAnnotation:post] setPinColor:post.pinColor];
-	}
-}
 
 
 

@@ -23,6 +23,7 @@ static double const kPPWallPostMaximumSearchDistance = 100.0;
 static NSString * const kPPFilterDistanceChangeNotification = @"kPPFilterDistanceChangeNotification";
 static NSString * const kPPLocationChangeNotification = @"kPPLocationChangeNotification";
 static NSString * const kPPPostCreatedNotification = @"kPPPostCreatedNotification";
+static NSString * const kPPEventDataLoadedNotification = @"kPPEventDataLoadedNotification";
 
 //r: explain
 static NSString * const kPPFilterDistanceKey = @"filterDistance";

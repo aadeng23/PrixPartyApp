@@ -67,31 +67,32 @@
 
 
 - (BOOL)equalToPost:(Event *)aPost {
-    /*
+    
 	if (aPost == nil) {
 		return NO;
 	}
     
 	if (aPost.object && self.object) {
+        NSLog(@"For event %@ we got 1", self.eventName);
 		// We have a PFObject inside the PAWPost, use that instead.
 		if ([aPost.object.objectId compare:self.object.objectId] != NSOrderedSame) {
 			return NO;
 		}
 		return YES;
 	} else {
+        NSLog(@"For event %@ we got 2", self.eventName);
 		// Fallback code:
-		NSLog(@"%s Testing equality of PAWPosts where one or both objects lack a backing PFObject", __PRETTY_FUNCTION__);
         
-		if ([aPost.title    compare:self.title]    != NSOrderedSame ||
-			[aPost.subtitle compare:self.subtitle] != NSOrderedSame ||
+		if ([aPost.eventName    compare:self.eventName]    != NSOrderedSame ||
+			[aPost.description compare:self.description] != NSOrderedSame ||
 			aPost.coordinate.latitude  != self.coordinate.latitude ||
 			aPost.coordinate.longitude != self.coordinate.longitude ) {
 			return NO;
 		}
         
 		return YES;
-     */
 	}
+}
 
 
 
