@@ -19,6 +19,8 @@
 
 @property (nonatomic, copy) NSString *eventName;
 @property (nonatomic, copy) NSString *description;
+@property (nonatomic, copy) NSString *friendlyLocation;
+@property (nonatomic, copy) NSString *entryPriceString;
 
 //r Redefine these properties to make them read/write for internal class accesses and mutations.
 //r: do
@@ -32,18 +34,27 @@
 @synthesize coordinate;
 @synthesize eventName;
 @synthesize description;
+@synthesize friendlyLocation;
+@synthesize entryPriceString;
 
 @synthesize object;
 @synthesize geopoint;
 @synthesize animatesDrop;
 @synthesize pinColor;
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate andTitle:(NSString *)aTitle andSubtitle:(NSString *)aSubtitle {
+- (id)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate
+        andTitle:(NSString *)aTitle
+        andSubtitle:(NSString *)aSubtitle
+        andFriendlyLocation:(NSString *)aFriendlyLocation
+        andEntryPriceString:(NSString *)aEntryPriceString {
 	self = [super init];
 	if (self) {
 		self.coordinate = aCoordinate;
 		self.eventName = aTitle;
 		self.description = aSubtitle;
+        self.friendlyLocation = aFriendlyLocation;
+        self.entryPriceString = aEntryPriceString;
+        
 		
         //r
         //self.animatesDrop = NO;
@@ -61,8 +72,14 @@
 	CLLocationCoordinate2D aCoordinate = CLLocationCoordinate2DMake(self.geopoint.latitude, self.geopoint.longitude);
 	NSString *aTitle = [anObject objectForKey:kPPParseEventNameKey];
 	NSString *aSubtitle = [anObject objectForKey:kPPParseEventDescKey];
+    NSString *aFriendlyLocation = [anObject objectForKey:kPPParseEventFriendlyLocationKey];
+    NSString *aEntryPriceString = [anObject objectForKey:kPPParseEventEntryPriceStringKey];
     
-    return [self initWithCoordinate:aCoordinate andTitle:aTitle andSubtitle:aSubtitle];
+    return [self initWithCoordinate:aCoordinate
+            andTitle:aTitle
+            andSubtitle:aSubtitle
+            andFriendlyLocation:aFriendlyLocation
+            andEntryPriceString:aEntryPriceString];
 }
 
 
@@ -96,9 +113,16 @@
 	}
 }
 
-
-
-
+-(NSString *)getFriendlyDateString {
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    [df setDateStyle:NSDateFormatterMediumStyle];
+    NSString * temp = [object objectForKey:kPPParseEventStartDateKey];
+    if (temp != nil) {
+        NSLog(@"Event %@ has date %@", eventName, temp);
+    }
+    return [df stringFromDate:temp];
+}
 
 -(Event *)convertFromDictionary:(NSDictionary *)dic{
     /*

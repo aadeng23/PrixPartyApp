@@ -164,7 +164,7 @@
     dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
     dateLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
     //r: Enable this! as soon as date formatting is a thing
-//    [dateLabel setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
+    [dateLabel setText:[eventAtIndex getFriendlyDateString]];
     
     descriptionLabel.backgroundColor = [UIColor clearColor];
     descriptionLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];

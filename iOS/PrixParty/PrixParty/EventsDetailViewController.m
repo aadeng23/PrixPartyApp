@@ -58,7 +58,7 @@
         self.eventLocationDetail.numberOfLines = 0;
         self.eventLocationDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventLocationDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
-        self.eventLocationDetail.text = @"COOL"; //theEvent.eventLocation;
+        self.eventLocationDetail.text = theEvent.friendlyLocation;
         
         //Date
         self.eventDateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
@@ -68,9 +68,8 @@
         self.eventDateDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventDateDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
         
-        //r
 //        NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
-  //      self.eventDateDetail.text = completeDateString;
+        self.eventDateDetail.text = [theEvent getFriendlyDateString];
         
         //Admission
         self.eventAdmissionLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
@@ -80,9 +79,10 @@
         self.eventAdmissionDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventAdmissionDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
         
-        //r
-//        NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
-//        self.eventAdmissionDetail.text = admissionString;
+        //We would use the next line if we were formatting a price
+        // NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
+        // But for now we want to display a friendly string, so we can say "Free to MotoGP attenders", etc
+        self.eventAdmissionDetail.text = theEvent.entryPriceString;
         
         //Description
         self.eventDescriptionLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];

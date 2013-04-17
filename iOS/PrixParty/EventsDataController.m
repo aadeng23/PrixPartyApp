@@ -95,9 +95,11 @@
     
 	// If no objects are loaded in memory, we look to the cache first to fill the table
 	// and then subsequently do a query against the network.
-	if ([self.allPosts count] == 0) {
+	/*
+    if ([self.allPosts count] == 0) {
 		query.cachePolicy = kPFCachePolicyCacheThenNetwork;
 	}
+    */
     
 	// Query for posts sort of kind of near our current location.
 	PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude];
