@@ -15,21 +15,12 @@
 
 @implementation EventsViewController
 
-/*- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-        self.dataController = [[EventsDataController alloc] init];
-        [self.dataController addEventTest];
-    }
-    return self;
-}*/
-
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    
     self.dataController = [[EventsDataController alloc] init];
+    
     [self.dataController addEventTest];
     [self.dataController addEventTest];
     [self.dataController addEventTest];
@@ -39,25 +30,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view.
-    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:200.0f/255.0f green:22.0f/255.0f blue:22.0f/255.0f alpha:0.5f];
+    
+    //Setting background and navigation bar
+    self.view.backgroundColor = [UIColor blackColor];
     self.eventsListTableView.backgroundColor = [UIColor clearColor];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"] forBarMetrics:UIBarMetricsDefault];
     
-    /*UIImage * targetImage = [UIImage imageNamed:@"triangles.png"];
-    UIGraphicsBeginImageContextWithOptions(self.view.frame.size, NO, 0.f);
-    [targetImage drawInRect:CGRectMake(0.f, 0.f, self.view.frame.size.width, self.view.frame.size.height)];
-    UIImage * resultImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();*/
-    
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"squares.png"]];
-    
+    //Setting segment controls
+    [self.segmentedControl setImage:[UIImage imageNamed:@"listbuttonselect.png"] forSegmentAtIndex:0];
+    [self.segmentedControl setImage:[UIImage imageNamed:@"mapbutton.png"] forSegmentAtIndex:1];
+    [self.segmentedControl setDividerImage:[UIImage imageNamed:@"leftside_select.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+
+    //Show view
     self.eventsListTableView.hidden = NO;
     self.eventsMapView.hidden = YES;
-    
-    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
-    [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
-
     
 }
 
@@ -76,63 +64,51 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     
     return [self.dataController sizeOfList];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"EventCell";
+
     
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
+    
+    //Setting date formatter
     static NSDateFormatter *formatter = nil;
     if (formatter == nil) {
         formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterShortStyle];
+        [formatter setDateStyle:NSDateFormatterMediumStyle];
         [formatter setTimeStyle:NSDateFormatterShortStyle];
     }
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-
+    //Getting labels from cell
+    UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
+    UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:2];
+    UILabel *descriptionLabel = (UILabel *)[cell.contentView viewWithTag:3];
     Event *eventAtIndex = [self.dataController objectInListAtIndex:indexPath.row];
     
-    UIImage *rowBackground;
-    //UIImage *selectionBackground;
-    NSInteger sectionRows = [self.eventsListTableView numberOfRowsInSection:[indexPath section]];
-    NSInteger row = [indexPath row];
+    //Setting label settings
+    nameLabel.backgroundColor = [UIColor clearColor];
+    nameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+    nameLabel.font = [UIFont fontWithName:@"Futura" size:15.0];
+    nameLabel.text = eventAtIndex.eventBasic.title;
     
-    /*if (row == 0 && row == sectionRows - 1)
-    {
-        rowBackground = [UIImage imageNamed:@"topAndBottomRow.png"];
-        //selectionBackground = [UIImage imageNamed:@"topAndBottomRowSelected.png"];
-    }
-    else */if (row == 0)
-    {
-        rowBackground = [UIImage imageNamed:@"Top_Cel.png"];
-        //selectionBackground = [UIImage imageNamed:@"topRowSelected.png"];
-    }
-    else if (row == sectionRows - 1)
-    {
-        rowBackground = [UIImage imageNamed:@"BottomCel.png"];
-        //selectionBackground = [UIImage imageNamed:@"bottomRowSelected.png"];
-    }
-    else
-    {
-        rowBackground = [UIImage imageNamed:@"CenterCel.png"];
-        //selectionBackground = [UIImage imageNamed:@"middleRowSelected.png"];
-    }
-    ((UIImageView *)cell.backgroundView).image = rowBackground;
-    //((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Top_Cel.png"]];
+    dateLabel.backgroundColor = [UIColor clearColor];
+    dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
+    dateLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+    [dateLabel setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
     
-    cell.textLabel.font = [UIFont fontWithName:@"Avenir-Black" size:20.0];
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    cell.detailTextLabel.textColor = [UIColor lightGrayColor];
-    cell.textLabel.text = eventAtIndex.eventBasic.title;
-    [[cell detailTextLabel] setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
+    descriptionLabel.backgroundColor = [UIColor clearColor];
+    descriptionLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+    descriptionLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+    descriptionLabel.text = eventAtIndex.eventDescription;
+    descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    descriptionLabel.numberOfLines = 2;
     
     return cell;
+
 }
 
 
@@ -177,10 +153,16 @@
     switch (sender.selectedSegmentIndex) {
             //list view
         case 0:
+            [self.segmentedControl setImage:[UIImage imageNamed:@"listbuttonselect.png"] forSegmentAtIndex:0];
+            [self.segmentedControl setImage:[UIImage imageNamed:@"mapbutton.png"] forSegmentAtIndex:1];
+            [self.segmentedControl setDividerImage:[UIImage imageNamed:@"leftside_select.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
             self.eventsListTableView.hidden = NO;
             self.eventsMapView.hidden = YES;
             break;
         case 1:
+            [self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
+            [self.segmentedControl setImage:[UIImage imageNamed:@"mapbuttonselect.png"] forSegmentAtIndex:1];
+           [self.segmentedControl setDividerImage:[UIImage imageNamed:@"rightside_select.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
             self.eventsListTableView.hidden = YES;
             self.eventsMapView.hidden = NO;
             break;
@@ -193,7 +175,25 @@
     if ([[segue identifier] isEqualToString:@"ShowEventDetails"]) {
         
         EventsDetailViewController *detailViewController = [segue destinationViewController];
+        detailViewController.dataController = self.dataController;
         detailViewController.event = [self.dataController objectInListAtIndex:[self.eventsListTableView indexPathForSelectedRow].row];
+        
+        detailViewController.navBar = self.navigationController.navigationBar;
+        
+        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        [UIView transitionWithView:self.view
+                          duration:10.0f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            [self.navigationController.navigationBar setBackgroundImage:toImage forBarMetrics:UIBarMetricsDefault];
+                        } completion:nil];
+        
+        //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"] forBarMetrics:UIBarMetricsDefault];
+        //self.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Return" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        backButton.tintColor = [UIColor clearColor];
+        [[self navigationItem] setBackBarButtonItem:backButton];
     }
 }
 

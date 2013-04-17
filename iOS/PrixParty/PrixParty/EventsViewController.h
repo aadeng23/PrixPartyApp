@@ -18,8 +18,8 @@
 @property (weak, nonatomic) IBOutlet MKMapView *eventsMapView;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 
-
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
+
 
 @end
 

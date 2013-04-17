@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *trendingLoadIndicator;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *recentLoadIndicator;
 
+
+
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 
 @end
