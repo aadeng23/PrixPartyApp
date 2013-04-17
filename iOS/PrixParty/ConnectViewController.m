@@ -44,8 +44,8 @@
     trendingController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
     recentController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
     
-    trendingURL = @"http://search.twitter.com/search.json?q=%40twitterapi";
-    recentURL = @"http://search.twitter.com/search.json?q=%40kitten";
+    trendingURL = @"http://search.twitter.com/search.json?q=%23formula1";
+    recentURL = @"http://search.twitter.com/search.json?q=%23cota";
     
     [self addChildViewController:trendingController];
     [self addChildViewController:recentController];
