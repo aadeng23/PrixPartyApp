@@ -91,6 +91,7 @@
     
 	if (currentLocation == nil) {
 		NSLog(@"%s got a nil location!", __PRETTY_FUNCTION__);
+        currentLocation = [[CLLocation alloc] initWithLatitude:30.274486 longitude:-97.746048];
 	}
     
 	// If no objects are loaded in memory, we look to the cache first to fill the table
