@@ -184,8 +184,9 @@
     */
 
     //r: the event model did change, however
-    cell.textLabel.text = eventAtIndex.eventName;
-    cell.detailTextLabel.text = eventAtIndex.description;
+    nameLabel.text = eventAtIndex.eventName;
+    dateLabel.text = [eventAtIndex getFriendlyDateString];
+    descriptionLabel.text = eventAtIndex.description;
     
     return cell;
 
