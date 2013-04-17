@@ -72,6 +72,8 @@
 		0BEBDE1F171BB223005F3EA4 /* regcell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BEBDE1D171BB223005F3EA4 /* regcell@2x.png */; };
 		0BEBDE20171BB223005F3EA4 /* regcell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BEBDE1E171BB223005F3EA4 /* regcell.png */; };
 		AD76400D04AA425E96C04323 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A64C3DEEA4A34B7A86A1FB12 /* libPods.a */; };
+		B798B37A171C36100075CCEF /* PPSearchRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = B798B379171C36100075CCEF /* PPSearchRadius.m */; };
+		B798B37D171C380F0075CCEF /* PPCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B798B37C171C380F0075CCEF /* PPCircleView.m */; };
 		B7C2FC2C1714C93400A55C43 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2FC2B1714C93400A55C43 /* Parse.framework */; };
 		B7C2FC401714C9DB00A55C43 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2FC3F1714C9DB00A55C43 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B7C2FC421714C9E200A55C43 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2FC411714C9E200A55C43 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -175,6 +177,10 @@
 		0BEBDE1D171BB223005F3EA4 /* regcell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "regcell@2x.png"; sourceTree = "<group>"; };
 		0BEBDE1E171BB223005F3EA4 /* regcell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = regcell.png; sourceTree = "<group>"; };
 		A64C3DEEA4A34B7A86A1FB12 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B798B378171C36100075CCEF /* PPSearchRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSearchRadius.h; sourceTree = "<group>"; };
+		B798B379171C36100075CCEF /* PPSearchRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSearchRadius.m; sourceTree = "<group>"; };
+		B798B37B171C380E0075CCEF /* PPCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCircleView.h; sourceTree = "<group>"; };
+		B798B37C171C380F0075CCEF /* PPCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPCircleView.m; sourceTree = "<group>"; };
 		B7C2FC2B1714C93400A55C43 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		B7C2FC3F1714C9DB00A55C43 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		B7C2FC411714C9E200A55C43 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -294,6 +300,10 @@
 		0B56179B16DB1CEC00939F07 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				B798B37B171C380E0075CCEF /* PPCircleView.h */,
+				B798B37C171C380F0075CCEF /* PPCircleView.m */,
+				B798B378171C36100075CCEF /* PPSearchRadius.h */,
+				B798B379171C36100075CCEF /* PPSearchRadius.m */,
 				0BC7EAC116DD650E001A6FE1 /* Event.h */,
 				0BC7EAC216DD650E001A6FE1 /* Event.m */,
 				0BC7EAC416DD855E001A6FE1 /* EventsDataController.h */,
@@ -548,6 +558,8 @@
 				0BCFB803170E25AE006368BB /* UIImageView+AFNetworking.m in Sources */,
 				0BEBDE03171A0124005F3EA4 /* HomeTableViewController.m in Sources */,
 				0BEBDE06171B38B7005F3EA4 /* MyManager.m in Sources */,
+				B798B37A171C36100075CCEF /* PPSearchRadius.m in Sources */,
+				B798B37D171C380F0075CCEF /* PPCircleView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,25 +6,35 @@
 //  Copyright (c) 2013 Team DUNT. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 #import <EventKit/EventKit.h>
 
 @interface Event : NSObject
 
-@property (nonatomic, copy) EKEvent *eventBasic;
-@property (nonatomic, copy) NSString *eventDescription;
-@property (nonatomic) double eventAdmission;
-@property (nonatomic, strong) CLLocation *eventLocation;
-@property (nonatomic, copy) NSMutableArray *eventTags;
+@property (nonatomic, readonly, copy) NSString *eventName;
+@property (nonatomic, readonly, copy) NSString *description;
 @property (nonatomic) BOOL favorite;
 
--(id)initWithBasics:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate store:(EKEventStore *)store;
+@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
 
--(id)initWithParams:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate store:(EKEventStore *)store description:(NSString *)description admission:(double)admission location:(CLLocation *)location tags:(NSMutableArray *)tags;
 
--(void)setDateWithString:(NSString *)startDateString endDate:(NSString *)endDateString;
+// Parse Properties
+@property (nonatomic, readonly, strong) PFObject *object;
+@property (nonatomic, readonly, strong) PFGeoPoint *geopoint;
 
--(NSDictionary *)convertToDictionary;
+// Map properties
+@property (nonatomic, readonly) MKPinAnnotationColor pinColor;
+@property (nonatomic, assign) BOOL animatesDrop;
+
+
+
+// Methods
+- (id)initWithPFObject:(PFObject *)object;
+- (BOOL)equalToPost:(Event *)aPost;
+
+- (void)setTitleAndSubtitleOutsideDistance:(BOOL)outside;
 
 @end

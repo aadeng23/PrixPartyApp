@@ -58,7 +58,7 @@
         self.eventNameDetail.numberOfLines = 0;
         self.eventNameDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventNameDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
-        self.eventNameDetail.text = theEvent.eventBasic.title;
+        self.eventNameDetail.text = theEvent.eventName;
         
         //Location
         self.eventLocationLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
@@ -76,8 +76,10 @@
         self.eventDateDetail.numberOfLines = 0;
         self.eventDateDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventDateDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
-        NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
-        self.eventDateDetail.text = completeDateString;
+        
+        //r
+//        NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
+  //      self.eventDateDetail.text = completeDateString;
         
         //Admission
         self.eventAdmissionLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
@@ -86,8 +88,10 @@
         self.eventAdmissionDetail.numberOfLines = 0;
         self.eventAdmissionDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventAdmissionDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
-        NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
-        self.eventAdmissionDetail.text = admissionString;
+        
+        //r
+//        NSString* admissionString = [NSString stringWithFormat:@"$%.2f", theEvent.eventAdmission];
+//        self.eventAdmissionDetail.text = admissionString;
         
         //Description
         self.eventDescriptionLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
@@ -96,7 +100,7 @@
         self.eventDescriptionDetail.numberOfLines = 0;
         self.eventDescriptionDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventDescriptionDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
-        self.eventDescriptionDetail.text = theEvent.eventDescription;
+        self.eventDescriptionDetail.text = theEvent.description;
     }
 }
 

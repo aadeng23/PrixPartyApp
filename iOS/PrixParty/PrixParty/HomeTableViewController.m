@@ -136,18 +136,20 @@
         nameLabel.backgroundColor = [UIColor clearColor];
         nameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         nameLabel.font = [UIFont fontWithName:@"Futura" size:15.0];
-        nameLabel.text = eventAtIndex.eventBasic.title;
+        nameLabel.text = eventAtIndex.eventName;
         
         dateLabel.backgroundColor = [UIColor clearColor];
         dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
         dateLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
-        [dateLabel setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
+        
+        //r: Re-enable when dates working again
+//        [dateLabel setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
 
         
         descriptionLabel.backgroundColor = [UIColor clearColor];
         descriptionLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         descriptionLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
-        descriptionLabel.text = eventAtIndex.eventDescription;
+        descriptionLabel.text = eventAtIndex.description;
         descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
         descriptionLabel.numberOfLines = 2;
         

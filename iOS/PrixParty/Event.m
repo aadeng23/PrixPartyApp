@@ -7,55 +7,96 @@
 //
 
 #import "Event.h"
+#import "PrixPartyAppDelegate.h"
+
 @class EventsDataController;
 
+@interface Event ()
+@property (nonatomic) CLLocationCoordinate2D coordinate;
+
+@property (nonatomic, strong) PFObject *object;
+@property (nonatomic, strong) PFGeoPoint *geopoint;
+
+@property (nonatomic, copy) NSString *eventName;
+@property (nonatomic, copy) NSString *description;
+
+//r Redefine these properties to make them read/write for internal class accesses and mutations.
+//r: do
+
+
+//end variables
+@end
+
 @implementation Event
+//r: synthesize all
+@synthesize coordinate;
+@synthesize eventName;
+@synthesize description;
 
--(id)initWithBasics:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate store:(EKEventStore *)store{
-    
-    self = [super init];
-    if (self) {
-        _eventBasic = [EKEvent eventWithEventStore:store];
-        _eventBasic.title = name;
-        _eventBasic.startDate = startDate;
-        _eventBasic.endDate = endDate;
-        
-        return self;
-    }
-    return nil;
-}
+@synthesize object;
+@synthesize geopoint;
+@synthesize animatesDrop;
+@synthesize pinColor;
 
--(id)initWithParams:(NSString *)name startDate:(NSDate *)startDate endDate:(NSDate *)endDate store:(EKEventStore *)store description:(NSString *)description  admission:(double)admission location:(CLLocation *)location tags:(NSMutableArray *)tags{
-    
-    self = [super init];
-    if (self) {
-        
-        _eventBasic = [EKEvent eventWithEventStore:store];
-        _eventBasic.title = name;
-        _eventBasic.startDate = startDate;
-        _eventBasic.endDate = endDate;
-        
-        _eventDescription = description;
-        _eventAdmission = admission;
-        _eventLocation = location;
-        _eventTags = tags;
-        _favorite = NO;
-        
-        return self;
-    }
-    return nil;
+- (id)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate andTitle:(NSString *)aTitle andSubtitle:(NSString *)aSubtitle {
+	self = [super init];
+	if (self) {
+		self.coordinate = aCoordinate;
+		self.eventName = aTitle;
+		self.description = aSubtitle;
+		
+        //r
+        //self.animatesDrop = NO;
+	}
+	return self;
 }
 
 
--(void)setDateWithString:(NSString *)startDateString endDate:(NSString *)endDateString{
+- (id)initWithPFObject:(PFObject *)anObject {
+	self.object = anObject;
+	self.geopoint = [anObject objectForKey:kPPParseLocationKey];
+//	self.user = [anObject objectForKey:kPAWParseUserKey];
     
-    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
-    [dateFormater setDateFormat:@"yyyy-MM-DD HH:mm:ss"];
-    NSDate *startDate= [dateFormater dateFromString:startDateString];
-    NSDate *endDate = [dateFormater dateFromString:endDateString];
-    _eventBasic.startDate = startDate;
-    _eventBasic.endDate = endDate;
+	[anObject fetchIfNeeded];
+	CLLocationCoordinate2D aCoordinate = CLLocationCoordinate2DMake(self.geopoint.latitude, self.geopoint.longitude);
+	NSString *aTitle = [anObject objectForKey:kPPParseEventNameKey];
+	NSString *aSubtitle = [anObject objectForKey:kPPParseEventDescKey];
+    
+    return [self initWithCoordinate:aCoordinate andTitle:aTitle andSubtitle:aSubtitle];
 }
+
+
+- (BOOL)equalToPost:(Event *)aPost {
+    NSLog(@"equalToPost called");
+	if (aPost == nil) {
+        NSLog(@"aPost is nil so short circuiting with NO");
+		return NO;
+	}
+    
+	if (aPost.object && self.object) {
+        NSLog(@"For event %@ we got 1", self.eventName);
+		// We have a PFObject inside the PAWPost, use that instead.
+		if ([aPost.object.objectId compare:self.object.objectId] != NSOrderedSame) {
+			return NO;
+		}
+		return YES;
+	} else {
+        NSLog(@"For event %@ we got 2", self.eventName);
+		// Fallback code:
+        
+		if ([aPost.eventName    compare:self.eventName]    != NSOrderedSame ||
+			[aPost.description compare:self.description] != NSOrderedSame ||
+			aPost.coordinate.latitude  != self.coordinate.latitude ||
+			aPost.coordinate.longitude != self.coordinate.longitude ) {
+			return NO;
+		}
+         
+        
+		return YES;
+	}
+}
+
+
 
 
 
@@ -73,3 +114,4 @@
 }
 
 @end
+
