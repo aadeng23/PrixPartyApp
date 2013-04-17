@@ -75,7 +75,7 @@
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
 
     
-    self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(30.29079, -97.74652), MKCoordinateSpanMake(0.008516, 0.021801));
+    self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(30.29079, -97.74652), MKCoordinateSpanMake(0.251964, 0.24522));
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distanceFilterDidChange:) name:kPPFilterDistanceChangeNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(locationDidChange:) name:kPPLocationChangeNotification object:nil];
