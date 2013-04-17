@@ -115,13 +115,13 @@
 		0B81F8BC171E12980094DE33 /* favoritebutton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = favoritebutton.png; sourceTree = "<group>"; };
 		0B81F8C1171E15B70094DE33 /* splashscreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashscreen@2x.png"; sourceTree = "<group>"; };
 		0B81F8C2171E15B70094DE33 /* splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen.png; sourceTree = "<group>"; };
-		0B81F8C5171E15F30094DE33 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		0B81F8C7171E15FE0094DE33 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		0B81F8C9171E16040094DE33 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		0B81F8C5171E15F30094DE33 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		0B81F8C7171E15FE0094DE33 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		0B81F8C9171E16040094DE33 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		0B81F8CB171E16B70094DE33 /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
 		0B81F8CC171E16B70094DE33 /* appicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon@2x.png"; sourceTree = "<group>"; };
-		0B81F8CF171E16D00094DE33 /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appicon.png; sourceTree = "<group>"; };
-		0B81F8D1171E16D60094DE33 /* appicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon@2x.png"; sourceTree = "<group>"; };
+		0B81F8CF171E16D00094DE33 /* appicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = appicon.png; path = ../appicon.png; sourceTree = "<group>"; };
+		0B81F8D1171E16D60094DE33 /* appicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "appicon@2x.png"; path = "../appicon@2x.png"; sourceTree = "<group>"; };
 		0B8CEF5A16E94CDD002BCD82 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		0B8CEF5B16E94CDD002BCD82 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		0B8E411116FBDE520004051B /* calendar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = calendar.png; sourceTree = "<group>"; };
@@ -230,11 +230,6 @@
 		0B56175516DB0D7800939F07 = {
 			isa = PBXGroup;
 			children = (
-				0B81F8D1171E16D60094DE33 /* appicon@2x.png */,
-				0B81F8CF171E16D00094DE33 /* appicon.png */,
-				0B81F8C9171E16040094DE33 /* Default-568h@2x.png */,
-				0B81F8C7171E15FE0094DE33 /* Default@2x.png */,
-				0B81F8C5171E15F30094DE33 /* Default.png */,
 				0B8E5C38170B97980087B3CA /* Podfile */,
 				0B56177016DB0D7800939F07 /* PrixPartyAppDelegate.h */,
 				0B56177116DB0D7800939F07 /* PrixPartyAppDelegate.m */,
@@ -343,6 +338,11 @@
 		0B8E411416FBDE6D0004051B /* Pics */ = {
 			isa = PBXGroup;
 			children = (
+				0B81F8D1171E16D60094DE33 /* appicon@2x.png */,
+				0B81F8CF171E16D00094DE33 /* appicon.png */,
+				0B81F8C9171E16040094DE33 /* Default-568h@2x.png */,
+				0B81F8C7171E15FE0094DE33 /* Default@2x.png */,
+				0B81F8C5171E15F30094DE33 /* Default.png */,
 				0BAA8701171C4E38000D56D9 /* listbutton.png */,
 				0BAA8702171C4E38000D56D9 /* listbutton@2x.png */,
 				0B81F8B9171E12970094DE33 /* favoritebuttonselect.png */,

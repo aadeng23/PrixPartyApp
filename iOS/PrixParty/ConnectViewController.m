@@ -72,7 +72,7 @@
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
-    self.segmentedControl.tintColor = [UIColor clearColor];
+    self.segmentedControl.tintColor = [UIColor grayColor];
     
     trendingController.tableView = self.connectTrendingTableView;
     recentController.tableView = self.connectRecentTableView;
@@ -534,7 +534,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 30.0f;
+    return 10.0f;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath

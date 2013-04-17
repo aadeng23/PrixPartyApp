@@ -39,6 +39,13 @@
     manager = [MyManager sharedManager];
     topNews = [NSMutableArray new];
     
+    self.emptyFavsMessage.textColor = [UIColor colorWithWhite:0.55f alpha:1];
+    self.emptyFavsMessage.font = [UIFont fontWithName:@"TrebuchetMS-Italic" size:16.0];
+    self.emptyFavsMessage.backgroundColor = [UIColor colorWithWhite:0.20f alpha:1];
+    self.emptyFavsMessage.lineBreakMode = NSLineBreakByWordWrapping;
+    self.emptyFavsMessage.numberOfLines = 0;
+    self.emptyFavsMessage.text = @"You don't have any favorites right now. Go to the events page to start adding!";
+    
     [topNews addObject:@"creepy"];
     
     //defaults = [NSUserDefaults standardUserDefaults];
@@ -76,7 +83,14 @@
         return [topNews count];
     }
     else{
-        return [manager.favoritesList count];
+        int size = [manager.favoritesList count];
+        if(!size){
+            self.emptyFavsView.hidden = NO;
+        }
+        else{
+            self.emptyFavsView.hidden = YES;
+        }
+        return size;
     }
     
 }

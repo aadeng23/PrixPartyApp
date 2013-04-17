@@ -11,5 +11,7 @@
 #import "MyManager.h"
 
 @interface HomeTableViewController : UITableViewController
+@property (weak, nonatomic) IBOutlet UIView *emptyFavsView;
+@property (weak, nonatomic) IBOutlet UILabel *emptyFavsMessage;
 
 @end
