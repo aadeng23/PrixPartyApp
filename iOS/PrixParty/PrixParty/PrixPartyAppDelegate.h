@@ -18,6 +18,7 @@ static NSString * const kPPParseEventNameKey = @"EventName";
 static NSString * const kPPParseEventDescKey = @"Description";
 static NSString * const kPPParseEventFriendlyLocationKey = @"FriendlyLocation";
 static NSString * const kPPParseEventEntryPriceStringKey = @"EntryPriceString";
+static NSString * const kPPParseEventStartDateKey = @"StartDate";
 
 static NSUInteger const kPPWallPostsSearch = 20; // query limit for pins and tableviewcells
 static double const kPPWallPostMaximumSearchDistance = 100.0;

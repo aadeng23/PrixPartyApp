@@ -113,9 +113,16 @@
 	}
 }
 
-
-
-
+-(NSString *)getFriendlyDateString {
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd"];
+    [df setDateStyle:NSDateFormatterMediumStyle];
+    NSString * temp = [object objectForKey:kPPParseEventStartDateKey];
+    if (temp != nil) {
+        NSLog(@"Event %@ has date %@", eventName, temp);
+    }
+    return [df stringFromDate:temp];
+}
 
 -(Event *)convertFromDictionary:(NSDictionary *)dic{
     /*

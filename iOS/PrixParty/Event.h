@@ -36,6 +36,7 @@
 // Methods
 - (id)initWithPFObject:(PFObject *)object;
 - (BOOL)equalToPost:(Event *)aPost;
+-(NSString *)getFriendlyDateString;
 
 - (void)setTitleAndSubtitleOutsideDistance:(BOOL)outside;
 

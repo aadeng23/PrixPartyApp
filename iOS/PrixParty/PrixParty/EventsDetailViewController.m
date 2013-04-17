@@ -68,9 +68,8 @@
         self.eventDateDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventDateDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
         
-        //r
 //        NSString *completeDateString = [NSString stringWithFormat: @"%@ - %@",[formatter stringFromDate:(NSDate *)theEvent.eventBasic.startDate],[formatter stringFromDate:(NSDate *)theEvent.eventBasic.endDate]];
-  //      self.eventDateDetail.text = completeDateString;
+        self.eventDateDetail.text = [theEvent getFriendlyDateString];
         
         //Admission
         self.eventAdmissionLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
