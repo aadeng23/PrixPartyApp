@@ -115,7 +115,7 @@
     else{
         [favButton setBackgroundImage:[UIImage imageNamed:@"favoritebuttonselect.png"] forState:UIControlStateNormal];
     }
-    favButton.showsTouchWhenHighlighted = NO;
+    favButton.showsTouchWhenHighlighted = YES;
     [favButton addTarget:self action:@selector(favoriteButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     favButton.frame = CGRectMake(0, 0, 35, 30);
     UIBarButtonItem *favoriteButton = [[UIBarButtonItem alloc] initWithCustomView:favButton] ;
