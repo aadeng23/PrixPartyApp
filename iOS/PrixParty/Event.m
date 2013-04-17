@@ -19,6 +19,7 @@
 
 @property (nonatomic, copy) NSString *eventName;
 @property (nonatomic, copy) NSString *description;
+@property (nonatomic, copy) NSString *friendlyLocation;
 
 //r Redefine these properties to make them read/write for internal class accesses and mutations.
 //r: do
@@ -32,18 +33,23 @@
 @synthesize coordinate;
 @synthesize eventName;
 @synthesize description;
+@synthesize friendlyLocation;
 
 @synthesize object;
 @synthesize geopoint;
 @synthesize animatesDrop;
 @synthesize pinColor;
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate andTitle:(NSString *)aTitle andSubtitle:(NSString *)aSubtitle {
+- (id)initWithCoordinate:(CLLocationCoordinate2D)aCoordinate
+         andTitle:(NSString *)aTitle
+         andSubtitle:(NSString *)aSubtitle
+         andFriendlyLocation:(NSString *)aFriendlyLocation {
 	self = [super init];
 	if (self) {
 		self.coordinate = aCoordinate;
 		self.eventName = aTitle;
 		self.description = aSubtitle;
+        self.friendlyLocation = aFriendlyLocation;
 		
         //r
         //self.animatesDrop = NO;
@@ -61,8 +67,12 @@
 	CLLocationCoordinate2D aCoordinate = CLLocationCoordinate2DMake(self.geopoint.latitude, self.geopoint.longitude);
 	NSString *aTitle = [anObject objectForKey:kPPParseEventNameKey];
 	NSString *aSubtitle = [anObject objectForKey:kPPParseEventDescKey];
+    NSString *aFriendlyLocation = [anObject objectForKey:kPPParseEventFriendlyLocationKey];
     
-    return [self initWithCoordinate:aCoordinate andTitle:aTitle andSubtitle:aSubtitle];
+    return [self initWithCoordinate:aCoordinate
+            andTitle:aTitle
+            andSubtitle:aSubtitle
+            andFriendlyLocation:aFriendlyLocation];
 }
 
 

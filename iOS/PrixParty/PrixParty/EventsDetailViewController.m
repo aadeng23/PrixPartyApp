@@ -58,7 +58,7 @@
         self.eventLocationDetail.numberOfLines = 0;
         self.eventLocationDetail.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         self.eventLocationDetail.font = [UIFont fontWithName:@"Futura" size:14.0];
-        self.eventLocationDetail.text = @"COOL"; //theEvent.eventLocation;
+        self.eventLocationDetail.text = theEvent.friendlyLocation;
         
         //Date
         self.eventDateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
