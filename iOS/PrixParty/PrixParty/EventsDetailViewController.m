@@ -11,7 +11,8 @@
 #import "MyManager.h"
 
 @interface EventsDetailViewController (){
-    //- (void)configureView;
+    
+    MyManager *manager;
 }
 @end
 
@@ -31,7 +32,6 @@
 {
     Event *theEvent = self.event;
     static NSDateFormatter *formatter = nil;
-    //self.navigationController.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
     
     //Set date formatter
     if (formatter == nil) {
@@ -41,15 +41,6 @@
     }
     
     if (theEvent) {
-        
-        /*NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],UITextAttributeTextColor,[UIFont fontWithName:@"Avenir-Black" size:14.0f],UITextAttributeFont,nil];*/
-        
-        /*UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:9.0];
-        NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
-
-        [self.navigationItem.backBarButtonItem setTitleTextAttributes:attributes forState:UIControlStateNormal];*/
-        
-        
         
         //Name
         self.eventNameLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
@@ -121,6 +112,8 @@
     UIBarButtonItem *favoriteButton = [[UIBarButtonItem alloc] initWithCustomView:favButton] ;
     self.navigationItem.rightBarButtonItem = favoriteButton;
     
+    manager = [MyManager sharedManager];
+    
     [self configureView];
 }
 
@@ -153,6 +146,16 @@
     return labelSize.height + 40;
 }
 
+- (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 100)];
+    headerView.backgroundColor = [UIColor clearColor];
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10.0f;
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -175,12 +178,12 @@
     if(!self.event.favorite){
         self.event.favorite = YES;
         [sender setBackgroundImage:[UIImage imageNamed:@"favoritebuttonselect.png"] forState:UIControlStateNormal];
-        [self.dataController addToFavorites:self.event];
+        [manager.favoritesList addObject:self.event];
     }
     else{
         self.event.favorite = NO;
             [sender setBackgroundImage:[UIImage imageNamed:@"favoritebutton.png"] forState:UIControlStateNormal];
-        [self.dataController removeFromFavorites:self.event];
+        [manager.favoritesList removeObjectIdenticalTo:self.event];
     }
 }
 @end

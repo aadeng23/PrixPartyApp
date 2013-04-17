@@ -175,7 +175,7 @@
     if ([[segue identifier] isEqualToString:@"ShowEventDetails"]) {
         
         EventsDetailViewController *detailViewController = [segue destinationViewController];
-        detailViewController.dataController = self.dataController;
+       // detailViewController.dataController = self.dataController;
         detailViewController.event = [self.dataController objectInListAtIndex:[self.eventsListTableView indexPathForSelectedRow].row];
         
         detailViewController.navBar = self.navigationController.navigationBar;
