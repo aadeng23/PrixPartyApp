@@ -17,6 +17,7 @@
 @property (nonatomic, readonly, copy) NSString *eventName;
 @property (nonatomic, readonly, copy) NSString *description;
 @property (nonatomic, readonly, copy) NSString *friendlyLocation;
+@property (nonatomic, readonly, copy) NSString *entryPriceString;
 @property (nonatomic) BOOL favorite;
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
