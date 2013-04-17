@@ -372,7 +372,7 @@
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation
            fromLocation:(CLLocation *)oldLocation {
-	NSLog(@"%s", __PRETTY_FUNCTION__);
+//	NSLog(@"%s", __PRETTY_FUNCTION__);
     
 	PrixPartyAppDelegate *appDelegate = [[UIApplication sharedApplication] delegate];
 	appDelegate.currentLocation = newLocation;

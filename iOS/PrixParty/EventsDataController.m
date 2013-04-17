@@ -54,8 +54,22 @@
 }
 
 - (void)addEvent:(Event *)event{
-    
-    [self.eventsList addObject:event];
+    bool unique = YES;
+    for (Event * temp in allPosts) {
+        if ([event equalToPost:temp]) {
+            NSLog(@"Event %@ found equal to %@", event.eventName, temp.eventName);
+        } else {
+            NSLog(@"Event %@ found NOT equal to %@", event.eventName, temp.eventName);
+            unique = NO;
+        }
+    }
+    if (unique) {
+        NSLog(@"Adding event %@ because it is unique", event.eventName);
+        [self.eventsList addObject:event];
+    } else {
+        NSLog(@"Not adding event %@ because it is a copy", event.eventName);
+    }
+
 }
 
 
@@ -103,6 +117,7 @@
 						found = YES;
 					}
 				}
+                NSLog(@"Loop 1: Adding %@, which was %d", newPost.eventName, found);
 				if (!found) {
 					[postsThatAreNew addObject:newPost];
 				}
@@ -119,6 +134,7 @@
 						found = YES;
 					}
 				}
+                 NSLog(@"Loop 1: Removing %@, which was %d", currentPost.eventName, found);
 				if (!found) {
 					[postsToRemove addObject:currentPost];
 				}
@@ -131,7 +147,7 @@
                 
 				// Animate all pins after the initial load:
 				newPost.animatesDrop = mapPinsPlaced;
-                
+                NSLog(@"Loop 3: Configuring %@", newPost.eventName);
                 [self addEvent:newPost];
 			}
             
@@ -167,7 +183,7 @@
 }
 
 - (void) viewDealloc {
-    self.mapPinsPlaced = NO;
+    self.mapPinsPlaced  = NO;
 }
 
 

@@ -69,6 +69,7 @@
 - (BOOL)equalToPost:(Event *)aPost {
     NSLog(@"equalToPost called");
 	if (aPost == nil) {
+        NSLog(@"aPost is nil so short circuiting with NO");
 		return NO;
 	}
     
@@ -89,6 +90,7 @@
 			aPost.coordinate.longitude != self.coordinate.longitude ) {
 			return NO;
 		}
+         
         
 		return YES;
 	}
