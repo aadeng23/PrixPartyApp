@@ -34,6 +34,9 @@
         self.eventsCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
         self.eventsStore = [EKEventStore new];
         manager = [MyManager sharedManager];
+        
+        allPosts = [[NSMutableArray alloc] initWithCapacity:10];
+        
         return self;
     }
     return nil;
@@ -96,11 +99,10 @@
     
 	// If no objects are loaded in memory, we look to the cache first to fill the table
 	// and then subsequently do a query against the network.
-	/*
     if ([self.allPosts count] == 0) {
+        NSLog(@"No events already loaded, so using cache first... %i", [allPosts count]);
 		query.cachePolicy = kPFCachePolicyCacheThenNetwork;
 	}
-    */
     
 	// Query for posts sort of kind of near our current location.
 	PFGeoPoint *point = [PFGeoPoint geoPointWithLatitude:currentLocation.coordinate.latitude longitude:currentLocation.coordinate.longitude];
