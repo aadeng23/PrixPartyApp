@@ -7,6 +7,8 @@
 //
 
 #import "ConnectViewController.h"
+#import <Accounts/Accounts.h>
+#import <Social/Social.h>
 
 
 @interface ConnectViewController (){
@@ -85,6 +87,7 @@
 
     self.connectRecentTableView.hidden = YES;
     self.connectTrendingTableView.hidden = NO;
+    
     
 }
 
