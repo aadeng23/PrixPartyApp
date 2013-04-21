@@ -66,16 +66,22 @@
     [self.segmentedControl setImage:[UIImage imageNamed:@"listbuttonselect.png"] forSegmentAtIndex:0];
     [self.segmentedControl setImage:[UIImage imageNamed:@"mapbutton.png"] forSegmentAtIndex:1];
     [self.segmentedControl setDividerImage:[UIImage imageNamed:@"leftside_select.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-
+    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
+    [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    
+    //UITabBar customization
+    UIImage *tabBackground = [[UIImage imageNamed:@"home_cell.png"]
+                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
+    [self.tabBarController.tabBar setSelectionIndicatorImage:
+     [UIImage imageNamed:@"home_cell.png"]];
+    
     //Show view
     self.eventsListTableView.hidden = NO;
     self.mapView.hidden = YES;
     
-    UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
-    [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
-
-    
+    //Event map view stuff
     self.mapView.region = MKCoordinateRegionMake(CLLocationCoordinate2DMake(30.29079, -97.74652), MKCoordinateSpanMake(0.251964, 0.24522));
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(distanceFilterDidChange:) name:kPPFilterDistanceChangeNotification object:nil];
