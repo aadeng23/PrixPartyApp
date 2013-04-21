@@ -50,6 +50,7 @@
     self.dataController = [[EventsDataController alloc] init];
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

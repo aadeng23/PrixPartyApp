@@ -40,38 +40,39 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
-    _accountStore = [[ACAccountStore alloc] init];
-    
-    tweetsRecentList = [[NSMutableArray alloc] init];
-    tweetsTrendingList = [[NSMutableArray alloc] init];
-    webDataRecent = [[NSMutableData alloc] init];
-    webDataTrending = [[NSMutableData alloc] init];
-    trendingController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
-    recentController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
-    
-    trendingURL = @"http://search.twitter.com/search.json?q=%23formula1";
-    recentURL = @"http://search.twitter.com/search.json?q=%23cota";
-    
-    [self addChildViewController:trendingController];
-    [self addChildViewController:recentController];
-    
-    loadInProgress = NO;
-    [self loadFirstData];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    _accountStore = [[ACAccountStore alloc] init];
+    
+    //Initializing properties
+    tweetsRecentList = [[NSMutableArray alloc] init];
+    tweetsTrendingList = [[NSMutableArray alloc] init];
+    webDataRecent = [[NSMutableData alloc] init];
+    webDataTrending = [[NSMutableData alloc] init];
+    trendingController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
+    recentController = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
+    [self addChildViewController:trendingController];
+    [self addChildViewController:recentController];
+    trendingController.tableView = self.connectTrendingTableView;
+    recentController.tableView = self.connectRecentTableView;
+    
+    //Twitter searches, setting up to pull in from Twitter
+    trendingURL = @"http://search.twitter.com/search.json?q=%23formula1";
+    recentURL = @"http://search.twitter.com/search.json?q=%23cota";
+    loadInProgress = NO;
+    [self loadFirstData];
+    
+    //Setting up look of view
     self.view.backgroundColor = [UIColor blackColor];
     self.connectRecentTableView.backgroundColor = [UIColor clearColor];
     self.connectTrendingTableView.backgroundColor = [UIColor clearColor];
-    
-    //self.tabBarItem setBac
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"]
                                                   forBarMetrics:UIBarMetricsDefault];
+    self.composeTweetButton.tintColor = [UIColor grayColor];
     
     UIFont *font = [UIFont fontWithName:@"Futura" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
@@ -80,15 +81,13 @@
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentedControl.tintColor = [UIColor grayColor];
     
-    trendingController.tableView = self.connectTrendingTableView;
-    recentController.tableView = self.connectRecentTableView;
-    
+    //Setting up refresh properties for Twitter
     trendingController.refreshControl = [[UIRefreshControl alloc]init];
-    recentController.refreshControl = [[UIRefreshControl alloc] init];
-    
+    recentController.refreshControl = [[UIRefreshControl alloc] init];    
     [trendingController.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
     [recentController.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
 
+    //Show necessary tableviews
     self.connectRecentTableView.hidden = YES;
     self.connectTrendingTableView.hidden = NO;
     
@@ -111,6 +110,10 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)composeTweetButtonPressed:(UIBarButtonItem *)sender {
+    
 }
 
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender {
