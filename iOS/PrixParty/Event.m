@@ -14,6 +14,9 @@
 @interface Event ()
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
+
 @property (nonatomic, strong) PFObject *object;
 @property (nonatomic, strong) PFGeoPoint *geopoint;
 
@@ -37,6 +40,9 @@
 @synthesize friendlyLocation;
 @synthesize entryPriceString;
 
+@synthesize title;
+@synthesize subtitle;
+
 @synthesize object;
 @synthesize geopoint;
 @synthesize animatesDrop;
@@ -50,9 +56,15 @@
 	self = [super init];
 	if (self) {
 		self.coordinate = aCoordinate;
+
 		self.eventName = aTitle;
+        self.title = aTitle; // Pin title
+        
 		self.description = aSubtitle;
+        
         self.friendlyLocation = aFriendlyLocation;
+        self.subtitle = aFriendlyLocation; // pin subtitle
+        
         self.entryPriceString = aEntryPriceString;
         
 		

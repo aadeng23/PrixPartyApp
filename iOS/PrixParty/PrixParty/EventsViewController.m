@@ -469,9 +469,10 @@
 		pinView.pinColor = [(Event *)annotation pinColor];
 		pinView.animatesDrop = [((Event *)annotation) animatesDrop];
         
-        //r -- canShowCallout is false so that it does not attempt anontation
-        // pinView.canShowCallout = YES;
-		pinView.canShowCallout = NO;
+        pinView.canShowCallout = YES;
+        
+        pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
         
 		return pinView;
 	}
