@@ -14,6 +14,9 @@
 
 @interface Event : NSObject
 
+@property (nonatomic, readonly, copy) NSString *title;
+@property (nonatomic, readonly, copy) NSString *subtitle;
+
 @property (nonatomic, readonly, copy) NSString *eventName;
 @property (nonatomic, readonly, copy) NSString *description;
 @property (nonatomic, readonly, copy) NSString *friendlyLocation;

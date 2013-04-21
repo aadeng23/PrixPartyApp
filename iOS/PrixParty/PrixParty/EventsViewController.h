@@ -20,6 +20,5 @@
 
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 
-
 @end
 

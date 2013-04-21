@@ -14,6 +14,9 @@
 @interface Event ()
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subtitle;
+
 @property (nonatomic, strong) PFObject *object;
 @property (nonatomic, strong) PFGeoPoint *geopoint;
 
@@ -37,6 +40,9 @@
 @synthesize friendlyLocation;
 @synthesize entryPriceString;
 
+@synthesize title;
+@synthesize subtitle;
+
 @synthesize object;
 @synthesize geopoint;
 @synthesize animatesDrop;
@@ -50,9 +56,15 @@
 	self = [super init];
 	if (self) {
 		self.coordinate = aCoordinate;
+
 		self.eventName = aTitle;
+        self.title = aTitle; // Pin title
+        
 		self.description = aSubtitle;
+        
         self.friendlyLocation = aFriendlyLocation;
+        self.subtitle = aFriendlyLocation; // pin subtitle
+        
         self.entryPriceString = aEntryPriceString;
         
 		
@@ -84,21 +96,18 @@
 
 
 - (BOOL)equalToPost:(Event *)aPost {
-    NSLog(@"equalToPost called");
 	if (aPost == nil) {
         NSLog(@"aPost is nil so short circuiting with NO");
 		return NO;
 	}
     
 	if (aPost.object && self.object) {
-        NSLog(@"For event %@ we got 1", self.eventName);
 		// We have a PFObject inside the PAWPost, use that instead.
 		if ([aPost.object.objectId compare:self.object.objectId] != NSOrderedSame) {
 			return NO;
 		}
 		return YES;
 	} else {
-        NSLog(@"For event %@ we got 2", self.eventName);
 		// Fallback code:
         
 		if ([aPost.eventName    compare:self.eventName]    != NSOrderedSame ||
@@ -118,9 +127,12 @@
     [df setDateFormat:@"yyyy-MM-dd"];
     [df setDateStyle:NSDateFormatterMediumStyle];
     NSString * temp = [object objectForKey:kPPParseEventStartDateKey];
-    if (temp != nil) {
+    
+    /*
+     if (temp != nil) {
         NSLog(@"Event %@ has date %@", eventName, temp);
     }
+     */
     return [df stringFromDate:temp];
 }
 

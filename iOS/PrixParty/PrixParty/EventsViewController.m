@@ -136,7 +136,6 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return [self.dataController sizeOfList];
 }
 
@@ -350,9 +349,9 @@
 }
 
 - (void) eventDataDidLoad:(NSNotification *)note {
-    NSLog(@"Got event");
     [mapView removeAnnotations:self.dataController.postsToRemove];
     [mapView addAnnotations:self.dataController.postsThatAreNew];
+    
     [eventsListTableView reloadData];
 }
 
@@ -477,9 +476,10 @@
 		pinView.pinColor = [(Event *)annotation pinColor];
 		pinView.animatesDrop = [((Event *)annotation) animatesDrop];
         
-        //r -- canShowCallout is false so that it does not attempt anontation
-        // pinView.canShowCallout = YES;
-		pinView.canShowCallout = NO;
+        pinView.canShowCallout = YES;
+        
+        pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
         
 		return pinView;
 	}
