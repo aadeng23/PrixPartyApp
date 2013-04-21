@@ -22,6 +22,8 @@
     NSString *recentURL;
     NSString *nextPageTrending;
     NSString *nextPageRecent;
+    NSString *twitterUserTimelineRequestURLBasic;
+    NSString *twitterSearchRequestURLBasic;
     
     UIRefreshControl *refreshControlTrending;
     UIRefreshControl *refreshControlRecent;
@@ -61,8 +63,10 @@
     recentController.tableView = self.connectRecentTableView;
     
     //Twitter searches, setting up to pull in from Twitter
-    trendingURL = @"http://search.twitter.com/search.json?q=%23formula1";
-    recentURL = @"http://search.twitter.com/search.json?q=%23cota";
+    trendingURL = @"https://api.twitter.com/1.1/search/tweets.json?q=%23formula1";
+    recentURL = @"https://search.twitter.com/1.1/search/tweets.json?q=%23cota";
+    twitterUserTimelineRequestURLBasic = @"https://api.twitter.com/1.1/statuses/user_timeline.json?q=%23";
+    twitterSearchRequestURLBasic = @"https://api.twitter.com/1.1/search/tweets.json?q=%23";
     loadInProgress = NO;
     [self loadFirstData];
     
@@ -150,6 +154,7 @@
         
         NSURL *urlTrending = [NSURL URLWithString:trendingURL];
         NSURLRequest *requestTrending = [NSURLRequest requestWithURL:urlTrending];
+        NSString *userToRequest = @"rberidon";
         
         operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
             [tweetsTrendingList removeAllObjects];
@@ -198,64 +203,8 @@
 
 - (void)loadFirstData{
     
-    NSURL *urlTrending = [NSURL URLWithString:trendingURL];
-    NSURL *urlRecent = [NSURL URLWithString:recentURL];
-    
-    NSURLRequest *requestTrending = [NSURLRequest requestWithURL:urlTrending];
-    NSURLRequest *requestRecent = [NSURLRequest requestWithURL:urlRecent];
-    
-    AFJSONRequestOperation *operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
-        id results = [JSON valueForKey:@"results"];
-        [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-           
-            [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];
-        }];
-        
-        nextPageTrending = [JSON valueForKey:@"next_page"];
-        [self.connectTrendingTableView reloadData];
-        
-    } failure:nil];
-    
-    AFJSONRequestOperation *operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        
-        id results = [JSON valueForKey:@"results"];
-        [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-            
-            [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
-        }];
-        
-        nextPageRecent = [JSON valueForKey:@"next_page"];
-        [self.connectRecentTableView reloadData];
-    
-    }failure:nil];
-    
-    [operationTrending start];
-    [operationRecent start];
-    
-    /*Tweet *newTweet = [[Tweet alloc] init];
-    newTweet.profName = @"from_user_name";
-    newTweet.tweetText = @"text";
-    newTweet.userName = @"from_user";
-    newTweet.date = @"created_at";
-    
-    [tweetsRecentList addObject:newTweet];
-    
-    newTweet = [[Tweet alloc] init];
-    newTweet.profName = @"from_user_name";
-    newTweet.tweetText = @"textasdfasdfasdfaestustsutsutuasasetaaeR@#$@#$ASFASDFASFASDFASDFAW$@#$@#$@#$@#$SFAsdfasdfsfjoaekoakoeakwpfoasdofkasdokfpaskfpokawoekfapokpoksaodkfpokwepokfaposkdofakpowekfopaksdpofkpaoskofasf";
-    newTweet.userName = @"from_user";
-    newTweet.date = @"created_at";
-    
-    [tweetsRecentList addObject:newTweet];
-    
-    newTweet = [[Tweet alloc] init];
-    newTweet.profName = @"from_user_name";
-    newTweet.tweetText = @"awewerwerwerwrewwrwerwrerwrewrwerwerwerwerewrwerwerwer";
-    newTweet.userName = @"from_user";
-    newTweet.date = @"created_at";
-    
-    [tweetsRecentList addObject:newTweet];*/
+    [self fetchSearch:@"formula1" for:self.connectTrendingTableView next:NO];
+    [self fetchSearch:@"austin" for:self.connectRecentTableView next:NO];
    
 }
 
@@ -263,56 +212,16 @@
     
     NSLog(@"loadrmore");
     
-    AFJSONRequestOperation *operationTrending;
-    AFJSONRequestOperation *operationRecent;
-    
     if(self.connectTrendingTableView.hidden == NO){
         
         [self.trendingLoadIndicator startAnimating];
-        NSString *newURL = [NSString stringWithFormat:@"http://search.twitter.com/search.json%@",nextPageTrending];
-        NSURL *url = [NSURL URLWithString:newURL];
-        NSURLRequest *requestTrending = [NSURLRequest requestWithURL:url];
-        
-        operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            
-            id results = [JSON valueForKey:@"results"];
-            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];
-            }];
-            
-            nextPageTrending = [JSON valueForKey:@"next_page"];
-            [self.connectTrendingTableView reloadData];
-            loadInProgress = NO;
-            [self.trendingLoadIndicator stopAnimating];
-            
-        } failure:nil];
+        [self fetchSearch:@"formula1" for:self.connectTrendingTableView next:YES];
     }
     else{
         
         [self.recentLoadIndicator startAnimating];
-        NSString *newURL = [NSString stringWithFormat:@"http://search.twitter.com/search.json%@",nextPageRecent];
-        NSURL *url = [NSURL URLWithString:newURL];
-        NSURLRequest *requestRecent = [NSURLRequest requestWithURL:url];
-        
-        operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-            
-            id results = [JSON valueForKey:@"results"];
-            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){   
-                
-                [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
-            }];
-            
-            nextPageRecent = [JSON valueForKey:@"next_page"];
-            [self.connectRecentTableView reloadData];
-            loadInProgress = NO;
-            [self.recentLoadIndicator stopAnimating];
-            
-        }failure:nil];
+        [self fetchSearch:@"formula1" for:self.connectRecentTableView next:YES];
     }
-    
-    [operationRecent start];
-    [operationTrending start];
-    
 }
 
 - (BOOL)userHasAccessToTwitter
@@ -370,7 +279,7 @@
                               options:NSJSONReadingAllowFragments error:&jsonError];
                              
                              if (timelineData) {
-                                 NSLog(@"Timeline Response: %@\n", timelineData);
+                                 //NSLog(@"Timeline Response: %@\n", timelineData);
                              }
                              else {
                                  // Our JSON deserialization went awry
@@ -392,14 +301,115 @@
     }
 }
 
-- (Tweet *)retrieveTweetFromDataSource:(id) obj{
+- (void)fetchSearch:(NSString *)query for:(UITableView *)tableview next:(BOOL)next
+{
+    //  Step 0: Check that the user has local Twitter accounts
+    if ([self userHasAccessToTwitter]) {
+        
+        //  Step 1:  Obtain access to the user's Twitter accounts
+        ACAccountType *twitterAccountType = [self.accountStore
+                                             accountTypeWithAccountTypeIdentifier:
+                                             ACAccountTypeIdentifierTwitter];
+        [self.accountStore
+         requestAccessToAccountsWithType:twitterAccountType
+         options:NULL
+         completion:^(BOOL granted, NSError *error) {
+             if (granted) {
+                 //  Step 2:  Create a request
+                 NSArray *twitterAccounts =
+                 [self.accountStore accountsWithAccountType:twitterAccountType];
+                 NSString *newURL;
+                 if(next == NO){
+                     newURL = [NSString stringWithFormat:twitterSearchRequestURLBasic,query];
+                 }
+                 else{
+                     if(self.connectTrendingTableView.hidden == NO){
+                         newURL = [NSString stringWithFormat:twitterSearchRequestURLBasic,nextPageTrending];
+                     }
+                     else{
+                         newURL = [NSString stringWithFormat:twitterSearchRequestURLBasic, nextPageRecent];
+                     }
+                 }
+                 NSURL *url = [NSURL URLWithString:newURL];
+                 /*NSDictionary *params = @{@"screen_name" : username,
+                                          @"include_rts" : @"0",
+                                          @"trim_user" : @"1",
+                                          @"count" : @"20"};*/
+                 SLRequest *request =
+                 [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                    requestMethod:SLRequestMethodGET
+                                              URL:url
+                                       parameters:nil];
+                 
+                 //  Attach an account to the request
+                 [request setAccount:[twitterAccounts lastObject]];
+                 
+                 //  Step 3:  Execute the request
+                 [request performRequestWithHandler:^(NSData *responseData,
+                                                      NSHTTPURLResponse *urlResponse,
+                                                      NSError *error) {
+                     if (responseData) {
+                         if (urlResponse.statusCode >= 200 && urlResponse.statusCode < 300) {
+                             NSError *jsonError;
+                             NSDictionary *queryData =
+                             [NSJSONSerialization
+                              JSONObjectWithData:responseData
+                              options:NSJSONReadingAllowFragments error:&jsonError];
+                             
+                             if (queryData) {
+                                 NSArray *statuses = [queryData valueForKey:@"statuses"];
+                                 if(tableview == self.connectTrendingTableView){
+                                     NSLog(@"queryTrend");
+                                     //NSLog(@"Timeline Response: %@\n", timelineData);
+                                     [statuses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                                         [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];   
+                                     }];
+                                    nextPageTrending = [statuses valueForKey:@"next_results"];
+                                     [self.trendingLoadIndicator stopAnimating];
+                                     [self.connectTrendingTableView reloadData];
+                                     loadInProgress = NO;
+                                 }
+                                 else{
+                                     NSLog(@"queryRecent");
+                                     //NSLog(@"Timeline Response: %@\n", timelineData);
+                                     [statuses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                                         [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
+                                     }];
+                                     nextPageRecent = [statuses valueForKey:@"next_results"];
+                                     [self.recentLoadIndicator stopAnimating];
+                                     [self.connectRecentTableView reloadData];
+                                     loadInProgress = NO;
+                                 }
+                             }
+                             else {
+                                 // Our JSON deserialization went awry
+                                 NSLog(@"JSON Error: %@", [jsonError localizedDescription]);
+                             }
+                         }
+                         else {
+                             // The server did not respond successfully... were we rate-limited?
+                             NSLog(@"The response status code is %d", urlResponse.statusCode);
+                         }
+                     }
+                 }];
+             }
+             else {
+                 // Access was not granted, or an error occurred
+                 NSLog(@"%@", [error localizedDescription]);
+             }
+         }];
+    }
+}
+
+- (Tweet *)retrieveTweetFromDataSource:(NSDictionary *) obj{
 
     Tweet *newTweet = [[Tweet alloc] init];
-    newTweet.profName = [obj valueForKey:@"from_user_name"];
+    NSDictionary *user = [obj valueForKey:@"user"];
+    newTweet.profName = [user valueForKey:@"name"];
     newTweet.tweetText = [obj valueForKey:@"text"];
-    newTweet.userName = [obj valueForKey:@"from_user"];
+    newTweet.userName = [user valueForKey:@"screen_name"];
     newTweet.date = [obj valueForKey:@"created_at"];
-    NSString *picURL = [obj valueForKey:@"profile_image_url"];
+    NSString *picURL = [user valueForKey:@"profile_image_url"];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
     newTweet.userPic = image;
 
@@ -418,7 +428,7 @@
     float reload_distance = 10;
     if((y > h + reload_distance) && !loadInProgress) {
         loadInProgress = YES;
-        //[self loadMoreData];
+        [self loadMoreData];
     }
 }
 
@@ -435,11 +445,11 @@
     // Return the number of rows in the section.
     
     if(tableView == self.connectTrendingTableView){
-        //NSLog(@"SIZE trending %u",[tweetsTrendingList count]);
+        NSLog(@"SIZE trending %u",[tweetsTrendingList count]);
         return [tweetsTrendingList count];
     }
     else{
-        //NSLog(@"SIZE recent %u",[tweetsRecentList count]);
+        NSLog(@"SIZE recent %u",[tweetsRecentList count]);
         return [tweetsRecentList count];
     }
     
