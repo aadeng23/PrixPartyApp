@@ -342,13 +342,9 @@
 }
 
 - (void) eventDataDidLoad:(NSNotification *)note {
-    NSLog(@"Got event data. R: %i N: %i", [self.dataController.postsToRemove count], [self.dataController.postsThatAreNew count]);
-
     [mapView removeAnnotations:self.dataController.postsToRemove];
     [mapView addAnnotations:self.dataController.postsThatAreNew];
     
-    NSLog(@"Size: %i", [eventsListTableView numberOfRowsInSection:0]);
-    NSLog(@"Size2: %i", [self.dataController sizeOfList]);
     [eventsListTableView reloadData];
 }
 

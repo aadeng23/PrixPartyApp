@@ -132,7 +132,7 @@
 						found = YES;
 					}
 				}
-                NSLog(@"Loop 1: Adding %@, which was %d", newPost.eventName, found);
+//                NSLog(@"Loop 1: Adding %@, which was %d", newPost.eventName, found);
 				if (!found) {
 					[postsThatAreNew addObject:newPost];
 				}
@@ -149,7 +149,7 @@
 						found = YES;
 					}
 				}
-                 NSLog(@"Loop 1: Removing %@, which was %d", currentPost.eventName, found);
+//                 NSLog(@"Loop 2: Removing %@, which was %d", currentPost.eventName, found);
 				if (!found) {
 					[postsToRemove addObject:currentPost];
 				}
@@ -162,7 +162,7 @@
                 
 				// Animate all pins after the initial load:
 				newPost.animatesDrop = mapPinsPlaced;
-                NSLog(@"Loop 3: Configuring %@", newPost.eventName);
+//                NSLog(@"Loop 3: Configuring %@", newPost.eventName);
                 [self addEvent:newPost];
 			}
             
@@ -172,11 +172,6 @@
             
             [allPosts addObjectsFromArray:postsThatAreNew];
 			[allPosts removeObjectsInArray:postsToRemove];
-            
-            for (Event *newPost in allPosts) {
-                NSLog(@"Title: %@", newPost.eventName);
-                //[self addEvent:newPost];
-            }
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kPPEventDataLoadedNotification object:self];
             
