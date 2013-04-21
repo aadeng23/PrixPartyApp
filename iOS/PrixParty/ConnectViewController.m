@@ -113,7 +113,13 @@
 }
 
 - (IBAction)composeTweetButtonPressed:(UIBarButtonItem *)sender {
-    
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter])
+    {
+        SLComposeViewController *tweetSheet = [SLComposeViewController
+                                               composeViewControllerForServiceType:SLServiceTypeTwitter];
+        [tweetSheet setInitialText:@"I love the Prix Party app!"];
+        [self presentViewController:tweetSheet animated:YES completion:nil];
+    }
 }
 
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender {
