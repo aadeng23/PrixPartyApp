@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3103" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -237,8 +237,14 @@
                                 <action selector="segmentValueChanged:" destination="rxT-ZE-8wZ" eventType="valueChanged" id="FRJ-Yw-Irq"/>
                             </connections>
                         </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="WaF-xO-GZu">
+                            <connections>
+                                <action selector="composeTweetButtonPressed:" destination="rxT-ZE-8wZ" id="RdU-Kk-e1s"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="composeTweetButton" destination="WaF-xO-GZu" id="Dcz-SI-2Za"/>
                         <outlet property="connectRecentTableView" destination="Dvt-8P-fP1" id="Kde-sW-g5h"/>
                         <outlet property="connectTrendingTableView" destination="TgG-5E-8ST" id="cT5-wI-RQS"/>
                         <outlet property="recentLoadIndicator" destination="Mos-G7-jtQ" id="hDS-Ra-Oga"/>
@@ -794,7 +800,9 @@
         <class className="ConnectViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ConnectViewController.h"/>
             <relationships>
+                <relationship kind="action" name="composeTweetButtonPressed:" candidateClass="UIBarButtonItem"/>
                 <relationship kind="action" name="segmentValueChanged:" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="composeTweetButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="connectRecentTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="connectTrendingTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="recentLoadIndicator" candidateClass="UIActivityIndicatorView"/>
@@ -824,7 +832,7 @@
             <relationships>
                 <relationship kind="action" name="segmentValueChanged:" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="eventsListTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="eventsMapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
             </relationships>
         </class>

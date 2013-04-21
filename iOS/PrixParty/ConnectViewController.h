@@ -19,9 +19,9 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *trendingLoadIndicator;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *recentLoadIndicator;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *composeTweetButton;
 
-
-
+- (IBAction)composeTweetButtonPressed:(UIBarButtonItem *)sender;
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender;
 
 @end
