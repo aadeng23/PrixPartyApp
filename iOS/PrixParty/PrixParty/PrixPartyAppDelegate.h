@@ -23,11 +23,15 @@ static NSString * const kPPParseEventStartDateKey = @"StartDate";
 static NSUInteger const kPPWallPostsSearch = 20; // query limit for pins and tableviewcells
 static double const kPPWallPostMaximumSearchDistance = 100.0;
 
-//r: explain
+// Events: Notification Center events
 static NSString * const kPPFilterDistanceChangeNotification = @"kPPFilterDistanceChangeNotification";
 static NSString * const kPPLocationChangeNotification = @"kPPLocationChangeNotification";
 static NSString * const kPPPostCreatedNotification = @"kPPPostCreatedNotification";
 static NSString * const kPPEventDataLoadedNotification = @"kPPEventDataLoadedNotification";
+
+// Connect: Notification Center events
+static NSString * const kPPConnectTrendingChangeNotification = @"kPPConnectTrendingChangeNotification";
+static NSString * const kPPConnectRecentChangeNotification = @"kPPConnectRecentChangeNotification";
 
 //r: explain
 static NSString * const kPPFilterDistanceKey = @"filterDistance";

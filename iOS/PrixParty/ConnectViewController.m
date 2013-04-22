@@ -7,6 +7,7 @@
 //
 
 #import "ConnectViewController.h"
+#import "PrixPartyAppDelegate.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
 
@@ -28,7 +29,8 @@
     UIRefreshControl *refreshControlRecent;
     UITableViewController *trendingController;
     UITableViewController *recentController;
-    BOOL loadInProgress;
+    BOOL recentLoadInProgress;
+    BOOL trendingLoadInProgress;
     
 }
 
@@ -61,11 +63,16 @@
     trendingController.tableView = self.connectTrendingTableView;
     recentController.tableView = self.connectRecentTableView;
     
+    // Initializing observers
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recentDataDidLoad:) name:kPPConnectRecentChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(trendingDataDidLoad:) name:kPPConnectTrendingChangeNotification object:nil];
+    
     //Twitter searches, setting up to pull in from Twitter
     searchURL = @"https://api.twitter.com/1.1/search/tweets.json";
     twitterUserTimelineRequestURLBasic = @"https://api.twitter.com/1.1/statuses/user_timeline.json?q=%23";
     twitterSearchRequestURLBasic = @"https://api.twitter.com/1.1/search/tweets.json?q=%23";
-    loadInProgress = NO;
+    recentLoadInProgress = NO;
+    trendingLoadInProgress = NO;
     [self loadFirstData];
     
     //Setting up look of view
@@ -92,6 +99,7 @@
     //Show necessary tableviews
     self.connectRecentTableView.hidden = YES;
     self.connectTrendingTableView.hidden = NO;
+    self.recentLoadIndicator.hidden = YES;
 
     if ([self userHasAccessToTwitter]) {
         NSLog(@"Has access to Twitter!");
@@ -112,6 +120,11 @@
     [super didReceiveMemoryWarning];
      NSLog(@"Mark at %@", [NSDate date]);
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPPConnectRecentChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kPPConnectTrendingChangeNotification object:nil];
 }
 
 - (IBAction)composeTweetButtonPressed:(UIBarButtonItem *)sender {
@@ -366,9 +379,8 @@
                                  nextPageTrending = [search_metadata valueForKey:@"next_results"];
                                  NSLog(@"Set nextPageTrending: %@", nextPageTrending);
                                  
-                                 [self.trendingLoadIndicator stopAnimating]; // this is wonky, do we really have to move to events to fix this
-                                 [[self connectTrendingTableView] performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                                 loadInProgress = NO;
+                                 // Fire off event to stop loading animations, reload, etc.
+                                 [self performSelectorOnMainThread:@selector(postTrendingDataDidLoadEvent) withObject:Nil waitUntilDone:NO];
                              }
                              else {
                                  // Our JSON deserialization went awry
@@ -389,6 +401,18 @@
          }];
     }
 }
+
+- (void) postTrendingDataDidLoadEvent {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPPConnectTrendingChangeNotification object:self];
+}
+
+- (void) trendingDataDidLoad:(NSNotification *)note {
+    NSLog(@"Got trending data");
+    [self.trendingLoadIndicator stopAnimating]; // THIS IS STILL SLOW
+    [self.connectTrendingTableView reloadData];
+
+}
+
 
 
 - (void)fetchSearchForRecent:(NSString *)query next:(BOOL)next
@@ -459,9 +483,8 @@
                                  nextPageRecent = [search_metadata valueForKey:@"next_results"];
                                  NSLog(@"Set nextPageRecent: %@", nextPageRecent);
 
-                                 [self.recentLoadIndicator stopAnimating]; // this is wonky, do we really have to move to events to fix this
-                                 [[self connectRecentTableView] performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
-                                 loadInProgress = NO;
+                                 // Fire off event to stop loading animations, reload, etc.
+                                 [self performSelectorOnMainThread:@selector(postRecentDataDidLoadEvent) withObject:Nil waitUntilDone:NO];
                              }
                              else {
                                  // Our JSON deserialization went awry
@@ -481,6 +504,17 @@
              }
          }];
     }
+}
+
+- (void) postRecentDataDidLoadEvent {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kPPConnectRecentChangeNotification object:self];
+}
+
+- (void) recentDataDidLoad:(NSNotification *)note {
+    NSLog(@"Got recent data");
+    [self.recentLoadIndicator stopAnimating];
+    [self.connectRecentTableView reloadData];
+    recentLoadInProgress = NO;
 }
 
 - (Tweet *)retrieveTweetFromDataSource:(NSDictionary *) obj{
@@ -509,9 +543,17 @@
     float h = size.height;
     
     float reload_distance = 10;
-    if((y > h + reload_distance) && !loadInProgress) {
-        loadInProgress = YES;
-        [self loadMoreData];
+    
+    if(self.connectTrendingTableView.hidden == NO){
+        if((y > h + reload_distance) && !trendingLoadInProgress) {
+            trendingLoadInProgress = YES;
+            [self loadMoreData];
+        }
+    } else {
+        if((y > h + reload_distance) && !recentLoadInProgress) {
+            recentLoadInProgress = YES;
+            [self loadMoreData];
+        }
     }
 }
 
