@@ -675,29 +675,6 @@
      //NSLog(@"height1 %f", tweetTextLabel2.frame.size.height);
     // NSLog(@"height2 %f", tweetTextLabel2.frame.size.height);
     
-    
-    /*int row = indexPath.row;
-    int sectionRows = [tableView numberOfRowsInSection:1];
-    UIImage *rowBackground;*/
-    /*if (row == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TopCel01"]];
-    }
-    else if (row == sectionRows - 1)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomCel01"]];
-        //selectionBackground = [UIImage imageNamed:@"bottomRowSelected.png"];
-    }
-    else
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CenterCel02"]];
-        //selectionBackground = [UIImage imageNamed:@"middleRowSelected.png"];
-    }*/
-    //((UIImageView *)cell.backgroundView).image = rowBackground;
-    //((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
-
-   
-    //cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:rowBackground]];
     /*CGSize maximumLabelSize = CGSizeMake(247,CGFLOAT_MAX);
     
     CGSize expectedLabelSize = [tweetText sizeWithFont:textLabel.font
@@ -724,17 +701,6 @@
     labelFrame.size.height = requiredSize.height;
     textLabel.frame = labelFrame;
     */
-        
-    
-    
-    /*cell.textLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
-    
-    cell.textLabel.text = profname;
-    cell.detailTextLabel.text = tweetText;
-    cell.detailTextLabel.numberOfLines = 0;
-    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.imageView.image = userPic;*/
    
     
     return cell;
@@ -757,14 +723,14 @@
     UILabel *textLabel = (UILabel *)[cell.contentView viewWithTag:5];
     NSString *cellText = textLabel.text;    
     UIFont *cellFont = [UIFont fontWithName:@"Futura" size:12.0];
-    CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
+    CGSize constraintSize = CGSizeMake(220.0f, MAXFLOAT);
     //UILabel *tweetTextLabel = (UILabel *)[cell.contentView viewWithTag:5];
     
     //NSLog(@"heght %@ %f", tweetTextLabel.text ,tweetTextLabel.frame.size.height);
     
     CGSize textSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     
-    return textSize.height + 90; //tweetTextLabel.frame.size.height + 90;
+    return textSize.height + 65; //tweetTextLabel.frame.size.height + 90;
 
 }
 
