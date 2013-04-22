@@ -645,6 +645,10 @@
     userNameLabel.text = atUserName;
     dateLabel.text = date;
     tweetTextLabel.text = tweetText;
+    imageView.image = userPic;
+    
+    
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
     //tweetTextLabel.text = @"ASDFASFASFASDFASDFASDFASFASDFSDAF";
     
     //textLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -656,7 +660,7 @@
     tweetTextLabel.numberOfLines = 0;*/
     
     //[tweetTextLabel sizeToFit];
-    CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
+    /*CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
 
     CGSize textSize = [tweetTextLabel.text sizeWithFont:tweetTextLabel.font constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     CGRect newFrame = tweetTextLabel.frame;
@@ -664,9 +668,9 @@
     UILabel *newTweetTextLabel = [[UILabel alloc] init];
     tweetTextLabel.frame = newFrame;
     //tweetTextLabel.text = @"ASDFASFASFASDFASDFASDFASFASDFSDAF";
-    imageView.image = userPic;
     
-     UILabel *tweetTextLabel2 = (UILabel *)[cell.contentView viewWithTag:5];
+    
+     UILabel *tweetTextLabel2 = (UILabel *)[cell.contentView viewWithTag:5];*/
     
      //NSLog(@"height1 %f", tweetTextLabel2.frame.size.height);
     // NSLog(@"height2 %f", tweetTextLabel2.frame.size.height);
@@ -731,7 +735,7 @@
     cell.detailTextLabel.numberOfLines = 0;
     cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     cell.imageView.image = userPic;*/
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
+   
     
     return cell;
 }
