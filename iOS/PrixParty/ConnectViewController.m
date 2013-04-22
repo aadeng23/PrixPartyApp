@@ -423,7 +423,7 @@
                              if (queryData) {
                                  NSArray *statuses = [queryData valueForKey:@"statuses"];
                                  [statuses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                                     [tweetsTrendingList insertObject:[self retrieveTweetFromDataSource:obj] atIndex:0];
+                                     [tweetsTrendingList insertObject:[self retrieveTweetFromDataSource:obj] atIndex:idx];
                                  }];
                                  
                                  NSDictionary *search_metadata = [queryData objectForKey:@"search_metadata"];
@@ -628,7 +628,7 @@
                              if (recentData) {
                                  NSArray *statuses = [recentData valueForKey:@"statuses"];
                                  [statuses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
-                                     [tweetsRecentList insertObject:[self retrieveTweetFromDataSource:obj] atIndex:0];
+                                     [tweetsRecentList insertObject:[self retrieveTweetFromDataSource:obj] atIndex:idx];
                                  }];
                                  
                                  NSDictionary *search_metadata = [recentData objectForKey:@"search_metadata"];
