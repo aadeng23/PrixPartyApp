@@ -148,14 +148,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="left" text="prof" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iF0-pz-QQe">
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="nch-ph-3LC"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="user" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BGf-8Q-s68">
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="M0H-8X-gsf"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -168,7 +168,10 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" text="Text" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z22-GW-Vm4">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" text="Text" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="220" translatesAutoresizingMaskIntoConstraints="NO" id="z22-GW-Vm4">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="220" id="xZh-3t-ZKe"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -177,16 +180,17 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstItem="iF0-pz-QQe" firstAttribute="top" secondItem="lEX-ev-acy" secondAttribute="top" constant="20" type="user" id="0ro-Gu-TD6"/>
-                                            <constraint firstItem="sK0-V1-eIq" firstAttribute="leading" secondItem="z22-GW-Vm4" secondAttribute="leading" type="default" id="64A-Ia-MAg"/>
-                                            <constraint firstItem="n69-qx-W2M" firstAttribute="top" secondItem="lEX-ev-acy" secondAttribute="top" constant="20" type="default" id="CJ4-4N-KWP"/>
+                                            <constraint firstItem="iF0-pz-QQe" firstAttribute="top" secondItem="lEX-ev-acy" secondAttribute="top" constant="6" type="user" id="0ro-Gu-TD6"/>
+                                            <constraint firstItem="n69-qx-W2M" firstAttribute="top" secondItem="lEX-ev-acy" secondAttribute="top" constant="8" type="user" id="CJ4-4N-KWP"/>
                                             <constraint firstItem="n69-qx-W2M" firstAttribute="leading" secondItem="lEX-ev-acy" secondAttribute="leading" constant="20" type="default" id="Fr0-Ib-hLe"/>
+                                            <constraint firstItem="BGf-8Q-s68" firstAttribute="baseline" secondItem="iF0-pz-QQe" secondAttribute="baseline" type="default" id="ICe-9E-L8Y"/>
                                             <constraint firstItem="iF0-pz-QQe" firstAttribute="leading" secondItem="lEX-ev-acy" secondAttribute="leading" constant="70" type="user" id="IZ8-Ze-Ak3"/>
                                             <constraint firstItem="sK0-V1-eIq" firstAttribute="top" secondItem="iF0-pz-QQe" secondAttribute="bottom" type="user" id="X8w-k5-bV4"/>
-                                            <constraint firstItem="BGf-8Q-s68" firstAttribute="leading" secondItem="iF0-pz-QQe" secondAttribute="trailing" type="user" id="Yh8-Bg-574"/>
-                                            <constraint firstItem="BGf-8Q-s68" firstAttribute="top" secondItem="lEX-ev-acy" secondAttribute="top" constant="20" type="default" id="m4L-KY-U61"/>
-                                            <constraint firstItem="z22-GW-Vm4" firstAttribute="top" secondItem="sK0-V1-eIq" secondAttribute="bottom" constant="3" type="user" id="rcU-P2-6Ze"/>
+                                            <constraint firstItem="BGf-8Q-s68" firstAttribute="leading" secondItem="iF0-pz-QQe" secondAttribute="trailing" constant="2" type="user" id="Yh8-Bg-574"/>
+                                            <constraint firstItem="z22-GW-Vm4" firstAttribute="top" secondItem="sK0-V1-eIq" secondAttribute="bottom" constant="10" type="user" id="rcU-P2-6Ze"/>
+                                            <constraint firstItem="z22-GW-Vm4" firstAttribute="leading" secondItem="sK0-V1-eIq" secondAttribute="leading" type="default" id="sNU-76-GXA"/>
                                             <constraint firstItem="sK0-V1-eIq" firstAttribute="leading" secondItem="iF0-pz-QQe" secondAttribute="leading" type="default" id="ybL-j7-EPh"/>
+                                            <constraint firstItem="BGf-8Q-s68" firstAttribute="top" secondItem="lEX-ev-acy" secondAttribute="top" priority="440" constant="8" type="user" id="ywK-ea-2mv"/>
                                         </constraints>
                                         <connections>
                                             <segue destination="rJ1-do-BCp" kind="push" id="Pzc-rh-e7Z"/>

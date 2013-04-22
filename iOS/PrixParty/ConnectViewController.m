@@ -656,8 +656,8 @@
     //[textLabel sizeToFit];
     
     
-   /* tweetTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    tweetTextLabel.numberOfLines = 0;*/
+    tweetTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    tweetTextLabel.numberOfLines = 0;
     
     //[tweetTextLabel sizeToFit];
     /*CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
