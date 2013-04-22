@@ -496,6 +496,10 @@
 	}
 }
 
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"Access: %i", indexPath.row);
+}
+
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
 	id<MKAnnotation> annotation = [view annotation];
 	if ([annotation isKindOfClass:[Event class]]) {
@@ -505,9 +509,14 @@
 	}
 }
 
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-	self.mapPannedSinceLocationUpdate = YES;
+
+// Add the following method
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    Event *v = (Event*)view.annotation;
+    
+    NSLog(@"TAPP: %@", v.eventName);
 }
+
 
 
 
