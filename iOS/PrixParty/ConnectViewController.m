@@ -18,8 +18,7 @@
     NSMutableArray *tweetsRecentList;
     NSMutableArray *tweetsTrendingList;
     
-    NSString *trendingURL;
-    NSString *recentURL;
+    NSString *searchURL;
     NSString *nextPageTrending;
     NSString *nextPageRecent;
     NSString *twitterUserTimelineRequestURLBasic;
@@ -63,8 +62,7 @@
     recentController.tableView = self.connectRecentTableView;
     
     //Twitter searches, setting up to pull in from Twitter
-    trendingURL = @"https://api.twitter.com/1.1/search/tweets.json?q=%23formula1";
-    recentURL = @"https://search.twitter.com/1.1/search/tweets.json?q=%23cota";
+    searchURL = @"https://api.twitter.com/1.1/search/tweets.json";
     twitterUserTimelineRequestURLBasic = @"https://api.twitter.com/1.1/statuses/user_timeline.json?q=%23";
     twitterSearchRequestURLBasic = @"https://api.twitter.com/1.1/search/tweets.json?q=%23";
     loadInProgress = NO;
@@ -94,10 +92,9 @@
     //Show necessary tableviews
     self.connectRecentTableView.hidden = YES;
     self.connectTrendingTableView.hidden = NO;
-    
+
     if ([self userHasAccessToTwitter]) {
         NSLog(@"Has access to Twitter!");
-        [self fetchTimelineForUser:@"rberidon"];
     } else {
         NSLog(@"Does not have twitter");
     }
@@ -113,6 +110,7 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+     NSLog(@"Mark at %@", [NSDate date]);
     // Dispose of any resources that can be recreated.
 }
 
@@ -121,13 +119,12 @@
     {
         SLComposeViewController *tweetSheet = [SLComposeViewController
                                                composeViewControllerForServiceType:SLServiceTypeTwitter];
-        [tweetSheet setInitialText:@"I love the Prix Party app!"];
+        [tweetSheet setInitialText:@"I love the @PrixPartyApp!"];
         [self presentViewController:tweetSheet animated:YES completion:nil];
     }
 }
 
 - (IBAction)segmentValueChanged:(UISegmentedControl *)sender {
-    
     switch (sender.selectedSegmentIndex) {
             //list view
         case 0:
@@ -146,19 +143,77 @@
 }
 
 - (void)refresh:(id)sender{
+    NSLog(@"%s called", __PRETTY_FUNCTION__);
     
+<<<<<<< Updated upstream
     [self loadFirstData];
+=======
+    /*
+    if(self.connectTrendingTableView.hidden == NO) {
+        NSString *urlTrendingString = [searchURL copy];
+        urlTrendingString = [urlTrendingString stringByAppendingString:]
+        NSURL *urlTrending = [NSURL URLWithString:searchURL];
+        NSURLRequest *requestTrending = [NSURLRequest requestWithURL:urlTrending];
+        
+        operationTrending = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestTrending success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [tweetsTrendingList removeAllObjects];
+            id results = [JSON valueForKey:@"results"];
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+ 
+                [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];
+            }];
+            
+            nextPageTrending = [JSON valueForKey:@"next_page"];
+            
+            [self.connectTrendingTableView reloadData];
+            [(UIRefreshControl *)sender endRefreshing];
+            loadInProgress = NO;
+            
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [(UIRefreshControl *)sender endRefreshing];
+        }];
+    }
+    else
+    {
+        NSURL *urlRecent = [NSURL URLWithString:searchURL];
+        NSURLRequest *requestRecent = [NSURLRequest requestWithURL:urlRecent];
+        
+        operationRecent = [AFJSONRequestOperation JSONRequestOperationWithRequest:requestRecent success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            [tweetsRecentList removeAllObjects];
+            id results = [JSON valueForKey:@"results"];
+            [results enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                
+                [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
+            }];
+            
+            nextPageRecent = [JSON valueForKey:@"next_page"];
+            
+            [self.connectRecentTableView reloadData];
+            [(UIRefreshControl *)sender endRefreshing];
+            loadInProgress = NO;
+            
+        }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            [(UIRefreshControl *)sender endRefreshing];
+        }];
+    }
+     */
+    
 }
 
+# pragma mark - Data Loading
+
 - (void)loadFirstData{
-    
-    [self fetchSearchForTrending:@"formula1" next:NO];
-    [self fetchSearchForRecent:@"austin" next:NO];
+    NSLog(@"%s called", __PRETTY_FUNCTION__);
+//    [self fetchSearchForTrending:@"formula1" next:NO];
+//    [self fetchSearchForRecent:@"austin" next:NO];
    
+    [self fetchSearchForTrending:@"trending"];
+    [self fetchSearchForRecent:@"recent"];
 }
 
 - (void)loadMoreData{
-    
+    NSLog(@"%s called", __PRETTY_FUNCTION__);
+    /*
     NSLog(@"loadrmore");
     
     if(self.connectTrendingTableView.hidden == NO){
@@ -171,6 +226,7 @@
         [self.recentLoadIndicator startAnimating];
         [self fetchSearchForRecent:@"austin" next:YES];
     }
+ */
 }
 
 - (BOOL)userHasAccessToTwitter
@@ -205,7 +261,7 @@
                  NSDictionary *params = @{@"screen_name" : username,
                                           @"include_rts" : @"0",
                                           @"trim_user" : @"1",
-                                          @"count" : @"20"};
+                                          @"count" : @"1"};
                  SLRequest *request =
                  [SLRequest requestForServiceType:SLServiceTypeTwitter
                                     requestMethod:SLRequestMethodGET
@@ -228,7 +284,7 @@
                               options:NSJSONReadingAllowFragments error:&jsonError];
                              
                              if (timelineData) {
-                                 //NSLog(@"Timeline Response: %@\n", timelineData);
+                                 NSLog(@"Timeline Response: %@\n", timelineData);
                              }
                              else {
                                  // Our JSON deserialization went awry
@@ -250,7 +306,39 @@
     }
 }
 
+<<<<<<< Updated upstream
 - (void)fetchSearchForTrending:(NSString *)query next:(BOOL)next
+=======
+/*
+ NSArray *statuses = [queryData valueForKey:@"statuses"];
+ if(tableview == self.connectTrendingTableView){
+ NSLog(@"queryTrend");
+ //NSLog(@"Timeline Response: %@\n", timelineData);
+ [statuses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+ [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];
+ }];
+ nextPageTrending = [statuses valueForKey:@"next_results"];
+ [self.trendingLoadIndicator stopAnimating];
+ [self.connectTrendingTableView reloadData];
+ loadInProgress = NO;
+ }
+ else{
+ NSLog(@"queryRecent");
+ //NSLog(@"Timeline Response: %@\n", timelineData);
+ [statuses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+ [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
+ }];
+ nextPageRecent = [statuses valueForKey:@"next_results"];
+ [self.recentLoadIndicator stopAnimating];
+ [self.connectRecentTableView reloadData];
+ loadInProgress = NO;
+ }
+*/
+
+/*
+// Template!
+- (void)fetchSearchForQuery:(NSString *)query
+>>>>>>> Stashed changes
 {
     //  Step 0: Check that the user has local Twitter accounts
     if ([self userHasAccessToTwitter]) {
@@ -267,6 +355,7 @@
                  //  Step 2:  Create a request
                  NSArray *twitterAccounts =
                  [self.accountStore accountsWithAccountType:twitterAccountType];
+<<<<<<< Updated upstream
                  NSString *newURL;
                  if(next == NO){
                      newURL = [NSString stringWithFormat:twitterSearchRequestURLBasic,query];
@@ -279,11 +368,16 @@
                                           @"include_rts" : @"0",
                                           @"trim_user" : @"1",
                                           @"count" : @"20"};*/
+=======
+                 NSURL *url = [NSURL URLWithString:@"https://api.twitter.com"
+                               @"/1.1/search/tweets.json"];
+                 NSDictionary *params = @{@"q" : query,
+                                          @"count" : @"20"};
                  SLRequest *request =
                  [SLRequest requestForServiceType:SLServiceTypeTwitter
                                     requestMethod:SLRequestMethodGET
                                               URL:url
-                                       parameters:nil];
+                                       parameters:params];
                  
                  //  Attach an account to the request
                  [request setAccount:[twitterAccounts lastObject]];
@@ -295,11 +389,150 @@
                      if (responseData) {
                          if (urlResponse.statusCode >= 200 && urlResponse.statusCode < 300) {
                              NSError *jsonError;
-                             NSDictionary *queryData =
+                             NSDictionary *responseData =
                              [NSJSONSerialization
                               JSONObjectWithData:responseData
                               options:NSJSONReadingAllowFragments error:&jsonError];
                              
+                             if (responseData) {
+                                 NSLog(@"Response: %@\n", responseData);
+                             }
+                             else {
+                                 // Our JSON deserialization went awry
+                                 NSLog(@"JSON Error: %@", [jsonError localizedDescription]);
+                             }
+                         }
+                         else {
+                             // The server did not respond successfully... were we rate-limited?
+                             NSLog(@"The response status code is %d", urlResponse.statusCode);
+                         }
+                     }
+                 }];
+             }
+             else {
+                 // Access was not granted, or an error occurred
+                 NSLog(@"%@", [error localizedDescription]);
+             }
+         }];
+    }
+}
+*/
+
+- (void)fetchSearchForTrending:(NSString *)query
+{
+    //  Step 0: Check that the user has local Twitter accounts
+    if ([self userHasAccessToTwitter]) {
+        
+        //  Step 1:  Obtain access to the user's Twitter accounts
+        ACAccountType *twitterAccountType = [self.accountStore
+                                             accountTypeWithAccountTypeIdentifier:
+                                             ACAccountTypeIdentifierTwitter];
+        [self.accountStore
+         requestAccessToAccountsWithType:twitterAccountType
+         options:NULL
+         completion:^(BOOL granted, NSError *error) {
+             if (granted) {
+                 //  Step 2:  Create a request
+                 NSArray *twitterAccounts =
+                 [self.accountStore accountsWithAccountType:twitterAccountType];
+                 NSURL *url = [NSURL URLWithString:searchURL];
+                 NSDictionary *params = @{@"q" : query,
+                                          @"count" : @"20"};
+                 SLRequest *request =
+                 [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                    requestMethod:SLRequestMethodGET
+                                              URL:searchURL
+                                       parameters:params];
+                 
+                 //  Attach an account to the request
+                 [request setAccount:[twitterAccounts lastObject]];
+                 
+                 //  Step 3:  Execute the request
+                 [request performRequestWithHandler:^(NSData *responseData,
+                                                      NSHTTPURLResponse *urlResponse,
+                                                      NSError *error) {
+                     if (responseData) {
+                         if (urlResponse.statusCode >= 200 && urlResponse.statusCode < 300) {
+                             NSError *jsonError;
+                             NSDictionary *trendingData =
+                             [NSJSONSerialization
+                              JSONObjectWithData:responseData
+                              options:NSJSONReadingAllowFragments error:&jsonError];
+                             
+                             if (trendingData) {
+                                 NSArray *statuses = [trendingData valueForKey:@"statuses"];
+                                 [statuses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
+                                     [tweetsTrendingList addObject:[self retrieveTweetFromDataSource:obj]];
+                                 }];
+                                 nextPageTrending = [statuses valueForKey:@"next_results"];
+                                 [self.trendingLoadIndicator stopAnimating];
+                                 [[self connectTrendingTableView] performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+                                 loadInProgress = NO;
+                             }
+                             else {
+                                 // Our JSON deserialization went awry
+                                 NSLog(@"JSON Error: %@", [jsonError localizedDescription]);
+                             }
+                         }
+                         else {
+                             // The server did not respond successfully... were we rate-limited?
+                             NSLog(@"The response status code is %d", urlResponse.statusCode);
+                         }
+                     }
+                 }];
+             }
+             else {
+                 // Access was not granted, or an error occurred
+                 NSLog(@"%@", [error localizedDescription]);
+             }
+         }];
+    }
+}
+
+
+- (void)fetchSearchForRecent:(NSString *)query
+{
+    //  Step 0: Check that the user has local Twitter accounts
+    if ([self userHasAccessToTwitter]) {
+        
+        //  Step 1:  Obtain access to the user's Twitter accounts
+        ACAccountType *twitterAccountType = [self.accountStore
+                                             accountTypeWithAccountTypeIdentifier:
+                                             ACAccountTypeIdentifierTwitter];
+        [self.accountStore
+         requestAccessToAccountsWithType:twitterAccountType
+         options:NULL
+         completion:^(BOOL granted, NSError *error) {
+             if (granted) {
+                 //  Step 2:  Create a request
+                 NSArray *twitterAccounts =
+                 [self.accountStore accountsWithAccountType:twitterAccountType];
+                 NSURL *url = [NSURL URLWithString:searchURL];
+                 NSDictionary *params = @{@"q" : query,
+                                          @"count" : @"20"};
+>>>>>>> Stashed changes
+                 SLRequest *request =
+                 [SLRequest requestForServiceType:SLServiceTypeTwitter
+                                    requestMethod:SLRequestMethodGET
+                                              URL:url
+                                       parameters:params];
+                 
+                 //  Attach an account to the request
+                 [request setAccount:[twitterAccounts lastObject]];
+                 
+                 //  Step 3:  Execute the request
+                 [request performRequestWithHandler:^(NSData *responseData,
+                                                      NSHTTPURLResponse *urlResponse,
+                                                      NSError *error) {
+                     if (responseData) {
+                         if (urlResponse.statusCode >= 200 && urlResponse.statusCode < 300) {
+                             NSError *jsonError;
+                             NSDictionary *recentData =
+                             [NSJSONSerialization
+                              JSONObjectWithData:responseData
+                              options:NSJSONReadingAllowFragments error:&jsonError];
+                             
+<<<<<<< Updated upstream
                              if (queryData) {
                                  NSArray *statuses = [queryData valueForKey:@"statuses"];
                                  NSLog(@"queryTrend");
@@ -387,12 +620,20 @@
                                  NSArray *statuses = [queryData valueForKey:@"statuses"];
                                  NSLog(@"queryRecent");
                                  //NSLog(@"Timeline Response: %@\n", timelineData);
+=======
+                             if (recentData) {
+                                 NSArray *statuses = [recentData valueForKey:@"statuses"];
+>>>>>>> Stashed changes
                                  [statuses enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
                                      [tweetsRecentList addObject:[self retrieveTweetFromDataSource:obj]];
                                  }];
                                  nextPageRecent = [statuses valueForKey:@"next_results"];
                                  [self.recentLoadIndicator stopAnimating];
+<<<<<<< Updated upstream
                                  [self.connectRecentTableView reloadData];
+=======
+                                 [[self connectRecentTableView] performSelectorOnMainThread:@selector(reloadData) withObject:nil waitUntilDone:NO];
+>>>>>>> Stashed changes
                                  loadInProgress = NO;
                              }
                              else {
@@ -416,6 +657,11 @@
 }
 
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 - (Tweet *)retrieveTweetFromDataSource:(NSDictionary *) obj{
 
     Tweet *newTweet = [[Tweet alloc] init];
@@ -424,15 +670,16 @@
     newTweet.tweetText = [obj valueForKey:@"text"];
     newTweet.userName = [user valueForKey:@"screen_name"];
     newTweet.date = [obj valueForKey:@"created_at"];
+    
     NSString *picURL = [user valueForKey:@"profile_image_url"];
     UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:picURL]]];
     newTweet.userPic = image;
 
-    return newTweet;  
+    return newTweet;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)aScrollView {
-    
+ 
     CGPoint offset = aScrollView.contentOffset;
     CGRect bounds = aScrollView.bounds;
     CGSize size = aScrollView.contentSize;
