@@ -201,6 +201,10 @@
 
 - (void)loadFirstData{
     NSLog(@"%s called", __PRETTY_FUNCTION__);
+    
+    [self.trendingLoadIndicator startAnimating];
+    [self.recentLoadIndicator startAnimating];
+    
     [self fetchSearchForTrending:@"formula1" next:NO];
     [self fetchSearchForRecent:@"austin" next:NO];
 }
