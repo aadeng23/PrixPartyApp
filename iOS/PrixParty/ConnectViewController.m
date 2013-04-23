@@ -673,7 +673,8 @@
     
     NSDate *date = [dateFormatter dateFromString:origDate];
     
-    [dateFormatter setDateFormat:@"MM dd yyyy"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     return [dateFormatter stringFromDate:date];
     
 }

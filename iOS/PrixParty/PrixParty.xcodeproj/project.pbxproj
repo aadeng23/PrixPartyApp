@@ -11,6 +11,8 @@
 		0B2754D717273AAE000317C6 /* backbutton2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B2754D517273AAE000317C6 /* backbutton2.png */; };
 		0B2754DA17273F91000317C6 /* backbuttonred@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B2754D817273F91000317C6 /* backbuttonred@2x.png */; };
 		0B2754DB17273F91000317C6 /* backbuttonred.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B2754D917273F91000317C6 /* backbuttonred.png */; };
+		0B2754DE1727462F000317C6 /* detailscreennavigationbar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B2754DC1727462F000317C6 /* detailscreennavigationbar@2x.png */; };
+		0B2754DF1727462F000317C6 /* detailscreennavigationbar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B2754DD1727462F000317C6 /* detailscreennavigationbar.png */; };
 		0B42431816DDA20000924736 /* EventsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B42431716DDA20000924736 /* EventsViewController.m */; };
 		0B56176216DB0D7800939F07 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B56176116DB0D7800939F07 /* UIKit.framework */; };
 		0B56176416DB0D7800939F07 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B56176316DB0D7800939F07 /* Foundation.framework */; };
@@ -105,6 +107,8 @@
 		0B2754D517273AAE000317C6 /* backbutton2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backbutton2.png; sourceTree = "<group>"; };
 		0B2754D817273F91000317C6 /* backbuttonred@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backbuttonred@2x.png"; sourceTree = "<group>"; };
 		0B2754D917273F91000317C6 /* backbuttonred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backbuttonred.png; sourceTree = "<group>"; };
+		0B2754DC1727462F000317C6 /* detailscreennavigationbar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "detailscreennavigationbar@2x.png"; sourceTree = "<group>"; };
+		0B2754DD1727462F000317C6 /* detailscreennavigationbar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = detailscreennavigationbar.png; sourceTree = "<group>"; };
 		0B42431616DDA20000924736 /* EventsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsViewController.h; sourceTree = "<group>"; };
 		0B42431716DDA20000924736 /* EventsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsViewController.m; sourceTree = "<group>"; };
 		0B56175E16DB0D7800939F07 /* PrixParty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrixParty.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -362,6 +366,8 @@
 		0B8E411416FBDE6D0004051B /* Pics */ = {
 			isa = PBXGroup;
 			children = (
+				0B2754DC1727462F000317C6 /* detailscreennavigationbar@2x.png */,
+				0B2754DD1727462F000317C6 /* detailscreennavigationbar.png */,
 				0B81F8C9171E16040094DE33 /* Default-568h@2x.png */,
 				0B910B80172602BC000B7823 /* hometabbar@2x.png */,
 				0B910B81172602BC000B7823 /* appicon.png */,
@@ -559,6 +565,8 @@
 				0B2754D717273AAE000317C6 /* backbutton2.png in Resources */,
 				0B2754DA17273F91000317C6 /* backbuttonred@2x.png in Resources */,
 				0B2754DB17273F91000317C6 /* backbuttonred.png in Resources */,
+				0B2754DE1727462F000317C6 /* detailscreennavigationbar@2x.png in Resources */,
+				0B2754DF1727462F000317C6 /* detailscreennavigationbar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

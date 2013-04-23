@@ -145,14 +145,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
     
-    //Setting date formatter
-    static NSDateFormatter *formatter = nil;
-    if (formatter == nil) {
-        formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-    }
-    
     //Getting labels from cell
     UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
     UILabel *dateLabel = (UILabel *)[cell.contentView viewWithTag:2];
@@ -266,7 +258,7 @@
         
         detailViewController.navBar = self.navigationController.navigationBar;
         
-        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        UIImage *toImage = [UIImage imageNamed:@"detailscreennavigationbar.png"];
         [UIView transitionWithView:self.view
                           duration:10.0f
                            options:UIViewAnimationOptionTransitionCrossDissolve
