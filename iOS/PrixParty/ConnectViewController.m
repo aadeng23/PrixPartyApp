@@ -90,6 +90,11 @@
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentedControl.tintColor = [UIColor grayColor];
     
+    //UITabBar customization
+    UIImage *tabBackground = [[UIImage imageNamed:@"connecttabbar.png"]
+                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
+    
     //Setting up refresh properties for Twitter
     trendingController.refreshControl = [[UIRefreshControl alloc]init];
     recentController.refreshControl = [[UIRefreshControl alloc] init];    
@@ -643,67 +648,34 @@
     NSString *atUserName = @"@";
     atUserName = [atUserName stringByAppendingString:userName];
     userNameLabel.text = atUserName;
-    dateLabel.text = date;
+    dateLabel.text = [self getDateString:date];//date;//[formatter stringFromDate:dateString];
     tweetTextLabel.text = tweetText;
     imageView.image = userPic;
     
     
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
-    //tweetTextLabel.text = @"ASDFASFASFASDFASDFASDFASFASDFSDAF";
-    
-    //textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    
-    //[textLabel sizeToFit];
-    
-    
     tweetTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
     tweetTextLabel.numberOfLines = 0;
     
-    //[tweetTextLabel sizeToFit];
-    /*CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
-
-    CGSize textSize = [tweetTextLabel.text sizeWithFont:tweetTextLabel.font constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    CGRect newFrame = tweetTextLabel.frame;
-    newFrame.size.height = textSize.height;
-    UILabel *newTweetTextLabel = [[UILabel alloc] init];
-    tweetTextLabel.frame = newFrame;
-    //tweetTextLabel.text = @"ASDFASFASFASDFASDFASDFASFASDFSDAF";
-    
-    
-     UILabel *tweetTextLabel2 = (UILabel *)[cell.contentView viewWithTag:5];*/
-    
-     //NSLog(@"height1 %f", tweetTextLabel2.frame.size.height);
-    // NSLog(@"height2 %f", tweetTextLabel2.frame.size.height);
-    
-    /*CGSize maximumLabelSize = CGSizeMake(247,CGFLOAT_MAX);
-    
-    CGSize expectedLabelSize = [tweetText sizeWithFont:textLabel.font
-                                      constrainedToSize:maximumLabelSize
-                                          lineBreakMode:NSLineBreakByWordWrapping];
-   
-    textLabel.frame = CGRectMake(0, 0, 320, expectedLabelSize.height);*/
-    //textLabel.text = tweetText;
-    
-   // NSLog(@"line %@", textLabel.lineBreakMode);
-    
-    //NSLog(@"before %f", textLabel.frame.size.height);
-    /*CGRect newFrame = textLabel.frame;
-    newFrame.size.height = expectedLabelSize.height;
-    textLabel.frame = newFrame;*/
-
-    //NSLog(@"after %f", textLabel.frame.size.height);
-    
-    
-    /* textLabel.attributedText = tweetText;
-    CGSize maximumLabelSize = CGSizeMake(187,CGFLOAT_MAX);
-    CGSize requiredSize = [textLabel sizeThatFits:maximumLabelSize];
-    CGRect labelFrame = textLabel.frame;
-    labelFrame.size.height = requiredSize.height;
-    textLabel.frame = labelFrame;
-    */
-   
-    
     return cell;
+}
+
+- (NSString *)getDateString:(NSString *)origDate;{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale:usLocale];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    
+    // see http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns
+    [dateFormatter setDateFormat: @"EEE MMM dd HH:mm:ss Z yyyy"];
+    
+    NSDate *date = [dateFormatter dateFromString:origDate];
+    
+    [dateFormatter setDateFormat:@"MM dd yyyy"];
+    return [dateFormatter stringFromDate:date];
+    
 }
 
 
@@ -751,12 +723,5 @@
     return NO;
 }
 
-/*- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UILabel *footer = [[UILabel alloc] init];
-    footer.text = @"Loading...";
-    
-    return footer;
-    
-}*/
 
 @end

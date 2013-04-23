@@ -48,6 +48,15 @@
     
     [topNews addObject:@"creepy"];
     
+    //UITabBar customization
+    UIImage *tabBackground = [[UIImage imageNamed:@"hometabbar.png"]
+                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
+    
+    //Generic back button setting
+    UIImage *backButtonImage = [[UIImage imageNamed:@"backbutton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
     //defaults = [NSUserDefaults standardUserDefaults];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -58,6 +67,11 @@
 
 -(void) viewWillAppear: (BOOL) animated
 {
+    //UITabBar customization
+    UIImage *tabBackground = [[UIImage imageNamed:@"hometabbar.png"]
+                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
+    
     [self.tableView reloadData];
 }
 

@@ -71,11 +71,10 @@
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
     //UITabBar customization
-    UIImage *tabBackground = [[UIImage imageNamed:@"home_cell.png"]
+    UIImage *tabBackground = [[UIImage imageNamed:@"eventstabbar.png"]
                               resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
     [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
-    [self.tabBarController.tabBar setSelectionIndicatorImage:
-     [UIImage imageNamed:@"home_cell.png"]];
+    //[self.tabBarController.tabBar setSelectionIndicatorImage:tabBackground];
     
     //Show view
     self.eventsListTableView.hidden = NO;
@@ -275,11 +274,8 @@
                             [self.navigationController.navigationBar setBackgroundImage:toImage forBarMetrics:UIBarMetricsDefault];
                         } completion:nil];
         
-        //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"] forBarMetrics:UIBarMetricsDefault];
-        //self.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
-        
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Return" style:UIBarButtonItemStyleBordered target:nil action:nil];
-        backButton.tintColor = [UIColor clearColor];
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+        backButton.title = @" ";
         [[self navigationItem] setBackBarButtonItem:backButton];
     }
 }
