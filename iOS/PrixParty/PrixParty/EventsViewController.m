@@ -66,6 +66,8 @@
     [self.segmentedControl setImage:[UIImage imageNamed:@"listbuttonselect.png"] forSegmentAtIndex:0];
     [self.segmentedControl setImage:[UIImage imageNamed:@"mapbutton.png"] forSegmentAtIndex:1];
     [self.segmentedControl setDividerImage:[UIImage imageNamed:@"leftside_select.png"] forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [self.segmentedControl setTintColor:[UIColor clearColor]];
+    //[self.segmentedControl setBackgroundColor:[UIColor redColor]];
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
