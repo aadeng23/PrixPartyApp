@@ -721,7 +721,8 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([[segue identifier] isEqualToString:@"ShowTweetDetails"]) {
+    if ([[segue identifier] isEqualToString:@"ShowTweetsDetail"]) {
+        NSLog(@"SEGUESING");
         
         ConnectDetailViewController *detailViewController = [segue destinationViewController];
         if(self.connectTrendingTableView.hidden == NO){
