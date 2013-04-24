@@ -10,6 +10,7 @@
 #import "PrixPartyAppDelegate.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
+#import "ConnectDetailViewController.h"
 
 
 @interface ConnectViewController (){
@@ -89,11 +90,6 @@
     
     self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     self.segmentedControl.tintColor = [UIColor grayColor];
-    
-    //UITabBar customization
-    UIImage *tabBackground = [[UIImage imageNamed:@"connecttabbar.png"]
-                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
     
     //Setting up refresh properties for Twitter
     trendingController.refreshControl = [[UIRefreshControl alloc]init];
@@ -724,5 +720,30 @@
     return NO;
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"ShowTweetDetails"]) {
+        
+        ConnectDetailViewController *detailViewController = [segue destinationViewController];
+        if(self.connectTrendingTableView.hidden == NO){
+            detailViewController.tweet = [tweetsTrendingList objectAtIndex:[self.connectTrendingTableView indexPathForSelectedRow].row];
+        }
+        else{
+            detailViewController.tweet = [tweetsRecentList objectAtIndex:[self.connectRecentTableView indexPathForSelectedRow].row];
+        }
+        
+        
+        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        [UIView transitionWithView:self.view
+                          duration:10.0f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            [self.navigationController.navigationBar setBackgroundImage:toImage forBarMetrics:UIBarMetricsDefault];
+                        } completion:nil];
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+        backButton.title = @" ";
+        [[self navigationItem] setBackBarButtonItem:backButton];
+    }
+}
 
 @end

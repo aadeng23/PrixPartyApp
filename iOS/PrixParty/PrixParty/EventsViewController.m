@@ -70,12 +70,6 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
-    //UITabBar customization
-    UIImage *tabBackground = [[UIImage imageNamed:@"eventstabbar.png"]
-                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
-    //[self.tabBarController.tabBar setSelectionIndicatorImage:tabBackground];
-    
     //Show view
     self.eventsListTableView.hidden = NO;
     self.mapView.hidden = YES;
