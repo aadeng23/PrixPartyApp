@@ -124,10 +124,9 @@
 
 -(NSString *)getFriendlyDateString {
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"yyyy-MM-dd"];
     [df setDateStyle:NSDateFormatterMediumStyle];
-    NSString * temp = [object objectForKey:kPPParseEventStartDateKey];
-    
+    [df setTimeStyle:NSDateFormatterShortStyle];
+    NSDate * temp = [object objectForKey:kPPParseEventStartDateKey];
     /*
      if (temp != nil) {
         NSLog(@"Event %@ has date %@", eventName, temp);

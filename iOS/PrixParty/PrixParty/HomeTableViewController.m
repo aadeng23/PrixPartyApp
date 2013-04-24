@@ -48,6 +48,16 @@
     
     [topNews addObject:@"creepy"];
     
+    //UITabBar customization
+    UIImage *tabBackground = [[UIImage imageNamed:@"tabbar.png"]
+                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
+    self.tabBarController.tabBar.selectionIndicatorImage = [UIImage imageNamed:@"tabbarred.png"];
+    
+    //Generic back button setting
+    UIImage *backButtonImage = [[UIImage imageNamed:@"backbutton.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
     //defaults = [NSUserDefaults standardUserDefaults];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -58,6 +68,7 @@
 
 -(void) viewWillAppear: (BOOL) animated
 {
+    
     [self.tableView reloadData];
 }
 
@@ -265,7 +276,7 @@
         
         detailViewController.navBar = self.navigationController.navigationBar;
         
-        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        UIImage *toImage = [UIImage imageNamed:@"detailscreennavigationbar.png"];
         [UIView transitionWithView:self.view
                           duration:10.0f
                            options:UIViewAnimationOptionTransitionCrossDissolve
@@ -276,8 +287,9 @@
         //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"] forBarMetrics:UIBarMetricsDefault];
         //self.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
         
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Return" style:UIBarButtonItemStyleBordered target:nil action:nil];
-        backButton.tintColor = [UIColor clearColor];
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+        backButton.title = @" ";
         [[self navigationItem] setBackBarButtonItem:backButton];
     }
 

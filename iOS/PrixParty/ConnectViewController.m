@@ -10,6 +10,7 @@
 #import "PrixPartyAppDelegate.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
+#import "ConnectDetailViewController.h"
 
 
 @interface ConnectViewController (){
@@ -806,97 +807,35 @@
     NSString *atUserName = @"@";
     atUserName = [atUserName stringByAppendingString:userName];
     userNameLabel.text = atUserName;
-    dateLabel.text = date;
+    dateLabel.text = [self getDateString:date];//date;//[formatter stringFromDate:dateString];
     tweetTextLabel.text = tweetText;
-    //tweetTextLabel.text = @"ASDFASFASFASDFASDFASDFASFASDFSDAF";
-    
-    //textLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    
-    //[textLabel sizeToFit];
-    
-    
-   /* tweetTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    tweetTextLabel.numberOfLines = 0;*/
-    
-    //[tweetTextLabel sizeToFit];
-    CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
-
-    CGSize textSize = [tweetTextLabel.text sizeWithFont:tweetTextLabel.font constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
-    CGRect newFrame = tweetTextLabel.frame;
-    newFrame.size.height = textSize.height;
-    UILabel *newTweetTextLabel = [[UILabel alloc] init];
-    tweetTextLabel.frame = newFrame;
-    //tweetTextLabel.text = @"ASDFASFASFASDFASDFASDFASFASDFSDAF";
     imageView.image = userPic;
     
-     UILabel *tweetTextLabel2 = (UILabel *)[cell.contentView viewWithTag:5];
     
-     //NSLog(@"height1 %f", tweetTextLabel2.frame.size.height);
-    // NSLog(@"height2 %f", tweetTextLabel2.frame.size.height);
-    
-    
-    /*int row = indexPath.row;
-    int sectionRows = [tableView numberOfRowsInSection:1];
-    UIImage *rowBackground;*/
-    /*if (row == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TopCel01"]];
-    }
-    else if (row == sectionRows - 1)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"BottomCel01"]];
-        //selectionBackground = [UIImage imageNamed:@"bottomRowSelected.png"];
-    }
-    else
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"CenterCel02"]];
-        //selectionBackground = [UIImage imageNamed:@"middleRowSelected.png"];
-    }*/
-    //((UIImageView *)cell.backgroundView).image = rowBackground;
-    //((UIImageView *)cell.selectedBackgroundView).image = selectionBackground;
-
-   
-    //cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:rowBackground]];
-    /*CGSize maximumLabelSize = CGSizeMake(247,CGFLOAT_MAX);
-    
-    CGSize expectedLabelSize = [tweetText sizeWithFont:textLabel.font
-                                      constrainedToSize:maximumLabelSize
-                                          lineBreakMode:NSLineBreakByWordWrapping];
-   
-    textLabel.frame = CGRectMake(0, 0, 320, expectedLabelSize.height);*/
-    //textLabel.text = tweetText;
-    
-   // NSLog(@"line %@", textLabel.lineBreakMode);
-    
-    //NSLog(@"before %f", textLabel.frame.size.height);
-    /*CGRect newFrame = textLabel.frame;
-    newFrame.size.height = expectedLabelSize.height;
-    textLabel.frame = newFrame;*/
-
-    //NSLog(@"after %f", textLabel.frame.size.height);
-    
-    
-    /* textLabel.attributedText = tweetText;
-    CGSize maximumLabelSize = CGSizeMake(187,CGFLOAT_MAX);
-    CGSize requiredSize = [textLabel sizeThatFits:maximumLabelSize];
-    CGRect labelFrame = textLabel.frame;
-    labelFrame.size.height = requiredSize.height;
-    textLabel.frame = labelFrame;
-    */
-        
-    
-    
-    /*cell.textLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
-    cell.detailTextLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
-    
-    cell.textLabel.text = profname;
-    cell.detailTextLabel.text = tweetText;
-    cell.detailTextLabel.numberOfLines = 0;
-    cell.detailTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    cell.imageView.image = userPic;*/
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
+    tweetTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    tweetTextLabel.numberOfLines = 0;
     
     return cell;
+}
+
+- (NSString *)getDateString:(NSString *)origDate;{
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale:usLocale];
+    [dateFormatter setDateStyle:NSDateFormatterLongStyle];
+    [dateFormatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    
+    // see http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns
+    [dateFormatter setDateFormat: @"EEE MMM dd HH:mm:ss Z yyyy"];
+    
+    NSDate *date = [dateFormatter dateFromString:origDate];
+    
+    [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm"];
+    [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    return [dateFormatter stringFromDate:date];
+    
 }
 
 
@@ -916,14 +855,14 @@
     UILabel *textLabel = (UILabel *)[cell.contentView viewWithTag:5];
     NSString *cellText = textLabel.text;    
     UIFont *cellFont = [UIFont fontWithName:@"Futura" size:12.0];
-    CGSize constraintSize = CGSizeMake(247.0f, MAXFLOAT);
+    CGSize constraintSize = CGSizeMake(220.0f, MAXFLOAT);
     //UILabel *tweetTextLabel = (UILabel *)[cell.contentView viewWithTag:5];
     
     //NSLog(@"heght %@ %f", tweetTextLabel.text ,tweetTextLabel.frame.size.height);
     
     CGSize textSize = [cellText sizeWithFont:cellFont constrainedToSize:constraintSize lineBreakMode:NSLineBreakByWordWrapping];
     
-    return textSize.height + 90; //tweetTextLabel.frame.size.height + 90;
+    return textSize.height + 65; //tweetTextLabel.frame.size.height + 90;
 
 }
 
@@ -944,12 +883,31 @@
     return NO;
 }
 
-/*- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UILabel *footer = [[UILabel alloc] init];
-    footer.text = @"Loading...";
-    
-    return footer;
-    
-}*/
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([[segue identifier] isEqualToString:@"ShowTweetsDetail"]) {
+        NSLog(@"SEGUESING");
+        
+        ConnectDetailViewController *detailViewController = [segue destinationViewController];
+        if(self.connectTrendingTableView.hidden == NO){
+            detailViewController.tweet = [tweetsTrendingList objectAtIndex:[self.connectTrendingTableView indexPathForSelectedRow].row];
+        }
+        else{
+            detailViewController.tweet = [tweetsRecentList objectAtIndex:[self.connectRecentTableView indexPathForSelectedRow].row];
+        }
+        
+        
+        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        [UIView transitionWithView:self.view
+                          duration:10.0f
+                           options:UIViewAnimationOptionTransitionCrossDissolve
+                        animations:^{
+                            [self.navigationController.navigationBar setBackgroundImage:toImage forBarMetrics:UIBarMetricsDefault];
+                        } completion:nil];
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+        backButton.title = @" ";
+        [[self navigationItem] setBackBarButtonItem:backButton];
+    }
+}
 
 @end

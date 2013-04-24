@@ -70,13 +70,6 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
-    //UITabBar customization
-    UIImage *tabBackground = [[UIImage imageNamed:@"home_cell.png"]
-                              resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
-    [self.tabBarController.tabBar  setBackgroundImage:tabBackground];
-    [self.tabBarController.tabBar setSelectionIndicatorImage:
-     [UIImage imageNamed:@"home_cell.png"]];
-    
     //Show view
     self.eventsListTableView.hidden = NO;
     self.mapView.hidden = YES;
@@ -145,14 +138,6 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EventCell"];
     cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"regcell.png"]];
-    
-    //Setting date formatter
-    static NSDateFormatter *formatter = nil;
-    if (formatter == nil) {
-        formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterMediumStyle];
-        [formatter setTimeStyle:NSDateFormatterShortStyle];
-    }
     
     //Getting labels from cell
     UILabel *nameLabel = (UILabel *)[cell.contentView viewWithTag:1];
@@ -267,7 +252,7 @@
         
         detailViewController.navBar = self.navigationController.navigationBar;
         
-        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        UIImage *toImage = [UIImage imageNamed:@"detailscreennavigationbar.png"];
         [UIView transitionWithView:self.view
                           duration:10.0f
                            options:UIViewAnimationOptionTransitionCrossDissolve
@@ -275,11 +260,8 @@
                             [self.navigationController.navigationBar setBackgroundImage:toImage forBarMetrics:UIBarMetricsDefault];
                         } completion:nil];
         
-        //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"] forBarMetrics:UIBarMetricsDefault];
-        //self.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
-        
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Return" style:UIBarButtonItemStyleBordered target:nil action:nil];
-        backButton.tintColor = [UIColor clearColor];
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+        backButton.title = @" ";
         [[self navigationItem] setBackBarButtonItem:backButton];
     }
 }
