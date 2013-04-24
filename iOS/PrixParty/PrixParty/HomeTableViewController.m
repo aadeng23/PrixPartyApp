@@ -276,7 +276,7 @@
         
         detailViewController.navBar = self.navigationController.navigationBar;
         
-        UIImage *toImage = [UIImage imageNamed:@"plainnavigationbar.png"];
+        UIImage *toImage = [UIImage imageNamed:@"detailscreennavigationbar.png"];
         [UIView transitionWithView:self.view
                           duration:10.0f
                            options:UIViewAnimationOptionTransitionCrossDissolve
@@ -287,8 +287,9 @@
         //[self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"plainnavigationbar.png"] forBarMetrics:UIBarMetricsDefault];
         //self.navigationItem.backBarButtonItem.tintColor = [UIColor redColor];
         
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Return" style:UIBarButtonItemStyleBordered target:nil action:nil];
-        backButton.tintColor = [UIColor clearColor];
+        
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+        backButton.title = @" ";
         [[self navigationItem] setBackBarButtonItem:backButton];
     }
 
