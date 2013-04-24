@@ -505,7 +505,24 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     Event *v = (Event*)view.annotation;
     
-    NSLog(@"TAPP: %@", v.eventName);
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    EventsDetailViewController *detailViewController = (EventsDetailViewController *)[storyboard instantiateViewControllerWithIdentifier:@"eventsDetailViewScreen"];
+    
+    [self.navigationController pushViewController:detailViewController animated:YES];
+    
+    detailViewController.event = v;
+    UIImage *toImage = [UIImage imageNamed:@"detailscreennavigationbar.png"];
+    [UIView transitionWithView:self.view
+                      duration:10.0f
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        [self.navigationController.navigationBar setBackgroundImage:toImage forBarMetrics:UIBarMetricsDefault];
+                    } completion:nil];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] init];
+    backButton.title = @" ";
+    [[self navigationItem] setBackBarButtonItem:backButton];
+
 }
 
 
