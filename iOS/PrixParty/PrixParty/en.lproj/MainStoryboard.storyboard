@@ -437,24 +437,24 @@
                                     <outlet property="delegate" destination="Jme-4G-5Hf" id="hZW-iU-1ev"/>
                                 </connections>
                             </mapView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="94" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="c6M-Lg-84K">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="134" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="c6M-Lg-84K">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="455" id="Ma7-Pq-UKf"/>
                                 </constraints>
                                 <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="86" id="6e6-DO-yZy">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="86"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="EventCell" rowHeight="120" id="6e6-DO-yZy">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="120"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="300" height="85"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="left" text="Event Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJX-Fs-O25">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="260" id="YDf-N0-4Xr"/>
-                                                        <constraint firstAttribute="height" constant="20" id="f6f-A2-KuV"/>
+                                                        <constraint firstAttribute="height" constant="20" type="user" id="f6f-A2-KuV"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -472,7 +472,7 @@
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tfo-ID-owm">
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="270" id="AXw-MI-BVf"/>
-                                                        <constraint firstAttribute="height" constant="40" id="xfq-aT-6iM"/>
+                                                        <constraint firstAttribute="height" constant="46" id="Y3u-kW-yVh"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -483,11 +483,11 @@
                                         </view>
                                         <constraints>
                                             <constraint firstItem="TJX-Fs-O25" firstAttribute="leading" secondItem="6e6-DO-yZy" secondAttribute="leading" constant="20" type="default" id="0oP-EA-f5q"/>
-                                            <constraint firstItem="Tfo-ID-owm" firstAttribute="top" secondItem="Wup-9q-ff2" secondAttribute="bottom" type="user" id="C2O-p1-8Hj"/>
                                             <constraint firstItem="Wup-9q-ff2" firstAttribute="leading" secondItem="6e6-DO-yZy" secondAttribute="leading" constant="20" type="default" id="Owh-h1-15e"/>
-                                            <constraint firstItem="TJX-Fs-O25" firstAttribute="top" secondItem="6e6-DO-yZy" secondAttribute="top" type="user" id="VWT-dj-376"/>
+                                            <constraint firstItem="Wup-9q-ff2" firstAttribute="top" secondItem="6e6-DO-yZy" secondAttribute="top" constant="32" id="PA5-ZT-OxD"/>
+                                            <constraint firstItem="Tfo-ID-owm" firstAttribute="top" secondItem="6e6-DO-yZy" secondAttribute="top" constant="49" id="PZR-dn-dVz"/>
+                                            <constraint firstItem="TJX-Fs-O25" firstAttribute="top" secondItem="6e6-DO-yZy" secondAttribute="top" constant="11" id="fnN-Uc-cHx"/>
                                             <constraint firstAttribute="trailing" secondItem="Tfo-ID-owm" secondAttribute="trailing" constant="20" type="default" id="hfm-fI-aRz"/>
-                                            <constraint firstItem="Wup-9q-ff2" firstAttribute="top" secondItem="6e6-DO-yZy" secondAttribute="top" constant="20" type="user" id="tpT-YT-Wtt"/>
                                         </constraints>
                                         <connections>
                                             <segue destination="qdE-5f-vqh" kind="push" identifier="ShowEventDetails" id="mj7-wr-CyA"/>
@@ -513,8 +513,9 @@
                     <navigationItem key="navigationItem" id="Pdy-Ch-8to">
                         <nil key="title"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="1V9-87-iE7">
-                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" contentHorizontalAlignment="right" contentVerticalAlignment="fill" segmentControlStyle="plain" selectedSegmentIndex="0" id="2Qk-ur-WLd">
-                                <rect key="frame" x="200" y="0.0" width="115" height="45"/>
+                            <inset key="imageInsets" minX="0.0" minY="14" maxX="0.0" maxY="-10"/>
+                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="753" contentHorizontalAlignment="right" contentVerticalAlignment="bottom" segmentControlStyle="plain" selectedSegmentIndex="0" id="2Qk-ur-WLd" colorLabel="IBBuiltInLabel-Orange">
+                                <rect key="frame" x="230" y="0.0" width="85" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title=""/>
@@ -524,6 +525,7 @@
                                     <action selector="segmentValueChanged:" destination="Jme-4G-5Hf" eventType="valueChanged" id="X6m-9u-kgq"/>
                                 </connections>
                             </segmentedControl>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>

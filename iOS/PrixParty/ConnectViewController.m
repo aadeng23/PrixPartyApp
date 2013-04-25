@@ -219,7 +219,7 @@
     [self.trendingLoadIndicator startAnimating];
     [self.recentLoadIndicator startAnimating];
     
-    [self fetchSearchForTrending:@"formula1" next:NO];
+    [self fetchSearchForTrending:@"%23formula1%20OR%20%23lewishamilton" next:NO];
     [self fetchSearchForRecent:@"austin" next:NO];
 }
 

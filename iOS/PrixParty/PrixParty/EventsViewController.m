@@ -58,8 +58,9 @@
 	// Do any additional setup after loading the view.
     
     //Setting background and navigation bar
-    self.view.backgroundColor = [UIColor blackColor];
+    self.view.backgroundColor = [UIColor clearColor];
     self.eventsListTableView.backgroundColor = [UIColor clearColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:185 green:32 blue:37 alpha:1];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed: @"navbar.png"] forBarMetrics:UIBarMetricsDefault];
     
     //Setting segment controls
@@ -71,6 +72,14 @@
     UIFont *font = [UIFont fontWithName:@"Avenir-Black" size:14.0];
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:font forKey:UITextAttributeFont];
     [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    
+    CGRect buttonFrame = self.segmentedControl.frame;
+    buttonFrame.size = CGSizeMake(115, 48);
+    self.segmentedControl.frame = buttonFrame;
+    
+    self.segmentedControl.tintColor = [UIColor clearColor];
+    
+    self.segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
     
     //Show view
     self.eventsListTableView.hidden = NO;
@@ -150,7 +159,7 @@
     //Setting label settings
     nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
-    nameLabel.font = [UIFont fontWithName:@"Futura" size:15.0];
+    nameLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
     nameLabel.text = eventAtIndex.eventName;
     
     dateLabel.backgroundColor = [UIColor clearColor];
@@ -161,7 +170,7 @@
     
     descriptionLabel.backgroundColor = [UIColor clearColor];
     descriptionLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
-    descriptionLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+    descriptionLabel.font = [UIFont fontWithName:@"Futura" size:14];
     
     descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     descriptionLabel.numberOfLines = 2;
@@ -234,8 +243,8 @@
             self.mapView.hidden = YES;
             break;
         case 1:
-            [self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
             [self.segmentedControl setImage:[UIImage imageNamed:@"mapbuttonselect.png"] forSegmentAtIndex:1];
+            [self.segmentedControl setImage:[UIImage imageNamed:@"listbutton.png"] forSegmentAtIndex:0];
            [self.segmentedControl setDividerImage:[UIImage imageNamed:@"rightside_select.png"] forLeftSegmentState:UIControlStateNormal rightSegmentState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
             self.eventsListTableView.hidden = YES;
             self.mapView.hidden = NO;
