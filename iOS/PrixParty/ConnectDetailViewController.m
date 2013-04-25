@@ -60,7 +60,7 @@
 {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,7 +93,7 @@
         userNameLabel.text = atUserName;
         dateLabel.text = [self getDateString:self.tweet.date];//date;//[formatter stringFromDate:dateString];
         tweetTextLabel.text = self.tweet.tweetText;
-        imageView.image = self.tweet.userPic;
+        imageView.image = [self imageWithRoundedCornersSize:5.0f usingImage:self.tweet.userPic];
 
         
     }
@@ -152,6 +152,29 @@
     [dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     return [dateFormatter stringFromDate:date];
     
+}
+
+- (UIImage *)imageWithRoundedCornersSize:(float)cornerRadius usingImage:(UIImage *)original
+{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:original];
+    
+    // Begin a new image that will be the new image with the rounded corners
+    // (here with the size of an UIImageView)
+    UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, NO, 1.0);
+    
+    // Add a clip before drawing anything, in the shape of an rounded rect
+    [[UIBezierPath bezierPathWithRoundedRect:imageView.bounds
+                                cornerRadius:cornerRadius] addClip];
+    // Draw your image
+    [original drawInRect:imageView.bounds];
+    
+    // Get the image, here setting the UIImageView image
+    imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // Lets forget about that we were drawing
+    UIGraphicsEndImageContext();
+    
+    return imageView.image;
 }
 
 /*
