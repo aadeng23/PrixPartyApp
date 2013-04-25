@@ -77,14 +77,14 @@
         UILabel *tweetTextLabel = (UILabel *)[cell.contentView viewWithTag:5];
         
         //Setting fonts and sizes
-        profNameLabel.font = [UIFont fontWithName:@"Futura" size:14.0];
+        profNameLabel.font = [UIFont fontWithName:@"Futura" size:15.0];
         profNameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
         userNameLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
         userNameLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
         dateLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
         dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
         tweetTextLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
-        tweetTextLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        tweetTextLabel.textColor = [UIColor colorWithWhite:0.85f alpha:1];
         
         //Setting content
         profNameLabel.text = self.tweet.profName;

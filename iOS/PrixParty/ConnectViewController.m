@@ -219,8 +219,8 @@
     [self.trendingLoadIndicator startAnimating];
     [self.recentLoadIndicator startAnimating];
     
-    [self fetchSearchForTrending:@"%23formula1%20OR%20%23lewishamilton" next:NO];
-    [self fetchSearchForRecent:@"austin" next:NO];
+    [self fetchSearchForTrending:@"%23formula1%20OR%20%23f1" next:NO];
+    [self fetchSearchForRecent:@"lewishamilton%20OR%20%23officialvettel" next:NO];
 }
 
 - (void)loadMoreData{
@@ -630,14 +630,14 @@
     UILabel *tweetTextLabel = (UILabel *)[cell.contentView viewWithTag:5];
     
     //Setting fonts and sizes
-    profNameLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
+    profNameLabel.font = [UIFont fontWithName:@"Futura" size:13.0];
     profNameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
     userNameLabel.font = [UIFont fontWithName:@"Futura" size:11.0];
     userNameLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
     dateLabel.font = [UIFont fontWithName:@"Futura" size:11.0];
     dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
     tweetTextLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
-    tweetTextLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+    tweetTextLabel.textColor = [UIColor colorWithWhite:0.85f alpha:1];
     
     //Setting content
     profNameLabel.text = profname;
