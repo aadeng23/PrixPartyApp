@@ -159,7 +159,7 @@
     //Setting label settings
     nameLabel.backgroundColor = [UIColor clearColor];
     nameLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
-    nameLabel.font = [UIFont fontWithName:@"Futura" size:16.0];
+    nameLabel.font = [UIFont fontWithName:@"Futura" size:18.0];
     nameLabel.text = eventAtIndex.eventName;
     
     dateLabel.backgroundColor = [UIColor clearColor];
@@ -169,7 +169,7 @@
     [dateLabel setText:[eventAtIndex getFriendlyDateString]];
     
     descriptionLabel.backgroundColor = [UIColor clearColor];
-    descriptionLabel.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+    descriptionLabel.textColor = [UIColor colorWithWhite:0.75f alpha:1];
     descriptionLabel.font = [UIFont fontWithName:@"Futura" size:14];
     
     descriptionLabel.lineBreakMode = NSLineBreakByTruncatingTail;
