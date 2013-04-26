@@ -596,8 +596,6 @@
 				0B81F8CA171E16040094DE33 /* Default-568h@2x.png in Resources */,
 				0B81F8CD171E16B70094DE33 /* appicon.png in Resources */,
 				0B81F8CE171E16B70094DE33 /* appicon@2x.png in Resources */,
-				0B81F8D0171E16D00094DE33 /* appicon.png in Resources */,
-				0B81F8D2171E16D60094DE33 /* appicon@2x.png in Resources */,
 				B74B98021724ACE30019D9B9 /* home_cell.png in Resources */,
 				B7889120172603E3002303DF /* README.md in Resources */,
 				B7889121172603E3002303DF /* release_notes.md in Resources */,
