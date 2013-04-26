@@ -106,6 +106,16 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(indexPath.section == 0){
+        return 120;
+    }
+    else{
+        return 120;
+    }
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell;
@@ -121,7 +131,7 @@
         
         newsTitle.backgroundColor = [UIColor clearColor];
         newsTitle.textColor = [UIColor colorWithWhite:0.95f alpha:1];
-        newsTitle.font = [UIFont fontWithName:@"Futura" size:15.0];
+        newsTitle.font = [UIFont fontWithName:@"Futura" size:18.0];
         //newsTitle.text = [topNews objectAtIndex:indexPath.row];
         newsTitle.text = @"High drama in F1 Chinese Grand Prix: Fernando Alonso wins for Ferrari";
         
@@ -132,7 +142,7 @@
         newsDate.text = @"8 hours ago";
         
         newsContent.backgroundColor = [UIColor clearColor];
-        newsContent.textColor = [UIColor colorWithWhite:0.95f alpha:1];
+        newsContent.textColor = [UIColor colorWithWhite:0.75f alpha:1];
         newsContent.font = [UIFont fontWithName:@"Futura" size:12.0];
         //newsContent.text = [topNews objectAtIndex:indexPath.row];
         newsContent.lineBreakMode = NSLineBreakByTruncatingTail;
@@ -167,9 +177,7 @@
         dateLabel.textColor = [UIColor colorWithWhite:0.65f alpha:1];
         dateLabel.font = [UIFont fontWithName:@"Futura" size:12.0];
         
-        //r: Re-enable when dates working again
-//        [dateLabel setText:[formatter stringFromDate:eventAtIndex.eventBasic.startDate]];
-
+        [dateLabel setText:[eventAtIndex getFriendlyDateString]];
         
         descriptionLabel.backgroundColor = [UIColor clearColor];
         descriptionLabel.textColor = [UIColor colorWithWhite:0.75f alpha:1];
