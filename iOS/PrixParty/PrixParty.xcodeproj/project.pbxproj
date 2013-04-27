@@ -93,6 +93,10 @@
 		0BEBDE1F171BB223005F3EA4 /* regcell@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BEBDE1D171BB223005F3EA4 /* regcell@2x.png */; };
 		0BEBDE20171BB223005F3EA4 /* regcell.png in Resources */ = {isa = PBXBuildFile; fileRef = 0BEBDE1E171BB223005F3EA4 /* regcell.png */; };
 		AD76400D04AA425E96C04323 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A64C3DEEA4A34B7A86A1FB12 /* libPods.a */; };
+		B74B98021724ACE30019D9B9 /* home_cell.png in Resources */ = {isa = PBXBuildFile; fileRef = B74B98011724ACE30019D9B9 /* home_cell.png */; };
+		B788911F172603E3002303DF /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B788911B172603E3002303DF /* libTestFlight.a */; };
+		B7889120172603E3002303DF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B788911C172603E3002303DF /* README.md */; };
+		B7889121172603E3002303DF /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = B788911D172603E3002303DF /* release_notes.md */; };
 		B798B37A171C36100075CCEF /* PPSearchRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = B798B379171C36100075CCEF /* PPSearchRadius.m */; };
 		B798B37D171C380F0075CCEF /* PPCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = B798B37C171C380F0075CCEF /* PPCircleView.m */; };
 		B7C2FC2C1714C93400A55C43 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7C2FC2B1714C93400A55C43 /* Parse.framework */; };
@@ -220,6 +224,11 @@
 		0BEBDE1D171BB223005F3EA4 /* regcell@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "regcell@2x.png"; sourceTree = "<group>"; };
 		0BEBDE1E171BB223005F3EA4 /* regcell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = regcell.png; sourceTree = "<group>"; };
 		A64C3DEEA4A34B7A86A1FB12 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B74B98011724ACE30019D9B9 /* home_cell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_cell.png; sourceTree = "<group>"; };
+		B788911B172603E3002303DF /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		B788911C172603E3002303DF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		B788911D172603E3002303DF /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		B788911E172603E3002303DF /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		B798B378171C36100075CCEF /* PPSearchRadius.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPSearchRadius.h; sourceTree = "<group>"; };
 		B798B379171C36100075CCEF /* PPSearchRadius.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPSearchRadius.m; sourceTree = "<group>"; };
 		B798B37B171C380E0075CCEF /* PPCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPCircleView.h; sourceTree = "<group>"; };
@@ -264,6 +273,7 @@
 				0B56176616DB0D7800939F07 /* CoreGraphics.framework in Frameworks */,
 				AD76400D04AA425E96C04323 /* libPods.a in Frameworks */,
 				B7C2FC2C1714C93400A55C43 /* Parse.framework in Frameworks */,
+				B788911F172603E3002303DF /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +312,7 @@
 		0B56176016DB0D7800939F07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7889122172603EE002303DF /* TestFlight */,
 				B7C2FC551714CB1000A55C43 /* ParseRequired */,
 				B7C2FC2B1714C93400A55C43 /* Parse.framework */,
 				0B8CEF5A16E94CDD002BCD82 /* EventKit.framework */,
@@ -468,6 +479,17 @@
 			path = "../AFNetworking-AFNetworking-43b05d7/AFNetworking";
 			sourceTree = "<group>";
 		};
+		B7889122172603EE002303DF /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				B788911B172603E3002303DF /* libTestFlight.a */,
+				B788911C172603E3002303DF /* README.md */,
+				B788911D172603E3002303DF /* release_notes.md */,
+				B788911E172603E3002303DF /* TestFlight.h */,
+			);
+			name = TestFlight;
+			sourceTree = "<group>";
+		};
 		B7C2FC551714CB1000A55C43 /* ParseRequired */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,6 +596,9 @@
 				0B81F8CA171E16040094DE33 /* Default-568h@2x.png in Resources */,
 				0B81F8CD171E16B70094DE33 /* appicon.png in Resources */,
 				0B81F8CE171E16B70094DE33 /* appicon@2x.png in Resources */,
+				B74B98021724ACE30019D9B9 /* home_cell.png in Resources */,
+				B7889120172603E3002303DF /* README.md in Resources */,
+				B7889121172603E3002303DF /* release_notes.md in Resources */,
 				0B910B78172602B3000B7823 /* appicon@2x.png in Resources */,
 				0B910B79172602B3000B7823 /* hometabbar.png in Resources */,
 				0B910B7A172602B3000B7823 /* eventsstabbar.png in Resources */,
@@ -738,6 +763,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PrixParty/PrixParty-Prefix.pch";
 				INFOPLIST_FILE = "PrixParty/PrixParty-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -746,6 +775,8 @@
 		0B56178E16DB0D7800939F07 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -753,7 +784,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PrixParty/PrixParty-Prefix.pch";
 				INFOPLIST_FILE = "PrixParty/PrixParty-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

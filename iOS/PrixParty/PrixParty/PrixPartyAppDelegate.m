@@ -15,6 +15,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    // TestFlight
+    [TestFlight takeOff:@"a3500c85-7238-479b-8882-c1313f26b09c"];
+    
+    // Parse
     [Parse setApplicationId:@"EkP8anFxnkwtrDEnjqmEje0LKedCTK4CID38HpX2"
                   clientKey:@"ltFTLEENTGumBQh1XIzDa8EKWxKWxDsJlsAa7AGc"];
     
