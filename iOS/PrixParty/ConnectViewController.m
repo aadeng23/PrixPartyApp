@@ -220,7 +220,7 @@
     [self.recentLoadIndicator startAnimating];
     
     [self fetchSearchForTrending:@"%23formula1%20OR%20%23f1" next:NO];
-    [self fetchSearchForRecent:@"lewishamilton%20OR%20%23officialvettel" next:NO];
+    [self fetchSearchForRecent:@"lewishamilton%20OR%20%23officialvettel%20OR%20prixparty" next:NO];
 }
 
 - (void)loadMoreData{
