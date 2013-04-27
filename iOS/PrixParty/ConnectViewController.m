@@ -177,8 +177,8 @@
     NSLog(@"lfd IsMainThread: %@", ([NSThread isMainThread]) ? @"YES" : @"NO");
     [self.trendingLoadIndicator startAnimating];
     [self.recentLoadIndicator startAnimating];
-    
-    [self fetchSearchForTrending:@"from:circuitamericas OR from:F1Official OR from:Formula1game from:prixpartyapp" next:NO];
+
+    [self fetchSearchForTrending:@"from:circuitamericas OR from:F1Official OR from:Formula1game OR from:prixpartyapp" next:NO];
     [self fetchSearchForRecent:@"from:@prixpartyapp OR @prixpartyapp OR #prixpartyapp OR #prixparty" next:NO];
 }
 
