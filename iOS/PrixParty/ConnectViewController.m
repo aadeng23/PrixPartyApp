@@ -178,8 +178,8 @@
     [self.trendingLoadIndicator startAnimating];
     [self.recentLoadIndicator startAnimating];
     
-    [self fetchSearchForTrending:@"from%3Acircuitamericas%20OR%20from%3AF1Official%20OR%20from%3AFormula1game%20OR%20from%3Aprixpartyapp&lang=en" next:NO];
-    [self fetchSearchForRecent:@"%23formula1%20OR%20%23formula%20one%20OR%20%23formula%201%20OR%20%23f1%20OR%20prixparty%20OR%20%40prixpartyapp%20OR%20from%3Aprixpartyapp%20OR%20to%3Aprixpartyapp&lang=en" next:NO];
+    [self fetchSearchForTrending:@"from:circuitamericas OR from:F1Official OR from:Formula1game from:prixpartyapp" next:NO];
+    [self fetchSearchForRecent:@"from:@prixpartyapp OR @prixpartyapp OR #prixpartyapp OR #prixparty" next:NO];
 }
 
 - (void)loadMoreData{
